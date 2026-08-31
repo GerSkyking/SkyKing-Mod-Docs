@@ -4,7 +4,7 @@ Central documentation for the **SkyKing** Arma Reforger mods.
 
 | Mod | Short | Repo | What it does |
 |-----|-------|------|--------------|
-| **SkyMap-X** | SMX | `SkyMap-X-DEV` → ships as `SkyMap-X` | Tablet / wrist‑gadget: tactical GPS map, chat, camera/tracker feeds, Blue‑Force‑Tracking |
+| **SkyMap-X** | SMX | `SkyMap-X` | Tablet / wrist‑gadget: tactical GPS map, chat, camera/tracker feeds, Blue‑Force‑Tracking |
 | **SpeedUI** | SUI | `SpeedUI` | Lightweight HUD showing player / vehicle speed with a progress bar |
 | **SIDC‑Framework** | SIDC | `SIDC-Framework` | APP‑6/MIL‑STD‑2525D military‑symbol marker system for the map: quick‑marker menu, channels, phase lines / line drawing, save/load |
 | **Throw Back Grenade** | TBG | `Throw Back Grenade` (Workbench addons) | Pick up a live thrown grenade and throw it back before it goes off |
@@ -29,7 +29,7 @@ Zentrale Dokumentation der **SkyKing**-Mods für Arma Reforger.
 
 | Mod | Kürzel | Repo | Funktion |
 |-----|--------|------|----------|
-| **SkyMap-X** | SMX | `SkyMap-X-DEV` → veröffentlicht als `SkyMap-X` | Tablet-/Armband-Gadget: taktische GPS-Karte, Chat, Kamera-/Tracker-Feeds, Blue-Force-Tracking |
+| **SkyMap-X** | SMX | `SkyMap-X` | Tablet-/Armband-Gadget: taktische GPS-Karte, Chat, Kamera-/Tracker-Feeds, Blue-Force-Tracking |
 | **SpeedUI** | SUI | `SpeedUI` | Leichtes HUD für Spieler-/Fahrzeuggeschwindigkeit mit Fortschrittsbalken |
 | **SIDC-Framework** | SIDC | `SIDC-Framework` | APP-6-/MIL-STD-2525D-Markersystem für die Karte: Quick-Marker-Menü, Kanäle, Phase Lines / Linienzeichnen, Speichern/Laden |
 | **Throw Back Grenade** | TBG | `Throw Back Grenade` (Workbench-addons) | Eine scharfe geworfene Granate aufheben und zurückwerfen, bevor sie hochgeht |
