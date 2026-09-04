@@ -10,6 +10,9 @@
 | **Flight proxy** | TBG: a hidden entity the carried grenade is parented to during flight so it follows the dummy's arc; kept after landing as a position anchor. |
 | **P1 snap** | TBG: the inventory system snapping an item back to the character's position (P1) — what the flight proxy prevents. |
 | **`ETBGGrenadeState`** | TBG grenade state: IDLE / THROWN / CARRIED / ACTIVATED. |
+| **ATAKmaps** | External web-map tool (local server + browser) that shows live player position and SIDC markers by reading the SIDC-Framework mod's file exports. Not a mod. |
+| **LocalMapData** | The folder `$profile:SIDC_Framework/LocalMapData/` where the SIDC-Framework mod writes its JSON exports and reads request files — the interface ATAKmaps uses. |
+| **`ownerFaction`** | Field in `SIDC_PlacedMarkers.json`: the marker author's real game faction (`SCR_FactionManager` key), separate from the SIDC `channel`. |
 | **APP‑6 / MIL‑STD‑2525D** | NATO / US standards for military map symbology. |
 | **BFT** | Blue Force Tracking — showing friendly (or channel‑visible) devices/units as map markers. |
 | **Affiliation / Identity** | SIDC digit 3: Unknown / Assumed friend / Friend / Neutral / Suspect / Hostile. |
@@ -50,6 +53,9 @@
 | **Flight-Proxy** | TBG: eine versteckte Entität, an die die getragene Granate während des Flugs gehängt wird, damit sie der Wurfbahn des Dummys folgt; nach der Landung als Positions-Anker behalten. |
 | **P1-Snap** | TBG: das Inventarsystem schnappt ein Item zurück auf die Charakterposition (P1) — genau das verhindert der Flight-Proxy. |
 | **`ETBGGrenadeState`** | TBG-Granatenzustand: IDLE / THROWN / CARRIED / ACTIVATED. |
+| **ATAKmaps** | Externes Web-Karten-Tool (lokaler Server + Browser), das Live-Spielerposition und SIDC-Marker zeigt, indem es die Dateiexporte des SIDC-Framework-Mods liest. Kein Mod. |
+| **LocalMapData** | Der Ordner `$profile:SIDC_Framework/LocalMapData/`, in den der SIDC-Framework-Mod seine JSON-Exporte schreibt und Request-Dateien liest — die Schnittstelle, die ATAKmaps nutzt. |
+| **`ownerFaction`** | Feld in `SIDC_PlacedMarkers.json`: die echte Spiel-Fraktion des Marker-Erstellers (`SCR_FactionManager`-Key), getrennt vom SIDC-`channel`. |
 | **APP-6 / MIL-STD-2525D** | NATO-/US-Standards für militärische Kartensymbolik. |
 | **BFT** | Blue Force Tracking — befreundete (oder kanal-sichtbare) Geräte/Einheiten als Kartenmarker. |
 | **Affiliation / Identity** | SIDC-Ziffer 3: Unbekannt / Vermutet freund / Freund / Neutral / Verdächtig / Feindlich. |

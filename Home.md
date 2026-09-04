@@ -9,9 +9,15 @@ Central documentation for the **SkyKing** Arma Reforger mods.
 | **SIDC‑Framework** | SIDC | `SIDC-Framework` | APP‑6/MIL‑STD‑2525D military‑symbol marker system for the map: quick‑marker menu, channels, phase lines / line drawing, save/load |
 | **Throw Back Grenade** | TBG | `Throw Back Grenade` (Workbench addons) | Pick up a live thrown grenade and throw it back before it goes off |
 
+### Companion tools (not mods)
+
+| Tool | Where | What it does |
+|------|-------|--------------|
+| **ATAKmaps** | `D:\Mods\ATAKmaps` (dev) / `D:\Mods\ATAKmapsClient` (client) | External web map showing live player position + SIDC markers, reading the file data written by the SIDC-Framework mod |
+
 ## Where to start
 
-- **Players** → [SkyMap-X](SkyMap-X) · [SpeedUI](SpeedUI) · [SIDC-Framework](SIDC-Framework) · [Throw Back Grenade](Throw-Back-Grenade) · [Keybinds](Keybinds)
+- **Players** → [SkyMap-X](SkyMap-X) · [SpeedUI](SpeedUI) · [SIDC-Framework](SIDC-Framework) · [Throw Back Grenade](Throw-Back-Grenade) · [ATAKmaps](ATAKmaps) · [Keybinds](Keybinds)
 - **Server admins** → [Server & Admin Guide](Server-Admin-Guide)
 - **Client settings** → [Client Settings Guide](Client-Settings-Guide)
 
@@ -34,9 +40,15 @@ Zentrale Dokumentation der **SkyKing**-Mods für Arma Reforger.
 | **SIDC-Framework** | SIDC | `SIDC-Framework` | APP-6-/MIL-STD-2525D-Markersystem für die Karte: Quick-Marker-Menü, Kanäle, Phase Lines / Linienzeichnen, Speichern/Laden |
 | **Throw Back Grenade** | TBG | `Throw Back Grenade` (Workbench-addons) | Eine scharfe geworfene Granate aufheben und zurückwerfen, bevor sie hochgeht |
 
+### Begleit-Tools (keine Mods)
+
+| Tool | Wo | Funktion |
+|------|-----|----------|
+| **ATAKmaps** | `D:\Mods\ATAKmaps` (Dev) / `D:\Mods\ATAKmapsClient` (Client) | Externe Web-Karte mit Live-Spielerposition + SIDC-Markern; liest die Dateidaten, die der SIDC-Framework-Mod schreibt |
+
 ## Einstieg
 
-- **Spieler** → [SkyMap-X](SkyMap-X) · [SpeedUI](SpeedUI) · [SIDC-Framework](SIDC-Framework) · [Throw Back Grenade](Throw-Back-Grenade) · [Tastenbelegung](Keybinds)
+- **Spieler** → [SkyMap-X](SkyMap-X) · [SpeedUI](SpeedUI) · [SIDC-Framework](SIDC-Framework) · [Throw Back Grenade](Throw-Back-Grenade) · [ATAKmaps](ATAKmaps) · [Tastenbelegung](Keybinds)
 - **Server-Admins** → [Server- & Admin-Handbuch](Server-Admin-Guide)
 - **Client-Einstellungen** → [Client-Einstellungen](Client-Settings-Guide)
 
