@@ -6,7 +6,7 @@
 
 SIDC-Framework is a **military‑symbol marker system** for the Arma Reforger map, based on APP‑6 / MIL‑STD‑2525D symbology (SIDC = *Symbol Identification Code*). It replaces the plain vanilla marker flow with:
 
-- A **Quick‑Marker menu** (`Ctrl+T` on the map) — a nested, searchable tree of thousands of APP‑6 symbols organised by faction (Red/OPFOR, Blue/BLUFOR, …), category and sub‑category, with amplifier (echelon) and direction pickers.
+- A **Quick‑Marker menu** (`Ctrl+T` on the map, or via the map's **right‑click radial menu** — no keybind needed) — a nested, searchable tree of thousands of APP‑6 symbols organised by faction (Red/OPFOR, Blue/BLUFOR, …), category and sub‑category, with amplifier (echelon) and direction pickers.
 - **Channels** — markers are published on a communication channel (Side, Group, Command, Air, Artillery, Infantry, BFT, …) and are visible to others based on configurable **visibility percentages** between channels. Plus a **physical channel** layer (Map / ATAK / All).
 - **Phase lines / line drawing** — `Ctrl+D` drawing mode. There is **no freehand drawing**: lines are placed point‑to‑point — click two points for a single segment, or chain several points for a polyline. Configurable color, width, opacity; per‑player **Undo** (`Ctrl+Z`) and **Redo** (`Ctrl+Y`) — key labels as on a German keyboard.
 - **Save / Load marker sets** — `Ctrl+S` / `Ctrl+L` (gated by server flags; see below).
@@ -16,6 +16,10 @@ SIDC-Framework is a **military‑symbol marker system** for the Arma Reforger ma
 - **Marker export** — `SIDC_PlacedMarkers.json` (client‑ or server‑side, configurable), plus player‑data / channel‑settings exporters.
 
 The framework only handles its **own** markers (configured via `SIDC_MarkerListEntry` / `SIDC_AllMarkersConfig` with finished SIDC strings). Full SIDC⇄symbol round‑tripping and vanilla/foreign‑mod marker parsing was removed in 2026‑08; what remains of `SIDC_Service` is the digit helpers (affiliation / echelon / mobility) used by the marker factory.
+
+> **No keybinds needed:** the map's vanilla right‑click radial menu also carries "Create Marker", a "SIDC" sub‑category with "SIDC Channel" (change channel) / "Save" / "Load", and "Drawing" — the main SIDC actions are reachable without touching a single keybind.
+
+Almost the entire framework — the channel model, the physical channels, the whole Quick‑Marker menu tree, phase‑line colors/widths, the server settings defaults — is driven by `[BaseContainerProps]` `.conf` resources rather than hard‑coded script, so it's heavily customizable by editing/replacing configs (see [Glossary → Config files](Glossary) and [Server & Admin Guide](Server-Admin-Guide)) without touching the mod's code.
 
 ### SIDC digit reference (0‑based index)
 
@@ -42,6 +46,7 @@ Everything happens **on the open map**.
 6. **Copy / paste:** `X` copy the marker under the cursor, `C` / `V` paste.
 7. **Save / load a marker set:** `Ctrl+S` / `Ctrl+L` (only if the server allows it for you — see §4).
 8. **Change your channel:** via the map channel UI (`SIDC_Map_Channel_UI`), and the physical channel spinbox in settings.
+9. **Radial menu shortcut:** right‑click the map to open the vanilla radial menu — "Create Marker", the "SIDC" sub‑menu ("SIDC Channel" / "Save" / "Load"), and "Drawing" are all in there too, so steps 2, 4 and 7–8 don't strictly need their keybinds.
 
 ## 3. Keybinds
 
@@ -119,11 +124,9 @@ Marker definitions themselves: `Configs/AllMarkers/AllMarkers.conf` + `Configs/A
 - `Scripts/Game/SIDC/VanillaModded/` — `modded` `SCR_MapMarkerBase`, `SCR_MapMarkerManagerComponent`, `SCR_MapMarkersUI`, `SCR_MapMarkerSyncComponent`, `SCR_MapMarkerWidgetComponent`, plus `SIDC_MarkerHoverIconComponent`.
 - New menu presets: `modded enum ChimeraMenuPreset` → `SIDC_FrameworkDebugMarkerChimeraMenu`, `SIDC_Framework_Inspection_ChimeraMenu`, `SIDC_Framework_SaveMarker_ChimeraMenu`, `SIDC_Framework_LoadMarker_ChimeraMenu`, `SIDC_Framework_Drawing_ChimeraMenu`.
 
-## 8. Related mods
+## 8. Companion tool
 
-`SkyMap-SIDC-to-Marker` (adapter to attach SIDC strings to placed markers via `SIDC_MarkerBridge`), `SkyMap_SICD-Compat-Anarchy` / `SkyMap-X-Compat-Anarchy` (compat layers), `Mil-Std-2525D-Marker Builder` (icon/PNG batch export tooling). The line‑drawing design borrows from the *Map Drawing* mod (`TILW_DrawingSystem`) — see `SIDC-Framework/Doku/Drawing.txt`.
-
-**Companion tool:** [ATAKmaps](ATAKmaps) — an external web map that reads this mod's file exports (`$profile:SIDC_Framework/LocalMapData/`: `SIDC_PlacedMarkers.json`, `SIDC_PlayerData.json`, `SIDC_ChannelSettings.json`, `SIDC_AllMarkersCatalog.json`) and can write back marker / channel requests (`LocalMapData/Request/`). The mod‑side exporters are `SIDC_MarkerExporter.c`, `SIDC_MarkerRequestProcessor.c`, `SIDC_PlayerDataExporter.c`, `SIDC_ChannelSettingsExporter.c`; the full spec is `ATAKmaps/Doku/SIDC-Data-Interface.md`.
+[ATAKmaps](ATAKmaps) — an external web map that reads this mod's file exports (`$profile:SIDC_Framework/LocalMapData/`: `SIDC_PlacedMarkers.json`, `SIDC_PlayerData.json`, `SIDC_ChannelSettings.json`, `SIDC_AllMarkersCatalog.json`) and can write back marker / channel requests (`LocalMapData/Request/`). The mod‑side exporters are `SIDC_MarkerExporter.c`, `SIDC_MarkerRequestProcessor.c`, `SIDC_PlayerDataExporter.c`, `SIDC_ChannelSettingsExporter.c`; the full spec is `ATAKmaps/Doku/SIDC-Data-Interface.md`.
 
 ---
 
@@ -135,7 +138,7 @@ Marker definitions themselves: `Configs/AllMarkers/AllMarkers.conf` + `Configs/A
 
 Das SIDC-Framework ist ein **Militärsymbol-Markersystem** für die Arma-Reforger-Karte auf Basis von APP-6 / MIL-STD-2525D (SIDC = *Symbol Identification Code*). Es ersetzt den einfachen Vanilla-Marker-Ablauf durch:
 
-- Ein **Quick-Marker-Menü** (`Strg+T` auf der Karte) — ein verschachtelter, durchsuchbarer Baum aus tausenden APP-6-Symbolen, geordnet nach Fraktion (Rot/OPFOR, Blau/BLUFOR, …), Kategorie und Unterkategorie, mit Auswahl für Amplifier (Echelon) und Richtung.
+- Ein **Quick-Marker-Menü** (`Strg+T` auf der Karte, oder über das **Rechtsklick-Radialmenü** der Karte — kein Keybind nötig) — ein verschachtelter, durchsuchbarer Baum aus tausenden APP-6-Symbolen, geordnet nach Fraktion (Rot/OPFOR, Blau/BLUFOR, …), Kategorie und Unterkategorie, mit Auswahl für Amplifier (Echelon) und Richtung.
 - **Kanäle** — Marker werden auf einem Kommunikationskanal veröffentlicht (Side, Group, Command, Air, Artillery, Infantry, BFT, …) und sind für andere anhand konfigurierbarer **Sichtbarkeits-Prozentwerte** zwischen Kanälen sichtbar. Plus eine **physische Kanal-Ebene** (Map / ATAK / All).
 - **Phase Lines / Linienzeichnen** — Zeichnen-Modus mit `Strg+D`. **Kein Freihandzeichnen**: Linien werden Punkt für Punkt gesetzt — zwei Punkte = ein Segment, mehrere Punkte = eine verkettete Linie (Chain). Konfigurierbare Farbe, Breite, Deckkraft; **Undo** (`Strg+Z`) und **Redo** (`Strg+Y`) pro Spieler — Tastenbeschriftung wie auf einer deutschen Tastatur.
 - **Marker-Sätze speichern/laden** — `Strg+S` / `Strg+L` (durch Server-Flags gesteuert, siehe unten).
@@ -145,6 +148,10 @@ Das SIDC-Framework ist ein **Militärsymbol-Markersystem** für die Arma-Reforge
 - **Marker-Export** — `SIDC_PlacedMarkers.json` (client- oder serverseitig, konfigurierbar), plus Spielerdaten-/Kanaleinstellungs-Exporter.
 
 Das Framework verarbeitet nur seine **eigenen** Marker (per `SIDC_MarkerListEntry` / `SIDC_AllMarkersConfig` mit fertigen SIDC-Strings). Voller SIDC⇄Symbol-Roundtrip und Vanilla-/Fremd-Mod-Marker-Parsing wurden 2026-08 entfernt; von `SIDC_Service` bleiben die Ziffern-Helfer (Affiliation / Echelon / Mobility) für die Marker-Factory.
+
+> **Ohne Keybinds nutzbar:** Das vanilla Rechtsklick-Radialmenü der Karte trägt ebenfalls „Create Marker", eine „SIDC"-Unterkategorie mit „SIDC Channel" (Kanal wechseln) / „Save" / „Load", sowie „Drawing" — die wichtigsten SIDC-Funktionen sind also auch ganz ohne Keybind erreichbar.
+
+Fast das gesamte Framework — das Kanalmodell, die physischen Kanäle, der gesamte Quick-Marker-Menübaum, Phase-Line-Farben/-Breiten, die Server-Settings-Defaults — wird über `[BaseContainerProps]`-`.conf`-Ressourcen statt hartkodiertem Skript gesteuert und ist dadurch stark individualisierbar, indem man Configs bearbeitet/ersetzt (siehe [Glossar → Konfigurationsdateien](Glossary) und [Server- & Admin-Handbuch](Server-Admin-Guide)), ohne den Mod-Code anzufassen.
 
 ### SIDC-Ziffern-Referenz (0-basierter Index)
 
@@ -171,6 +178,7 @@ Alles passiert auf der **geöffneten Karte**.
 6. **Kopieren / Einfügen:** `X` kopiert den Marker unter dem Cursor, `C` / `V` fügt ein.
 7. **Marker-Satz speichern/laden:** `Strg+S` / `Strg+L` (nur wenn der Server es dir erlaubt — siehe §4).
 8. **Kanal wechseln:** über die Karten-Kanal-UI (`SIDC_Map_Channel_UI`) und die Physische-Kanal-Spinbox in den Einstellungen.
+9. **Radialmenü-Abkürzung:** Rechtsklick auf die Karte öffnet das vanilla Radialmenü — „Create Marker", das „SIDC"-Untermenü („SIDC Channel" / „Save" / „Load") und „Drawing" sind auch dort drin, Schritte 2, 4 und 7–8 brauchen also nicht zwingend ihren Keybind.
 
 ## 3. Tastenbelegung
 
@@ -248,8 +256,6 @@ Marker-Definitionen selbst: `Configs/AllMarkers/AllMarkers.conf` + `Configs/AllM
 - `Scripts/Game/SIDC/VanillaModded/` — `modded` `SCR_MapMarkerBase`, `SCR_MapMarkerManagerComponent`, `SCR_MapMarkersUI`, `SCR_MapMarkerSyncComponent`, `SCR_MapMarkerWidgetComponent`, plus `SIDC_MarkerHoverIconComponent`.
 - Neue Menü-Presets: `modded enum ChimeraMenuPreset` → `SIDC_FrameworkDebugMarkerChimeraMenu`, `SIDC_Framework_Inspection_ChimeraMenu`, `SIDC_Framework_SaveMarker_ChimeraMenu`, `SIDC_Framework_LoadMarker_ChimeraMenu`, `SIDC_Framework_Drawing_ChimeraMenu`.
 
-## 8. Verwandte Mods
+## 8. Begleit-Tool
 
-`SkyMap-SIDC-to-Marker` (Adapter, der SIDC-Strings über `SIDC_MarkerBridge` an platzierte Marker hängt), `SkyMap_SICD-Compat-Anarchy` / `SkyMap-X-Compat-Anarchy` (Kompatibilitätsschichten), `Mil-Std-2525D-Marker Builder` (Icon-/PNG-Batch-Export-Tooling). Das Linienzeichnen orientiert sich am *Map Drawing*-Mod (`TILW_DrawingSystem`) — siehe `SIDC-Framework/Doku/Drawing.txt`.
-
-**Begleit-Tool:** [ATAKmaps](ATAKmaps) — eine externe Web-Karte, die die Dateiexporte dieses Mods liest (`$profile:SIDC_Framework/LocalMapData/`: `SIDC_PlacedMarkers.json`, `SIDC_PlayerData.json`, `SIDC_ChannelSettings.json`, `SIDC_AllMarkersCatalog.json`) und Marker-/Kanal-Requests zurückschreiben kann (`LocalMapData/Request/`). Die mod-seitigen Exporter sind `SIDC_MarkerExporter.c`, `SIDC_MarkerRequestProcessor.c`, `SIDC_PlayerDataExporter.c`, `SIDC_ChannelSettingsExporter.c`; die vollständige Spezifikation ist `ATAKmaps/Doku/SIDC-Data-Interface.md`.
+[ATAKmaps](ATAKmaps) — eine externe Web-Karte, die die Dateiexporte dieses Mods liest (`$profile:SIDC_Framework/LocalMapData/`: `SIDC_PlacedMarkers.json`, `SIDC_PlayerData.json`, `SIDC_ChannelSettings.json`, `SIDC_AllMarkersCatalog.json`) und Marker-/Kanal-Requests zurückschreiben kann (`LocalMapData/Request/`). Die mod-seitigen Exporter sind `SIDC_MarkerExporter.c`, `SIDC_MarkerRequestProcessor.c`, `SIDC_PlayerDataExporter.c`, `SIDC_ChannelSettingsExporter.c`; die vollständige Spezifikation ist `ATAKmaps/Doku/SIDC-Data-Interface.md`.

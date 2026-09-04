@@ -42,6 +42,8 @@ SMX is part of a BFT system: visible devices of other players appear as markers 
 6. Switch to a bigger/smaller view with `Shift+E` (Big) / `Shift+Q` (Mini).
 7. Open **Settings mode** (`Ctrl+3`) to set your Device ID, name, and communication channels; press **Save**.
 
+> **Auto start / Auto mode:** Steps 2–3 can be automated per‑player in Game Settings → "SkyMap-X" (see §4B) — "Auto start" powers the tablet on by itself at mission start, and "Auto mode" then opens your chosen default mode (GPS/Chat/Settings/Feeds) instead of stopping at ON.
+
 ### K23 wrist mount
 
 The K23 is worn on the vest and has its own context, independent of the tablet gadget. `Shift+T` folds/unfolds the K23 mount. The server can allow/deny Mini/Big/PaperMap **separately** for "K23 loosely carried" vs. "K23 mounted on vest".
@@ -78,7 +80,7 @@ There are **two** places to configure SkyMap-X — both per‑player, both saved
 | Auto start | Tablet powers on automatically at mission start. |
 | Auto mode | Tablet opens a mode automatically instead of staying on ON. |
 | Default mode | Which content mode the tablet opens in (GPS / Chat / Settings / Feeds). |
-| Use prefix + Main TAG | Show a personal prefix/tag (free text) on your BFT marker; re‑registers the device live when changed. |
+| Use prefix + Main TAG | Personal prefix (free text) prepended to your Device ID; shown wherever the Device ID is listed to others (Chat contacts, Feeds device list, BFT marker if the server shows Device ID). Re‑registers the device live when changed. |
 | Notification‑tone duration | Length of the chat/notification sound. |
 | Mini‑mode offset up / right / size scale | Position and size of the Mini corner display. |
 | Squad‑Mate‑Tracker: scale / show name / show icon / transparency | Appearance of squad‑mate markers on the map. |
@@ -158,6 +160,8 @@ SMX ist Teil eines BFT-Systems: sichtbare Geräte anderer Spieler erscheinen als
 6. Größere/kleinere Ansicht mit `Shift+E` (Big) / `Shift+Q` (Mini).
 7. **Settings-Modus** (`Strg+3`) öffnen für Geräte-ID, Name und Kommunikationskanäle; **Save** drücken.
 
+> **Auto-Start / Auto-Modus:** Schritte 2–3 lassen sich pro Spieler in den Spiel-Einstellungen → „SkyMap-X" (siehe §4B) automatisieren — „Auto-Start" schaltet das Tablet beim Missionsstart von selbst ein, „Auto-Modus" öffnet danach direkt den gewählten Standard-Modus (GPS/Chat/Settings/Feeds) statt im ON-Zustand stehen zu bleiben.
+
 ### K23-Armhalterung
 
 Die K23 wird an der Weste getragen und hat einen eigenen Kontext, unabhängig vom Tablet-Gadget. `Shift+T` klappt die K23-Halterung ein/aus. Der Server kann Mini/Big/PaperMap **getrennt** für „K23 lose getragen" vs. „K23 an Weste montiert" erlauben/sperren.
@@ -194,7 +198,7 @@ Es gibt **zwei** Stellen zum Konfigurieren von SkyMap-X — beide pro Spieler, b
 | Auto-Start | Tablet schaltet sich beim Missionsstart automatisch ein. |
 | Auto-Modus | Tablet öffnet automatisch einen Modus statt im ON-Zustand zu bleiben. |
 | Standard-Modus | In welchem Inhalts-Modus das Tablet öffnet (GPS / Chat / Settings / Feeds). |
-| Präfix nutzen + Main-TAG | Persönliches Präfix/Tag (Freitext) auf dem BFT-Marker anzeigen; registriert das Gerät bei Änderung live neu. |
+| Präfix nutzen + Main-TAG | Persönliches Präfix (Freitext) vor deiner Geräte-ID; erscheint überall, wo die Geräte-ID anderen angezeigt wird (Chat-Kontakte, Feeds-Geräteliste, BFT-Marker falls der Server die Geräte-ID zeigt). Registriert das Gerät bei Änderung live neu. |
 | Benachrichtigungston-Dauer | Länge des Chat-/Benachrichtigungstons. |
 | Mini-Modus Offset hoch / rechts / Größenskala | Position und Größe der Mini-Ecken-Anzeige. |
 | Squad-Mate-Tracker: Skala / Name zeigen / Icon zeigen / Transparenz | Darstellung der Squad-Mate-Marker auf der Karte. |
