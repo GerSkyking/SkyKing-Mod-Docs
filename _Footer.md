@@ -1,1 +1,1 @@
-SkyKing Mod Docs · EN / DE · Keep in sync with the source repos (`SkyMap-X-DEV`, `SpeedUI`, `SIDC-Framework`, `Throw Back Grenade`) and the `ATAKmaps` tool.
+SkyKing Mod Docs · EN / DE · Keep in sync with the source repos (`SkyMap-X-DEV`, `SpeedUI`, `SIDC-Framework`, `Throw Back Grenade`) and the companion tools (`ATAKmaps`, `SIDC---C2---Command-Control`).

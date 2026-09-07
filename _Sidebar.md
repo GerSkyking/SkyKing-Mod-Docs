@@ -22,3 +22,4 @@
 
 **Companion tools**
 - [ATAKmaps](ATAKmaps)
+- [SIDC – C2 – Command & Control](SIDC-C2-Command-Control)

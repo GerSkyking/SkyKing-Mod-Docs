@@ -1,6 +1,6 @@
 # SkyKing Mod Docs
 
-GitHub‑Wiki‑style documentation for the SkyKing Arma Reforger mods (SkyMap-X / SpeedUI / SIDC-Framework / Throw Back Grenade) and the ATAKmaps companion tool.
+GitHub‑Wiki‑style documentation for the SkyKing Arma Reforger mods (SkyMap-X / SpeedUI / SIDC-Framework / Throw Back Grenade) and the companion tools (ATAKmaps, SIDC – C2 – Command & Control).
 Bilingual: every page has the English version first, then a `---`, then the German version (Deutsch).
 
 ## Using this as a GitHub Wiki
@@ -26,6 +26,7 @@ Or keep it as a normal docs folder and read the `.md` files directly.
 | `SIDC-Framework-Channels` | SIDC channel & physical‑channel system, visibility matrix |
 | `Throw-Back-Grenade` | TBG — overview, usage, keybind, modding, architecture |
 | `ATAKmaps` | Companion web‑map tool — setup, server API, SIDC data interface |
+| `SIDC-C2-Command-Control` | Multi‑user planning tool (Docker stack) — deploy, roles, plans/phases/versions, map view, contour/peak layers |
 | `Keybinds` | Combined keybind reference for all mods |
 | `Server-Admin-Guide` | All server / admin configuration |
 | `Client-Settings-Guide` | All per‑player settings |

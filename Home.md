@@ -14,10 +14,12 @@ Central documentation for the **SkyKing** Arma Reforger mods.
 | Tool | Where | What it does |
 |------|-------|--------------|
 | **ATAKmaps** | `D:\Mods\ATAKmaps` (dev) / `D:\Mods\ATAKmapsClient` (client) | External web map showing live player position + SIDC markers, reading the file data written by the SIDC-Framework mod |
+| **SIDC – C2 – Command & Control** | `SIDC---C2---Command-Control` (Docker stack) | Browser‑based multi‑user planning tool: the ATAKmaps map + SIDC markers as a collaborative sand table with accounts, plans, phases, versions — **no game link** |
 
 ## Where to start
 
 - **Players** → [SkyMap-X](SkyMap-X) · [SpeedUI](SpeedUI) · [SIDC-Framework](SIDC-Framework) · [Throw Back Grenade](Throw-Back-Grenade) · [ATAKmaps](ATAKmaps) · [Keybinds](Keybinds)
+- **Planning / staff work** → [SIDC – C2 – Command & Control](SIDC-C2-Command-Control)
 - **Server admins** → [Server & Admin Guide](Server-Admin-Guide)
 - **Client settings** → [Client Settings Guide](Client-Settings-Guide)
 
@@ -45,10 +47,12 @@ Zentrale Dokumentation der **SkyKing**-Mods für Arma Reforger.
 | Tool | Wo | Funktion |
 |------|-----|----------|
 | **ATAKmaps** | `D:\Mods\ATAKmaps` (Dev) / `D:\Mods\ATAKmapsClient` (Client) | Externe Web-Karte mit Live-Spielerposition + SIDC-Markern; liest die Dateidaten, die der SIDC-Framework-Mod schreibt |
+| **SIDC – C2 – Command & Control** | `SIDC---C2---Command-Control` (Docker-Stack) | Browserbasiertes Mehrbenutzer-Planungstool: die ATAKmaps-Karte + SIDC-Marker als kollaborativer Sandkasten mit Konten, Plänen, Phasen, Versionen — **keine Spielanbindung** |
 
 ## Einstieg
 
 - **Spieler** → [SkyMap-X](SkyMap-X) · [SpeedUI](SpeedUI) · [SIDC-Framework](SIDC-Framework) · [Throw Back Grenade](Throw-Back-Grenade) · [ATAKmaps](ATAKmaps) · [Tastenbelegung](Keybinds)
+- **Planung / Stabsarbeit** → [SIDC – C2 – Command & Control](SIDC-C2-Command-Control)
 - **Server-Admins** → [Server- & Admin-Handbuch](Server-Admin-Guide)
 - **Client-Einstellungen** → [Client-Einstellungen](Client-Settings-Guide)
 
