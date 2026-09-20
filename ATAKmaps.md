@@ -36,6 +36,16 @@ Folder `D:\Mods\ATAKmapsClient\Win`:
 
 The client mode is chosen by the EXE name (`start_client._mode()`); the same PyInstaller spec (`client/atakmaps_client.spec`) builds the Linux variant.
 
+### Map server (optional — load maps from SIDC – C2)
+
+Instead of importing map packages yourself, the client can load maps from a **[SIDC – C2 – Command & Control](SIDC-C2-Command-Control)** server. Setup GUI → tab **"Kartenserver"**: tick *use map server*, enter a name, the address (`https://…`) and an **API token** (created in C2 under *Settings → API tokens*), then *Speichern & verbinden*.
+
+- The token grants **read access to map data only**. C2 plans are not reachable, and ATAKmaps only ever sends `GET` requests — SIDC markers, live position and calibration stay local.
+- Maps that exist only on the server show a **☁** in the map selector.
+- **Local wins.** If a map is installed locally *and* offered by the server, the server only fills in what is missing locally — e.g. server = base map (up to zoom 18), local DLC packages = zoom 19+. With the map server off, everything runs purely local.
+- Tiles and extras (topo, locations, contours, peaks) are fetched on demand and cached in `data/remote/`; cached data keeps working offline. A re-import on the server invalidates that map's cache. The server's calibration is used only while you have none of your own.
+- The token is stored in the Windows credential store (fallback: `data/remote.json`). Plain `http://` is only accepted for local addresses.
+
 ## 4. Dev setup (repo)
 
 ```
@@ -72,7 +82,8 @@ python build_client.py                   # -> D:\Mods\ATAKmapsClient\Win\
 | Route | Purpose |
 |-------|---------|
 | `GET /tiles/{map_id}/sat|terrain|grid/{z}/{x}/{y}` | Map tiles |
-| `GET /api/maps` · `POST /api/maps` · `POST /api/maps/active` | List / add / switch active map |
+| `GET /api/maps` · `POST /api/maps` · `POST /api/maps/active` | List / add / switch active map (list includes `source`: `local` \| `remote` \| `both`) |
+| `GET /api/remote` · `POST /api/remote/settings` · `/sync` · `/disconnect` · `/clear-cache` | Map server (SIDC – C2) settings / sync / reset — see *Map server* |
 | `GET /api/meta` · `POST /api/config` | Map metadata / config |
 | `GET /api/sidc/profile` | Active SIDC profile (folder) |
 | `GET /api/sidc/catalog` | Marker catalog (`SIDC_AllMarkersCatalog.json`) |
@@ -149,6 +160,16 @@ Ordner `D:\Mods\ATAKmapsClient\Win`:
 
 Der Client-Modus wird über den EXE-Namen gewählt (`start_client._mode()`); dieselbe PyInstaller-Spec (`client/atakmaps_client.spec`) baut die Linux-Variante.
 
+### Kartenserver (optional — Karten von SIDC – C2 laden)
+
+Statt Kartenpakete selbst zu importieren, kann der Client Karten von einem **[SIDC – C2 – Command & Control](SIDC-C2-Command-Control)**-Server laden. Setup-GUI → Reiter **„Kartenserver"**: „Kartenserver nutzen" anhaken, Name, Adresse (`https://…`) und **API-Token** (in C2 unter *Einstellungen → API-Tokens* erstellt) eintragen, dann *Speichern & verbinden*.
+
+- Der Token gibt **nur Lesezugriff auf Kartendaten**. Pläne aus C2 sind nicht erreichbar, und ATAKmaps sendet ausschließlich `GET`-Anfragen — SIDC-Marker, Live-Position und Kalibrierung bleiben lokal.
+- Karten, die es nur auf dem Server gibt, zeigen in der Kartenauswahl ein **☁**.
+- **Lokal hat Vorrang.** Ist eine Karte lokal installiert *und* auf dem Server, füllt der Server nur auf, was lokal fehlt — z. B. Server = Basiskarte (bis Zoom 18), lokale DLC-Pakete = Zoom 19+. Mit ausgeschaltetem Kartenserver läuft alles rein lokal.
+- Kacheln und Zusatzdaten (topo, locations, contours, peaks) werden bei Bedarf geladen und in `data/remote/` gecacht; Gecachtes funktioniert offline weiter. Ein Re-Import auf dem Server verwirft den Cache dieser Karte. Die Kalibrierung des Servers gilt nur, solange man keine eigene hat.
+- Der Token liegt im Windows-Anmeldeinformationsspeicher (Fallback: `data/remote.json`). Unverschlüsseltes `http://` wird nur für lokale Adressen akzeptiert.
+
 ## 4. Dev-Setup (Repo)
 
 ```
@@ -185,7 +206,8 @@ python build_client.py                   # -> D:\Mods\ATAKmapsClient\Win\
 | Route | Zweck |
 |-------|-------|
 | `GET /tiles/{map_id}/sat|terrain|grid/{z}/{x}/{y}` | Kartenkacheln |
-| `GET /api/maps` · `POST /api/maps` · `POST /api/maps/active` | Karten auflisten / hinzufügen / aktive wechseln |
+| `GET /api/maps` · `POST /api/maps` · `POST /api/maps/active` | Karten auflisten / hinzufügen / aktive wechseln (Liste enthält `source`: `local` \| `remote` \| `both`) |
+| `GET /api/remote` · `POST /api/remote/settings` · `/sync` · `/disconnect` · `/clear-cache` | Kartenserver (SIDC – C2): Einstellungen / Abgleich / Zurücksetzen — siehe *Kartenserver* |
 | `GET /api/meta` · `POST /api/config` | Karten-Metadaten / Config |
 | `GET /api/sidc/profile` | Aktives SIDC-Profil (Ordner) |
 | `GET /api/sidc/catalog` | Marker-Katalog (`SIDC_AllMarkersCatalog.json`) |

@@ -264,6 +264,19 @@ All raw‑data processing (`.topo` → GeoJSON, `mapLocations` → `locations.js
 `contours`/`peaks`) happens **once** in the ATAKmaps importer at pack‑build time. Import in C2 via
 the admin area (download link or direct upload).
 
+### 13.1 Map server for ATAKmaps (API tokens)
+
+C2 can act as the **map source of the ATAKmaps client** (see [ATAKmaps](ATAKmaps)): players load maps from C2 instead of installing packages. Markers, live position and calibration stay on the player's machine.
+
+1. **User:** *Settings (gear) → API tokens → Create token* (name, optional expiry). Copy the token — it is shown **once**; only its SHA‑256 hash is stored. Tokens can be revoked at any time (the client loses access immediately).
+2. **ATAKmaps:** Setup GUI → tab *Kartenserver* → name, address (`https://…`), token.
+
+Rules:
+- A token has the scope `maps:read` and works **only on the read‑only map routes**: `GET /api/maps`, `/api/maps/{id}/tiles/…`, `style.json`, `topo.geojson`, `locations.json`, `contours.geojson`, `peaks.geojson` (plus `GET /api/client/ping` as a connection test). Plans, markers, drawings, user data, map management and token management are cookie‑session only — a token never gets through there. Rate‑limited per token.
+- All signed‑in users may load all maps; there are no per‑user map permissions.
+- The client gets whatever quality C2 holds (imported base map, optional DLC). Locally installed maps/DLC take precedence and can add higher zoom levels.
+- A re‑import of a map in C2 changes its `imported_at`, which makes clients drop their cached tiles of that map.
+
 ## 14. Related
 
 - [ATAKmaps](ATAKmaps) — the game‑connected companion tool C2 is derived from; produces the map
@@ -545,6 +558,19 @@ peaks.geojson         optional — dominante Höhenpunkte (siehe 8)
 Alle Rohdaten-Verarbeitung (`.topo` → GeoJSON, `mapLocations` → `locations.json`, Heightmap →
 `contours`/`peaks`) passiert **einmalig** im ATAKmaps-Importer beim Paketbau. Import in C2 über den
 Admin-Bereich (Download-Link oder Direkt-Upload).
+
+### 13.1 Kartenserver für ATAKmaps (API-Tokens)
+
+C2 kann als **Kartenquelle des ATAKmaps-Clients** dienen (siehe [ATAKmaps](ATAKmaps)): Spieler laden Karten aus C2, statt Pakete zu installieren. Marker, Live-Position und Kalibrierung bleiben auf dem Rechner des Spielers.
+
+1. **Nutzer:** *Einstellungen (Zahnrad) → API-Tokens → Token erstellen* (Name, optionales Ablaufdatum). Token kopieren — er wird **einmalig** angezeigt, gespeichert wird nur der SHA‑256‑Hash. Tokens lassen sich jederzeit widerrufen (der Client verliert sofort den Zugriff).
+2. **ATAKmaps:** Setup-GUI → Reiter *Kartenserver* → Name, Adresse (`https://…`), Token.
+
+Regeln:
+- Ein Token hat den Scope `maps:read` und funktioniert **nur auf den lesenden Karten-Routen**: `GET /api/maps`, `/api/maps/{id}/tiles/…`, `style.json`, `topo.geojson`, `locations.json`, `contours.geojson`, `peaks.geojson` (dazu `GET /api/client/ping` als Verbindungstest). Pläne, Marker, Zeichnungen, Nutzerdaten, Kartenverwaltung und Token-Verwaltung sind nur mit Cookie-Session erreichbar — ein Token kommt dort nie durch. Rate-Limit pro Token.
+- Alle angemeldeten Nutzer dürfen alle Karten laden; es gibt keine Kartenrechte pro Nutzer.
+- Der Client bekommt die Qualität, die C2 vorhält (importierte Basiskarte, optional DLC). Lokal installierte Karten/DLC haben Vorrang und können höhere Zoomstufen ergänzen.
+- Ein Re-Import einer Karte in C2 ändert deren `imported_at`; Clients verwerfen dann ihren Kachel-Cache dieser Karte.
 
 ## 14. Verwandtes
 
