@@ -25,6 +25,7 @@ Two surfaces, both per‑player, both saved to `$profile:SMX_settings_{playerID}
 | Setting | What it does |
 |---------|--------------|
 | Auto start / Auto mode / Default mode | Tablet powers on / opens a mode automatically at mission start; which mode it opens in. |
+| Use prefix + Main TAG | Personal prefix prepended to your Device ID (e.g. `"Alpha-1 " + Device ID`). Shows up wherever your Device ID is listed to others: the Chat contact list, the Feeds device list, and the BFT marker (only if the server has `bftShowDeviceID` on). |
 | Notification‑tone duration | Length of the chat/notification sound. |
 | Mini‑mode offset up / right / size scale | Mini corner display position and size. |
 | Squad‑Mate‑Tracker: scale / show name / show icon / transparency | Squad‑mate marker appearance. |
@@ -96,7 +97,6 @@ Zwei Stellen, beide pro Spieler, beide in `$profile:SMX_settings_{playerID}.bin`
 | Option | Funktion |
 |--------|----------|
 | Auto-Start / Auto-Modus / Standard-Modus | Tablet schaltet sich ein / öffnet automatisch einen Modus beim Missionsstart; in welchem Modus es öffnet. |
-| Präfix nutzen + Main-TAG | Persönliches Präfix/Tag auf dem BFT-Marker. |
 | Präfix nutzen + Main-TAG | Persönliches Präfix vor deiner Geräte-ID (z.B. `"Alpha-1 " + Geräte-ID`). Erscheint überall, wo deine Geräte-ID anderen angezeigt wird: Chat-Kontaktliste, Feeds-Geräteliste und BFT-Marker (nur wenn der Server `bftShowDeviceID` aktiviert hat). |
 | Benachrichtigungston-Dauer | Länge des Chat-/Benachrichtigungstons. |
 | Mini-Modus Offset hoch / rechts / Größenskala | Position und Größe der Mini-Ecken-Anzeige. |
