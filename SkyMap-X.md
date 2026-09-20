@@ -37,7 +37,7 @@ SMX is part of a BFT system: visible devices of other players appear as markers 
 1. Get an SMX tablet (or K23 wrist mount) into your inventory / onto your vest.
 2. **Take it into your hand:** `Ctrl+F5`. If it is off, **power it on** with `Ctrl+F1` (2 s start‑up timer).
 3. Pick a mode with `Ctrl+1..4`.
-4. In GPS / Feeds: zoom with `PageUp` / `PageDown`, pan with `Right‑Ctrl + Arrow keys`, adjust brightness with `Ctrl+PageUp` / `Ctrl+PageDown`.
+4. In GPS / Feeds: zoom with `PageUp` / `PageDown`, pan with `Right‑Ctrl + Arrow keys` (in Feeds this swivels the selected camera), adjust brightness with `Ctrl+PageUp` / `Ctrl+PageDown`.
 5. Toggle the mouse cursor with `Alt+Ctrl` in Hand/Mini mode (Big mode has it always). Left‑click acts in cursor mode.
 6. Switch to a bigger/smaller view with `Shift+E` (Big) / `Shift+Q` (Mini).
 7. Open **Settings mode** (`Ctrl+3`) to set your Device ID, name, and communication channels; press **Save**.
@@ -106,8 +106,8 @@ Managed server‑side (`$profile:SMX_ConfigV1.Json`, loaded only by the server a
 ## 6. Known WIP / limitations
 
 - **Quick‑marker** (`Ctrl+F4`): code stub only, currently sets no marker (just hides the UI).
-- **Center / Lock‑On** (`Ctrl+F2` / `Ctrl+F3`): marked "WIP" in the keybind menu; the functions work (center + lock on player position) but a code comment flags them as needing rework.
-- **Hold‑to‑repeat for the on‑screen Feed buttons** (pan/zoom/brightness via mouse click‑and‑hold in Feed mode) is currently broken — only single clicks work. Keyboard control is unaffected.
+- **Center / Lock‑On** (`Ctrl+F2` / `Ctrl+F3`): marked "WIP" in the keybind menu; the functions work (center + lock on player position) and currently behave identically. They are separate actions on purpose so they can diverge later.
+- **Hold‑to‑repeat for the on‑screen Feed buttons** (pan/zoom/brightness via mouse click‑and‑hold in Feed mode) does not exist — only single clicks work (the old, unwired hold code was removed in the Sept 2026 cleanup). Keyboard: `Right‑Ctrl + Arrows` repeat while held (Feeds pan, 100 ms interval); zoom and brightness are one step per key press.
 - **BFT tracker ignores power state** (open TODO): loose or powered‑off tablets still get a BFT marker from mission start; normal power‑off does not unregister the BFT marker.
 
 ## 7. Architecture (short)
@@ -155,7 +155,7 @@ SMX ist Teil eines BFT-Systems: sichtbare Geräte anderer Spieler erscheinen als
 1. SMX-Tablet (oder K23-Armhalterung) ins Inventar / an die Weste bringen.
 2. **In die Hand nehmen:** `Strg+F5`. Wenn aus, mit `Strg+F1` **einschalten** (2 s Hochfahr-Timer).
 3. Modus mit `Strg+1..4` wählen.
-4. In GPS / Feeds: Zoom mit `Bild-auf` / `Bild-ab`, verschieben mit `Rechts-Strg + Pfeiltasten`, Helligkeit mit `Strg+Bild-auf` / `Strg+Bild-ab`.
+4. In GPS / Feeds: Zoom mit `Bild-auf` / `Bild-ab`, verschieben mit `Rechts-Strg + Pfeiltasten` (in Feeds schwenkt das die ausgewählte Kamera), Helligkeit mit `Strg+Bild-auf` / `Strg+Bild-ab`.
 5. Maus-Cursor mit `Alt+Strg` in Hand-/Mini-Modus umschalten (in Big immer an). Linksklick wirkt im Cursor-Modus.
 6. Größere/kleinere Ansicht mit `Shift+E` (Big) / `Shift+Q` (Mini).
 7. **Settings-Modus** (`Strg+3`) öffnen für Geräte-ID, Name und Kommunikationskanäle; **Save** drücken.
@@ -224,8 +224,8 @@ Serverseitig verwaltet (`$profile:SMX_ConfigV1.Json`, nur vom Server geladen und
 ## 6. Bekannte Baustellen / Einschränkungen
 
 - **Quick-Marker** (`Strg+F4`): nur Code-Stub, setzt aktuell keinen Marker (blendet nur die UI aus).
-- **Center / Lock-On** (`Strg+F2` / `Strg+F3`): im Keybind-Menü als „WIP" eingestuft; die Funktionen arbeiten (Zentrieren + Sperren auf Spielerposition), ein Code-Kommentar markiert sie aber als überarbeitungsbedürftig.
-- **Gedrückt-halten-Wiederholung für die On-Screen-Feed-Buttons** (Pan/Zoom/Helligkeit per Maus-Klick-und-Halten im Feed-Modus) ist aktuell defekt — nur Einzelklicks. Tastatursteuerung nicht betroffen.
+- **Center / Lock-On** (`Strg+F2` / `Strg+F3`): im Keybind-Menü als „WIP" eingestuft; die Funktionen arbeiten (Zentrieren + Sperren auf Spielerposition) und verhalten sich aktuell identisch. Sie sind bewusst getrennte Aktionen, damit sie später unterschiedlich arbeiten können.
+- **Gedrückt-halten-Wiederholung für die On-Screen-Feed-Buttons** (Pan/Zoom/Helligkeit per Maus-Klick-und-Halten im Feed-Modus) gibt es nicht — nur Einzelklicks (der alte, unverdrahtete Halten-Code wurde im Sept-2026-Cleanup entfernt). Tastatur: `Rechts-Strg + Pfeiltasten` wiederholen beim Halten (Feeds-Pan, 100-ms-Intervall); Zoom und Helligkeit sind ein Schritt pro Tastendruck.
 - **BFT-Tracker ignoriert Power-Status** (offenes TODO): lose oder ausgeschaltete Tablets bekommen ab Missionsstart einen BFT-Marker; normaler Off ruft kein Unregister.
 
 ## 7. Architektur (kurz)
