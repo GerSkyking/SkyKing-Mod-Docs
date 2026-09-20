@@ -37,10 +37,12 @@ SMX is part of a BFT system: visible devices of other players appear as markers 
 1. Get an SMX tablet (or K23 wrist mount) into your inventory / onto your vest.
 2. **Take it into your hand:** `Ctrl+F5`. If it is off, **power it on** with `Ctrl+F1` (2 s start‑up timer).
 3. Pick a mode with `Ctrl+1..4`.
-4. In GPS / Feeds: zoom with `PageUp` / `PageDown`, pan with `Right‑Ctrl + Arrow keys`, adjust brightness with `Ctrl+PageUp` / `Ctrl+PageDown`.
+4. In GPS / Feeds: zoom with `PageUp` / `PageDown`, pan with `Right‑Ctrl + Arrow keys` (in Feeds this swivels the selected camera), adjust brightness with `Ctrl+PageUp` / `Ctrl+PageDown`.
 5. Toggle the mouse cursor with `Alt+Ctrl` in Hand/Mini mode (Big mode has it always). Left‑click acts in cursor mode.
 6. Switch to a bigger/smaller view with `Shift+E` (Big) / `Shift+Q` (Mini).
 7. Open **Settings mode** (`Ctrl+3`) to set your Device ID, name, and communication channels; press **Save**.
+
+> **Auto start / Auto mode:** Steps 2–3 can be automated per‑player in Game Settings → "SkyMap-X" (see §4B) — "Auto start" powers the tablet on by itself at mission start, and "Auto mode" then opens your chosen default mode (GPS/Chat/Settings/Feeds) instead of stopping at ON.
 
 ### K23 wrist mount
 
@@ -78,7 +80,7 @@ There are **two** places to configure SkyMap-X — both per‑player, both saved
 | Auto start | Tablet powers on automatically at mission start. |
 | Auto mode | Tablet opens a mode automatically instead of staying on ON. |
 | Default mode | Which content mode the tablet opens in (GPS / Chat / Settings / Feeds). |
-| Use prefix + Main TAG | Show a personal prefix/tag (free text) on your BFT marker; re‑registers the device live when changed. |
+| Use prefix + Main TAG | Personal prefix (free text) prepended to your Device ID; shown wherever the Device ID is listed to others (Chat contacts, Feeds device list, BFT marker if the server shows Device ID). Re‑registers the device live when changed. |
 | Notification‑tone duration | Length of the chat/notification sound. |
 | Mini‑mode offset up / right / size scale | Position and size of the Mini corner display. |
 | Squad‑Mate‑Tracker: scale / show name / show icon / transparency | Appearance of squad‑mate markers on the map. |
@@ -104,8 +106,8 @@ Managed server‑side (`$profile:SMX_ConfigV1.Json`, loaded only by the server a
 ## 6. Known WIP / limitations
 
 - **Quick‑marker** (`Ctrl+F4`): code stub only, currently sets no marker (just hides the UI).
-- **Center / Lock‑On** (`Ctrl+F2` / `Ctrl+F3`): marked "WIP" in the keybind menu; the functions work (center + lock on player position) but a code comment flags them as needing rework.
-- **Hold‑to‑repeat for the on‑screen Feed buttons** (pan/zoom/brightness via mouse click‑and‑hold in Feed mode) is currently broken — only single clicks work. Keyboard control is unaffected.
+- **Center / Lock‑On** (`Ctrl+F2` / `Ctrl+F3`): marked "WIP" in the keybind menu; the functions work (center + lock on player position) and currently behave identically. They are separate actions on purpose so they can diverge later.
+- **Hold‑to‑repeat for the on‑screen Feed buttons** (pan/zoom/brightness via mouse click‑and‑hold in Feed mode) does not exist — only single clicks work (the old, unwired hold code was removed in the Sept 2026 cleanup). Keyboard: `Right‑Ctrl + Arrows` repeat while held (Feeds pan, 100 ms interval); zoom and brightness are one step per key press.
 - **BFT tracker ignores power state** (open TODO): loose or powered‑off tablets still get a BFT marker from mission start; normal power‑off does not unregister the BFT marker.
 
 ## 7. Architecture (short)
@@ -153,10 +155,12 @@ SMX ist Teil eines BFT-Systems: sichtbare Geräte anderer Spieler erscheinen als
 1. SMX-Tablet (oder K23-Armhalterung) ins Inventar / an die Weste bringen.
 2. **In die Hand nehmen:** `Strg+F5`. Wenn aus, mit `Strg+F1` **einschalten** (2 s Hochfahr-Timer).
 3. Modus mit `Strg+1..4` wählen.
-4. In GPS / Feeds: Zoom mit `Bild-auf` / `Bild-ab`, verschieben mit `Rechts-Strg + Pfeiltasten`, Helligkeit mit `Strg+Bild-auf` / `Strg+Bild-ab`.
+4. In GPS / Feeds: Zoom mit `Bild-auf` / `Bild-ab`, verschieben mit `Rechts-Strg + Pfeiltasten` (in Feeds schwenkt das die ausgewählte Kamera), Helligkeit mit `Strg+Bild-auf` / `Strg+Bild-ab`.
 5. Maus-Cursor mit `Alt+Strg` in Hand-/Mini-Modus umschalten (in Big immer an). Linksklick wirkt im Cursor-Modus.
 6. Größere/kleinere Ansicht mit `Shift+E` (Big) / `Shift+Q` (Mini).
 7. **Settings-Modus** (`Strg+3`) öffnen für Geräte-ID, Name und Kommunikationskanäle; **Save** drücken.
+
+> **Auto-Start / Auto-Modus:** Schritte 2–3 lassen sich pro Spieler in den Spiel-Einstellungen → „SkyMap-X" (siehe §4B) automatisieren — „Auto-Start" schaltet das Tablet beim Missionsstart von selbst ein, „Auto-Modus" öffnet danach direkt den gewählten Standard-Modus (GPS/Chat/Settings/Feeds) statt im ON-Zustand stehen zu bleiben.
 
 ### K23-Armhalterung
 
@@ -194,7 +198,7 @@ Es gibt **zwei** Stellen zum Konfigurieren von SkyMap-X — beide pro Spieler, b
 | Auto-Start | Tablet schaltet sich beim Missionsstart automatisch ein. |
 | Auto-Modus | Tablet öffnet automatisch einen Modus statt im ON-Zustand zu bleiben. |
 | Standard-Modus | In welchem Inhalts-Modus das Tablet öffnet (GPS / Chat / Settings / Feeds). |
-| Präfix nutzen + Main-TAG | Persönliches Präfix/Tag (Freitext) auf dem BFT-Marker anzeigen; registriert das Gerät bei Änderung live neu. |
+| Präfix nutzen + Main-TAG | Persönliches Präfix (Freitext) vor deiner Geräte-ID; erscheint überall, wo die Geräte-ID anderen angezeigt wird (Chat-Kontakte, Feeds-Geräteliste, BFT-Marker falls der Server die Geräte-ID zeigt). Registriert das Gerät bei Änderung live neu. |
 | Benachrichtigungston-Dauer | Länge des Chat-/Benachrichtigungstons. |
 | Mini-Modus Offset hoch / rechts / Größenskala | Position und Größe der Mini-Ecken-Anzeige. |
 | Squad-Mate-Tracker: Skala / Name zeigen / Icon zeigen / Transparenz | Darstellung der Squad-Mate-Marker auf der Karte. |
@@ -220,8 +224,8 @@ Serverseitig verwaltet (`$profile:SMX_ConfigV1.Json`, nur vom Server geladen und
 ## 6. Bekannte Baustellen / Einschränkungen
 
 - **Quick-Marker** (`Strg+F4`): nur Code-Stub, setzt aktuell keinen Marker (blendet nur die UI aus).
-- **Center / Lock-On** (`Strg+F2` / `Strg+F3`): im Keybind-Menü als „WIP" eingestuft; die Funktionen arbeiten (Zentrieren + Sperren auf Spielerposition), ein Code-Kommentar markiert sie aber als überarbeitungsbedürftig.
-- **Gedrückt-halten-Wiederholung für die On-Screen-Feed-Buttons** (Pan/Zoom/Helligkeit per Maus-Klick-und-Halten im Feed-Modus) ist aktuell defekt — nur Einzelklicks. Tastatursteuerung nicht betroffen.
+- **Center / Lock-On** (`Strg+F2` / `Strg+F3`): im Keybind-Menü als „WIP" eingestuft; die Funktionen arbeiten (Zentrieren + Sperren auf Spielerposition) und verhalten sich aktuell identisch. Sie sind bewusst getrennte Aktionen, damit sie später unterschiedlich arbeiten können.
+- **Gedrückt-halten-Wiederholung für die On-Screen-Feed-Buttons** (Pan/Zoom/Helligkeit per Maus-Klick-und-Halten im Feed-Modus) gibt es nicht — nur Einzelklicks (der alte, unverdrahtete Halten-Code wurde im Sept-2026-Cleanup entfernt). Tastatur: `Rechts-Strg + Pfeiltasten` wiederholen beim Halten (Feeds-Pan, 100-ms-Intervall); Zoom und Helligkeit sind ein Schritt pro Tastendruck.
 - **BFT-Tracker ignoriert Power-Status** (offenes TODO): lose oder ausgeschaltete Tablets bekommen ab Missionsstart einen BFT-Marker; normaler Off ruft kein Unregister.
 
 ## 7. Architektur (kurz)

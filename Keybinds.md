@@ -24,11 +24,17 @@ All keys are **default bindings** and are rebindable in *Settings → Keybinding
 | `Right‑Ctrl + Arrow Up/Right/Down/Left` | Pan map/feed N/E/S/W | GPS or Feeds | Repeats while held |
 | `Ctrl + F4` | Set quick marker | anywhere | **WIP** — currently only hides the UI, sets no marker |
 | `Ctrl + F3` | Lock map to player position (lock‑on) | anywhere | Flagged "WIP"; works but marked as needing rework |
-| `Ctrl + F2` | Center map on player position | anywhere | Same status as lock‑on |
+| `Ctrl + F2` | Center map on player position | anywhere | Same status as lock‑on; currently behaves identically to it, kept as a separate action on purpose |
+
+**Feeds mode (keyboard):**
+- `Right‑Ctrl + Arrow keys` swivel the selected camera (5° per step by default, one step every 100 ms while held). Ignored while the camera is locked. Synced to other players like the on‑screen buttons.
+- `Page Down` / `Page Up` zoom the camera one step per key press (no repeat while held — same as on the map). Works in Hand, Mini and Big mode, also with the mouse cursor active.
 
 **Not in the "SkyMap-X" category but relevant:**
 - `M` (game "GadgetMap" key) opens the PAPERMap tab mode if the paper map is allowed (`m_bIsTabNormalPaperMapAllowOnPrefab`).
 - `Esc` ("MenuBackKeybind") fully exits cursor mode in Big mode (closes Big mode); otherwise it only disables the cursor.
+
+> **Update note (Sept 2026):** the internal action names of the SkyMap-X keybinds were renamed (typo fix `Devive` → `Device`, `Curser` → `Cursor`). Reforger stores custom bindings by action name, so **customised SkyMap-X keybinds are reset to their defaults once** — re‑bind them under *Settings → Keybindings → SkyMap-X*. Default keys are unchanged.
 
 ## SpeedUI
 
@@ -96,11 +102,17 @@ Alle Tasten sind **Standardbelegungen** und unter *Einstellungen → Tastenbeleg
 | `Rechts-Strg + Pfeil hoch/rechts/runter/links` | Karte/Feed nach N/O/S/W schieben | GPS oder Feeds | Reagiert auf Halten |
 | `Strg + F4` | Quick-Marker setzen | überall | **WIP** — blendet aktuell nur die UI aus, setzt keinen Marker |
 | `Strg + F3` | Karte auf Spielerposition sperren (Lock-On) | überall | Als „WIP" eingestuft; funktioniert, gilt als überarbeitungsbedürftig |
-| `Strg + F2` | Karte auf Spielerposition zentrieren | überall | Gleiche Einstufung wie Lock-On |
+| `Strg + F2` | Karte auf Spielerposition zentrieren | überall | Gleiche Einstufung wie Lock-On; verhält sich aktuell identisch, ist aber bewusst eine eigene Aktion |
+
+**Feeds-Modus (Tastatur):**
+- `Rechts-Strg + Pfeiltasten` schwenken die ausgewählte Kamera (standardmäßig 5° pro Schritt, ein Schritt alle 100 ms beim Halten). Bei gesperrter Kamera wirkungslos. Wird wie die On-Screen-Buttons an andere Spieler synchronisiert.
+- `Bild-ab` / `Bild-auf` zoomen die Kamera einen Schritt pro Tastendruck (keine Wiederholung beim Halten — wie auf der Karte). Funktioniert in Hand-, Mini- und Big-Modus, auch bei aktivem Maus-Cursor.
 
 **Nicht in der Kategorie „SkyMap-X", aber relevant:**
 - `M` (Spiel-„GadgetMap"-Taste) öffnet den PAPERMap-Modus, wenn die Papierkarte erlaubt ist (`m_bIsTabNormalPaperMapAllowOnPrefab`).
 - `Esc` („MenuBackKeybind") verlässt im Big-Modus den Cursor-Modus vollständig (schließt Big-Modus); sonst deaktiviert es nur den Cursor.
+
+> **Update-Hinweis (Sept 2026):** Die internen Action-Namen der SkyMap-X-Tastenbelegung wurden umbenannt (Tippfehler `Devive` → `Device`, `Curser` → `Cursor`). Reforger speichert eigene Belegungen unter dem Action-Namen, daher werden **angepasste SkyMap-X-Tasten einmalig auf Standard zurückgesetzt** — unter *Einstellungen → Tastenbelegung → SkyMap-X* neu belegen. Die Standardtasten bleiben gleich.
 
 ## SpeedUI
 

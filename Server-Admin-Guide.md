@@ -1,30 +1,34 @@
 # Server & Admin Guide
 
-How to run and configure the SkyKing mods on a dedicated server. All three are Enfusion mods with **no CLI build** — configuration is done via config files / profile files, not console commands (a future admin UI / console command is planned for SIDC).
+How to run and configure the SkyKing mods on a dedicated server.
 
 ## SkyMap-X
 
 ### Config file
 
-`$profile:SMX_ConfigV1.Json` — **loaded only by the server**, then replicated to every client (`SMX_ConfigData`). Players cannot change these. If the file does not exist it is created from the mod defaults on first start.
+`$profile:SMX_ConfigV1.Json` — **loaded only by the server**, then replicated to every client (`SMX_ConfigData`). Players cannot change these. If the file does not exist it is created from the mod defaults on first start. The `V1` in the filename is a schema version — it is bumped on breaking format changes.
 
-| Flag | Default | Effect |
-|------|---------|--------|
-| Allow Mini mode (`m_bIsTabMiniAllow`) | on | `Shift+Q` / Mini display globally |
-| Allow Big mode (`m_bIsTabBigAllow`) | on | `Shift+E` / Big display globally |
-| Allow paper map (`m_bIsTabNormalPaperMapAllow…`) | — | `M` full‑screen map via the tablet |
-| K23 variants of the three above | — | Separate for "K23 loosely carried" vs. "K23 mounted on vest" |
-| BFT: show Device ID | on | BFT marker shows the device ID |
-| BFT: show Device info | off | BFT marker shows the device info |
-| BFT: show player name | off | BFT marker shows the real player name |
-| `m_bBFT_ShowAllSquadLeaderMarkers` | off | Show all squad‑leader markers on the SMX minimap instead of suppressing them |
+| Key | Default | Effect |
+|-----|---------|--------|
+| `isTabMiniAllow` | `true` | Mini display (`Shift+Q`) allowed on the tablet |
+| `isTabBigAllow` | `true` | Big display (`Shift+E`) allowed on the tablet |
+| `isTabNormalPaperMapAllow` | `true` | Full‑screen paper map (`M`) allowed on the tablet |
+| `isK23MiniAllow` | `true` | Mini display allowed on the K23, unmounted (loosely carried) |
+| `isK23NormalPaperMapAllow` | `true` | Paper map allowed on the K23, unmounted |
+| `isK23MountedMiniAllow` | `true` | Mini display allowed on the K23, mounted on a vest |
+| `isK23MountedNormalPaperMapAllow` | `true` | Paper map allowed on the K23, mounted on a vest |
+| `isK23BigAllow` | `true` | Big display allowed on the K23, unmounted |
+| `isK23MountedBigAllow` | `true` | Big display allowed on the K23, mounted on a vest |
+| `bftShowDeviceID` | `true` | BFT marker shows the device ID |
+| `bftShowDeviceInfo` | `false` | BFT marker shows the device info |
+| `bftShowPlayerName` | `false` | BFT marker shows the real player name |
+| `bftShowAllSquadLeaderMarkers` | `false` | Keep the vanilla squad‑leader map markers visible on the SMX map too, instead of suppressing them when a matching SMX tracker marker exists |
 
 ### Prefab / mission setup
 
 - The SMX gadget (`SMX_MainComponentX`) is on the tablet / K23 prefabs shipped with the mod.
-- Camera / tracker items use `SMX_ItemDeviceComponent` (independent of the gadget).
-- Map config: SMX uses a **GameMode map config** rather than a hard‑coded `.conf` at the vanilla path, for mod compatibility. A mod `.conf` placed at the vanilla path+GUID **replaces** rather than extends — always inherit from the vanilla resource for additive behaviour.
-- Per‑player settings live in `$profile:SMX_settings_{playerID}.bin` (mission‑persistent).
+- Camera / tracker items (`SMX_ItemDeviceComponent`, roles Cam / Tracker / HeadCam) are configured per‑item via prefab attributes — not through the server config file. The item itself can only be placed/attached in a mission via **Zeus** or the **World/Mission Editor**, same as any other item.
+- Per‑player settings live in `$profile:SMX_settings_{playerID}.bin` (mission‑persistent) — see the [Client Settings Guide](Client-Settings-Guide).
 
 ### Known server‑relevant issue
 
@@ -36,9 +40,11 @@ BFT tracker markers are spawned without a power/carry check — loose or powered
 
 ## SIDC-Framework
 
+Channels, physical channels, the Quick‑Marker menu tree and phase‑line colors/widths are all defined in `.conf` resources (`[BaseContainerProps]`), not hard‑coded — see the full list in the [Glossary → Config files](Glossary). That makes the whole marker/channel structure heavily customizable by editing configs and rebuilding, without touching the mod's script.
+
 ### How settings load
 
-1. Mod PBO ships **start values** in `Configs/SIDC_ServerDefaultSettings.conf` (and `Configs/SIDC_ServerDefaultValues.conf`).
+1. Mod PBO ships **start values** in `Configs/SIDC_ServerDefaultSettings.conf` (and `Configs/SIDC_ServerDefaultValues.conf`). Like the [Quick Marker Config](SIDC-Framework) (`Configs/SIDC_QuickMarkerConfig.conf`), both are GUID‑referenced `.conf` resources — a mission can override any of them by shipping a mission‑local resource at the same path/GUID.
 2. On the **very first** server start (no `Settings.json` yet), those values are written once to
    `$profile:SIDC_Framework/ServerSettings/Settings.json`.
 3. From then on **only `Settings.json` is read.** Editing the `.conf` after that has no effect. Admin edits in `Settings.json` win, even after a mod update that changed the `.conf` default.
@@ -96,31 +102,35 @@ Not in `Settings.json`. Edit `Configs/SIDC_ChannelConfig.conf` in the mod and re
 
 # Server- & Admin-Handbuch (Deutsch)
 
-Wie die SkyKing-Mods auf einem dedizierten Server betrieben und konfiguriert werden. Alle drei sind Enfusion-Mods **ohne CLI-Build** — Konfiguration über Config-/Profildateien, nicht über Konsolenbefehle (eine spätere Admin-UI / ein Konsolenbefehl ist für SIDC geplant).
+Wie die SkyKing-Mods auf einem dedizierten Server betrieben und konfiguriert werden.
 
 ## SkyMap-X
 
 ### Config-Datei
 
-`$profile:SMX_ConfigV1.Json` — wird **nur vom Server geladen** und dann an jeden Client repliziert (`SMX_ConfigData`). Spieler können das nicht ändern. Existiert die Datei nicht, wird sie beim ersten Start aus den Mod-Defaults erzeugt.
+`$profile:SMX_ConfigV1.Json` — wird **nur vom Server geladen** und dann an jeden Client repliziert (`SMX_ConfigData`). Spieler können das nicht ändern. Existiert die Datei nicht, wird sie beim ersten Start aus den Mod-Defaults erzeugt. Das `V1` im Dateinamen ist eine Schema-Version — sie wird bei breaking Format-Änderungen hochgezählt.
 
-| Flag | Standard | Wirkung |
-|------|----------|---------|
-| Mini-Modus erlauben (`m_bIsTabMiniAllow`) | an | `Shift+Q` / Mini-Anzeige global |
-| Big-Modus erlauben (`m_bIsTabBigAllow`) | an | `Shift+E` / Big-Anzeige global |
-| Papierkarte erlauben (`m_bIsTabNormalPaperMapAllow…`) | — | `M`-Vollbildkarte über das Tablet |
-| K23-Varianten der drei obigen | — | Getrennt für „K23 lose getragen" vs. „K23 an Weste montiert" |
-| BFT: Geräte-ID anzeigen | an | BFT-Marker zeigt die Geräte-ID |
-| BFT: Geräte-Info anzeigen | aus | BFT-Marker zeigt die Geräte-Info |
-| BFT: Spielername anzeigen | aus | BFT-Marker zeigt den echten Spielernamen |
-| `m_bBFT_ShowAllSquadLeaderMarkers` | aus | Alle Squad-Leader-Marker auf der SMX-Minimap zeigen statt unterdrücken |
+| Schlüssel | Standard | Wirkung |
+|-----------|----------|---------|
+| `isTabMiniAllow` | `true` | Mini-Anzeige (`Shift+Q`) am Tablet erlaubt |
+| `isTabBigAllow` | `true` | Big-Anzeige (`Shift+E`) am Tablet erlaubt |
+| `isTabNormalPaperMapAllow` | `true` | Vollbild-Papierkarte (`M`) am Tablet erlaubt |
+| `isK23MiniAllow` | `true` | Mini-Anzeige am K23 erlaubt, ungemountet (lose getragen) |
+| `isK23NormalPaperMapAllow` | `true` | Papierkarte am K23 erlaubt, ungemountet |
+| `isK23MountedMiniAllow` | `true` | Mini-Anzeige am K23 erlaubt, an Weste montiert |
+| `isK23MountedNormalPaperMapAllow` | `true` | Papierkarte am K23 erlaubt, an Weste montiert |
+| `isK23BigAllow` | `true` | Big-Anzeige am K23 erlaubt, ungemountet |
+| `isK23MountedBigAllow` | `true` | Big-Anzeige am K23 erlaubt, an Weste montiert |
+| `bftShowDeviceID` | `true` | BFT-Marker zeigt die Geräte-ID |
+| `bftShowDeviceInfo` | `false` | BFT-Marker zeigt die Geräte-Info |
+| `bftShowPlayerName` | `false` | BFT-Marker zeigt den echten Spielernamen |
+| `bftShowAllSquadLeaderMarkers` | `false` | Vanilla-Squad-Leader-Marker bleiben zusätzlich auf der SMX-Karte sichtbar, statt unterdrückt zu werden wenn ein passender SMX-Tracker-Marker existiert |
 
 ### Prefab-/Missions-Setup
 
 - Das SMX-Gadget (`SMX_MainComponentX`) sitzt auf den mitgelieferten Tablet-/K23-Prefabs.
-- Kamera-/Tracker-Items nutzen `SMX_ItemDeviceComponent` (unabhängig vom Gadget).
-- Map-Config: SMX nutzt eine **GameMode-Map-Config** statt einer hartkodierten `.conf` am Vanilla-Pfad (Mod-Kompatibilität). Eine Mod-`.conf` am Vanilla-Pfad+GUID **ersetzt** statt zu erweitern — für additives Verhalten immer von der Vanilla-Ressource erben.
-- Spieler-Settings liegen in `$profile:SMX_settings_{playerID}.bin` (missionspersistent).
+- Kamera-/Tracker-Items (`SMX_ItemDeviceComponent`, Rollen Cam / Tracker / HeadCam) werden pro Item über Prefab-Attribute konfiguriert — nicht über die Server-Config-Datei. Platziert/angebracht werden kann das Item in einer Mission nur über **Zeus** oder den **World-/Mission-Editor**, wie jedes andere Item auch.
+- Spieler-Settings liegen in `$profile:SMX_settings_{playerID}.bin` (missionspersistent) — siehe das [Client-Einstellungen-Handbuch](Client-Settings-Guide).
 
 ### Bekanntes serverrelevantes Problem
 
@@ -132,9 +142,11 @@ BFT-Tracker-Marker werden ohne Power-/Trage-Prüfung erzeugt — lose oder ausge
 
 ## SIDC-Framework
 
+Kanäle, physische Kanäle, der Quick-Marker-Menübaum sowie Phase-Line-Farben/-Breiten sind alle in `.conf`-Ressourcen (`[BaseContainerProps]`) definiert, nicht hartkodiert — vollständige Liste im [Glossar → Konfigurationsdateien](Glossary). Dadurch ist die gesamte Marker-/Kanalstruktur durch Bearbeiten der Configs und Neubau des Mods stark individualisierbar, ohne den Mod-Code anzufassen.
+
 ### Wie Einstellungen geladen werden
 
-1. Das Mod-PBO liefert **Startwerte** in `Configs/SIDC_ServerDefaultSettings.conf` (und `Configs/SIDC_ServerDefaultValues.conf`).
+1. Das Mod-PBO liefert **Startwerte** in `Configs/SIDC_ServerDefaultSettings.conf` (und `Configs/SIDC_ServerDefaultValues.conf`). Wie die [Quick-Marker-Config](SIDC-Framework) (`Configs/SIDC_QuickMarkerConfig.conf`) sind beides GUID-referenzierte `.conf`-Ressourcen — eine Mission kann sie überschreiben, indem sie eine missionseigene Ressource unter demselben Pfad/derselben GUID mitliefert.
 2. Beim **allerersten** Serverstart (noch keine `Settings.json`) werden diese Werte einmalig nach
    `$profile:SIDC_Framework/ServerSettings/Settings.json` geschrieben.
 3. Danach wird **nur noch `Settings.json` gelesen.** Ein Bearbeiten der `.conf` danach hat keine Wirkung. Admin-Änderungen in `Settings.json` haben Vorrang, auch nach einem Mod-Update mit geändertem `.conf`-Default.
