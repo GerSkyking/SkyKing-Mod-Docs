@@ -80,6 +80,10 @@ Stop the server (or edit before first start of a session), open
 
 Not in `Settings.json`. Edit `Configs/SIDC_ChannelConfig.conf` in the mod and rebuild. See [Channel System](SIDC-Framework-Channels).
 
+### ATAKmaps companion tool
+
+`serverExportMarkers` = `true` makes the server write `SIDC_PlacedMarkers.json` into `$profile:SIDC_Framework/LocalMapData/` for the [ATAKmaps](ATAKmaps) web map. Note: the export is **unfiltered** (all factions / channels / authors) — there is no server‑side faction filter in the mod, so faction‑specific web maps must filter on `ownerFaction` in the tool.
+
 ## Throw Back Grenade
 
 **No dedicated config file.** `Configs/Editor/TBG_DebugMode.conf` (`TBG_DebugConfig`) only gates debug logging. Behaviour is tuned via script constants (retry counts / delays, landing‑delta timing) — see [Throw Back Grenade §4](Throw-Back-Grenade). Server‑side requirements:
@@ -171,6 +175,10 @@ Server stoppen (oder vor dem ersten Start einer Session bearbeiten),
 ### Kanal-Sichtbarkeitsmatrix
 
 Nicht in `Settings.json`. `Configs/SIDC_ChannelConfig.conf` im Mod bearbeiten und neu bauen. Siehe [Kanalsystem](SIDC-Framework-Channels).
+
+### ATAKmaps-Begleit-Tool
+
+`serverExportMarkers` = `true` lässt den Server `SIDC_PlacedMarkers.json` nach `$profile:SIDC_Framework/LocalMapData/` schreiben — für die [ATAKmaps](ATAKmaps)-Web-Karte. Hinweis: Der Export ist **ungefiltert** (alle Fraktionen / Kanäle / Ersteller) — es gibt keinen serverseitigen Fraktionsfilter im Mod, fraktionsspezifische Web-Karten müssen also im Tool auf `ownerFaction` filtern.
 
 ## Throw Back Grenade
 

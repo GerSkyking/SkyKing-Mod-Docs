@@ -19,3 +19,7 @@
 
 **Throw Back Grenade (TBG)**
 - [Overview & Usage](Throw-Back-Grenade)
+
+**Companion tools**
+- [ATAKmaps](ATAKmaps)
+- [SIDC – C2 – Command & Control](SIDC-C2-Command-Control)

@@ -123,6 +123,8 @@ Marker definitions themselves: `Configs/AllMarkers/AllMarkers.conf` + `Configs/A
 
 `SkyMap-SIDC-to-Marker` (adapter to attach SIDC strings to placed markers via `SIDC_MarkerBridge`), `SkyMap_SICD-Compat-Anarchy` / `SkyMap-X-Compat-Anarchy` (compat layers), `Mil-Std-2525D-Marker Builder` (icon/PNG batch export tooling). The line‑drawing design borrows from the *Map Drawing* mod (`TILW_DrawingSystem`) — see `SIDC-Framework/Doku/Drawing.txt`.
 
+**Companion tool:** [ATAKmaps](ATAKmaps) — an external web map that reads this mod's file exports (`$profile:SIDC_Framework/LocalMapData/`: `SIDC_PlacedMarkers.json`, `SIDC_PlayerData.json`, `SIDC_ChannelSettings.json`, `SIDC_AllMarkersCatalog.json`) and can write back marker / channel requests (`LocalMapData/Request/`). The mod‑side exporters are `SIDC_MarkerExporter.c`, `SIDC_MarkerRequestProcessor.c`, `SIDC_PlayerDataExporter.c`, `SIDC_ChannelSettingsExporter.c`; the full spec is `ATAKmaps/Doku/SIDC-Data-Interface.md`.
+
 ---
 
 # SIDC-Framework (SIDC) — Deutsch
@@ -249,3 +251,5 @@ Marker-Definitionen selbst: `Configs/AllMarkers/AllMarkers.conf` + `Configs/AllM
 ## 8. Verwandte Mods
 
 `SkyMap-SIDC-to-Marker` (Adapter, der SIDC-Strings über `SIDC_MarkerBridge` an platzierte Marker hängt), `SkyMap_SICD-Compat-Anarchy` / `SkyMap-X-Compat-Anarchy` (Kompatibilitätsschichten), `Mil-Std-2525D-Marker Builder` (Icon-/PNG-Batch-Export-Tooling). Das Linienzeichnen orientiert sich am *Map Drawing*-Mod (`TILW_DrawingSystem`) — siehe `SIDC-Framework/Doku/Drawing.txt`.
+
+**Begleit-Tool:** [ATAKmaps](ATAKmaps) — eine externe Web-Karte, die die Dateiexporte dieses Mods liest (`$profile:SIDC_Framework/LocalMapData/`: `SIDC_PlacedMarkers.json`, `SIDC_PlayerData.json`, `SIDC_ChannelSettings.json`, `SIDC_AllMarkersCatalog.json`) und Marker-/Kanal-Requests zurückschreiben kann (`LocalMapData/Request/`). Die mod-seitigen Exporter sind `SIDC_MarkerExporter.c`, `SIDC_MarkerRequestProcessor.c`, `SIDC_PlayerDataExporter.c`, `SIDC_ChannelSettingsExporter.c`; die vollständige Spezifikation ist `ATAKmaps/Doku/SIDC-Data-Interface.md`.
