@@ -31,7 +31,7 @@ All keys are **default bindings** and are rebindable in *Settings → Keybinding
 - `Page Down` / `Page Up` zoom the camera one step per key press (no repeat while held — same as on the map). Works in Hand, Mini and Big mode, also with the mouse cursor active.
 
 **Not in the "SkyMap-X" category but relevant:**
-- `M` (game "GadgetMap" key) opens the PAPERMap tab mode if the paper map is allowed (`m_bIsTabNormalPaperMapAllowOnPrefab`).
+- `M` (game "GadgetMap" key) opens the PAPERMap tab mode if the paper map is allowed (`m_bIsTabNormalPaperMapAllowOnPrefab`). Otherwise it stows the tablet, puts your own physical map in your hand and opens it — only if you carry a map. Press `M` again to close.
 - `Esc` ("MenuBackKeybind") fully exits cursor mode in Big mode (closes Big mode); otherwise it only disables the cursor.
 
 > **Update note (Sept 2026):** the internal action names of the SkyMap-X keybinds were renamed (typo fix `Devive` → `Device`, `Curser` → `Cursor`). Reforger stores custom bindings by action name, so **customised SkyMap-X keybinds are reset to their defaults once** — re‑bind them under *Settings → Keybindings → SkyMap-X*. Default keys are unchanged.
@@ -109,7 +109,7 @@ Alle Tasten sind **Standardbelegungen** und unter *Einstellungen → Tastenbeleg
 - `Bild-ab` / `Bild-auf` zoomen die Kamera einen Schritt pro Tastendruck (keine Wiederholung beim Halten — wie auf der Karte). Funktioniert in Hand-, Mini- und Big-Modus, auch bei aktivem Maus-Cursor.
 
 **Nicht in der Kategorie „SkyMap-X", aber relevant:**
-- `M` (Spiel-„GadgetMap"-Taste) öffnet den PAPERMap-Modus, wenn die Papierkarte erlaubt ist (`m_bIsTabNormalPaperMapAllowOnPrefab`).
+- `M` (Spiel-„GadgetMap"-Taste) öffnet den PAPERMap-Modus, wenn die Papierkarte erlaubt ist (`m_bIsTabNormalPaperMapAllowOnPrefab`). Sonst verstaut es das Tablet, nimmt die eigene physische Karte in die Hand und öffnet sie — nur wenn eine Karte im Inventar ist. Erneut `M` schließt sie.
 - `Esc` („MenuBackKeybind") verlässt im Big-Modus den Cursor-Modus vollständig (schließt Big-Modus); sonst deaktiviert es nur den Cursor.
 
 > **Update-Hinweis (Sept 2026):** Die internen Action-Namen der SkyMap-X-Tastenbelegung wurden umbenannt (Tippfehler `Devive` → `Device`, `Curser` → `Cursor`). Reforger speichert eigene Belegungen unter dem Action-Namen, daher werden **angepasste SkyMap-X-Tasten einmalig auf Standard zurückgesetzt** — unter *Einstellungen → Tastenbelegung → SkyMap-X* neu belegen. Die Standardtasten bleiben gleich.

@@ -6,7 +6,9 @@ How to run and configure the SkyKing mods on a dedicated server.
 
 ### Config file
 
-`$profile:SMX_ConfigV1.Json` — **loaded only by the server**, then replicated to every client (`SMX_ConfigData`). Players cannot change these. If the file does not exist it is created from the mod defaults on first start. The `V1` in the filename is a schema version — it is bumped on breaking format changes.
+`$profile:SMX_ConfigV2.Json` — **loaded only by the server**, then replicated to every client (`SMX_ConfigData`). Players cannot change these. If the file does not exist it is created from the mod defaults on first start. The `V2` in the filename is a schema version — it is bumped on breaking format changes.
+
+**Migration from V1:** if no `SMX_ConfigV2.Json` exists but an old `SMX_ConfigV1.Json` does, the server takes over all V1 values, fills the new keys with their defaults and writes `SMX_ConfigV2.Json`. The V1 file is left in place but no longer read — edit only the V2 file from then on.
 
 | Key | Default | Effect |
 |-----|---------|--------|
@@ -23,6 +25,16 @@ How to run and configure the SkyKing mods on a dedicated server.
 | `bftShowDeviceInfo` | `false` | BFT marker shows the device info |
 | `bftShowPlayerName` | `false` | BFT marker shows the real player name |
 | `bftShowAllSquadLeaderMarkers` | `false` | Keep the vanilla squad‑leader map markers visible on the SMX map too, instead of suppressing them when a matching SMX tracker marker exists |
+| `lockDeviceID` | `false` | Players cannot change their Device ID (field greyed out in the tablet's Settings mode) |
+| `lockDeviceInfo` | `false` | Players cannot change their Device info (field greyed out in the tablet's Settings mode) |
+| `autoReinitDeviceInfo` | `false` | Server forces the default Device info: the player name |
+| `autoReinitDeviceID` | `false` | Server forces the default Device ID: the group name, or the player name if the player has no group |
+
+**Lock vs. AutoReinit:**
+- **Lock** only stops editing — whatever name the player already has stays.
+- **AutoReinit** overwrites the name with the default when the settings are loaded and every time the tablet is powered on (the group is known then). On its own, the player can still edit the name until the next power‑on.
+- For a **fixed, server‑given name** turn on both, e.g. `autoReinitDeviceID` + `lockDeviceID`.
+- Enforced on the client like all tablet settings (the name is set locally), not re‑checked by the server.
 
 ### Prefab / mission setup
 
@@ -108,7 +120,9 @@ Wie die SkyKing-Mods auf einem dedizierten Server betrieben und konfiguriert wer
 
 ### Config-Datei
 
-`$profile:SMX_ConfigV1.Json` — wird **nur vom Server geladen** und dann an jeden Client repliziert (`SMX_ConfigData`). Spieler können das nicht ändern. Existiert die Datei nicht, wird sie beim ersten Start aus den Mod-Defaults erzeugt. Das `V1` im Dateinamen ist eine Schema-Version — sie wird bei breaking Format-Änderungen hochgezählt.
+`$profile:SMX_ConfigV2.Json` — wird **nur vom Server geladen** und dann an jeden Client repliziert (`SMX_ConfigData`). Spieler können das nicht ändern. Existiert die Datei nicht, wird sie beim ersten Start aus den Mod-Defaults erzeugt. Das `V2` im Dateinamen ist eine Schema-Version — sie wird bei breaking Format-Änderungen hochgezählt.
+
+**Migration von V1:** Gibt es noch keine `SMX_ConfigV2.Json`, aber eine alte `SMX_ConfigV1.Json`, übernimmt der Server alle V1-Werte, füllt die neuen Schlüssel mit ihren Defaults und schreibt `SMX_ConfigV2.Json`. Die V1-Datei bleibt liegen, wird aber nicht mehr gelesen — ab dann nur noch die V2-Datei bearbeiten.
 
 | Schlüssel | Standard | Wirkung |
 |-----------|----------|---------|
@@ -125,6 +139,16 @@ Wie die SkyKing-Mods auf einem dedizierten Server betrieben und konfiguriert wer
 | `bftShowDeviceInfo` | `false` | BFT-Marker zeigt die Geräte-Info |
 | `bftShowPlayerName` | `false` | BFT-Marker zeigt den echten Spielernamen |
 | `bftShowAllSquadLeaderMarkers` | `false` | Vanilla-Squad-Leader-Marker bleiben zusätzlich auf der SMX-Karte sichtbar, statt unterdrückt zu werden wenn ein passender SMX-Tracker-Marker existiert |
+| `lockDeviceID` | `false` | Spieler können ihre Geräte-ID nicht ändern (Feld im Settings-Modus des Tabletts ausgegraut) |
+| `lockDeviceInfo` | `false` | Spieler können ihre Geräte-Info nicht ändern (Feld im Settings-Modus des Tabletts ausgegraut) |
+| `autoReinitDeviceInfo` | `false` | Server erzwingt die Standard-Geräte-Info: den Spielernamen |
+| `autoReinitDeviceID` | `false` | Server erzwingt die Standard-Geräte-ID: den Gruppennamen, ohne Gruppe den Spielernamen |
+
+**Lock vs. AutoReinit:**
+- **Lock** sperrt nur das Bearbeiten — der Name, den der Spieler schon hat, bleibt.
+- **AutoReinit** überschreibt den Name beim Laden der Settings und bei jedem Einschalten des Tabletts mit dem Standard (dann ist die Gruppe bekannt). Allein kann der Spieler den Namen bis zum nächsten Einschalten noch ändern.
+- Für einen **festen, vom Server vorgegebenen Namen** beides einschalten, z.B. `autoReinitDeviceID` + `lockDeviceID`.
+- Durchgesetzt wird das wie alle Tablet-Settings auf dem Client (der Name wird lokal gesetzt), nicht erneut vom Server geprüft.
 
 ### Prefab-/Missions-Setup
 

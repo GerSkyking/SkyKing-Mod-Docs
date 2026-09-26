@@ -23,7 +23,7 @@ Two internal states also exist: **OFF** (tablet powered down) and **ON** (powere
 | **Hand (HANDtab)** | `Ctrl+F5` or taking it out of the inventory | Tablet physically held, medium size, rendered in 3D in front of the character. |
 | **Big (BIGtab)** | `Shift+E` | Large 2D screen (~85 % of the display). Mouse cursor auto‑enabled, no manual toggle. Server can disable. |
 | **Mini (MINITab)** | `Shift+Q` | Small corner display, Arma‑3‑CTab style. Server can disable. |
-| **PaperMap (PAPERMap)** | game map key `M` | The normal full‑screen map, if allowed on the prefab and by the server. |
+| **PaperMap (PAPERMap)** | game map key `M` | The normal full‑screen map, if allowed on the prefab and by the server. If the tablet may **not** act as a paper map, `M` uses your own physical map instead: the tablet is stowed, your map is put in your hand automatically and opened. Without a map in your inventory nothing happens. |
 | **GameMaster (GMmode)** | automatic | Detected when the GM editor is open; dedicated GM presentation. |
 
 Switching Big ↔ Mini goes through a short intermediate step (ON state + 100 ms delay). This is intentional and prevents an engine‑internal map‑loading fault.
@@ -48,6 +48,47 @@ SMX is part of a BFT system: visible devices of other players appear as markers 
 
 The K23 is worn on the vest and has its own context, independent of the tablet gadget. `Shift+T` folds/unfolds the K23 mount. The server can allow/deny Mini/Big/PaperMap **separately** for "K23 loosely carried" vs. "K23 mounted on vest".
 
+### Items / Prefabs
+
+Every item exists per faction: **US, USSR, FIA, CIV**. The faction variant sets the faction channels the item sends/receives on, plus colour/name. Prefabs live under `Prefabs/SMX`, `Prefabs/SCX` (cameras) and `Prefabs/STX` (trackers).
+
+**Tablets** (`Prefabs/SMX/Tablet/<Faction>/`)
+
+| Prefab | In‑game name | What it does |
+|--------|--------------|--------------|
+| `SMX_Tablet_<F>_FullVersion` | SkyMapX ATAK + Map | Full tablet: all modes (GPS, Chat, Settings, Feeds), Hand/Mini/Big. **Also works as a paper map** (`M` opens the full‑screen map on the tablet). |
+| `SMX_Tablet_<F>_NoMap` / `SMX_Tablet_Base_<F>` | SkyMapX ATAK | Same full tablet, but **not** a paper map: `M` uses your own physical map (see §1, PaperMap). |
+| `SMX_Tablet_<F>_Light_GPS` | SkyMapX Light | Reduced GPS‑only tablet: GPS map, Mini display and paper map only — no Chat/Settings/Feeds, no Hand/Big. Always on while in the inventory. |
+
+**K23 (smartphone with ATAK)** (`Prefabs/SMX/K23/<Faction>/`)
+
+| Prefab | What it does |
+|--------|--------------|
+| `K23_ATAK_<F>` | Full K23 like the full tablet, no paper map. |
+| `K23_ATAK_MAP_<F>` | Full K23 that also works as a paper map. |
+| `K23_Light_ATAK_<F>` / `K23_Light_ATAK_MAP_<F>` | Light K23: GPS + Mini + Hand only, with or without paper map. |
+| `K23_Mount_<F>` | Empty K23 case for the vest (`Shift+T` folds it). Takes one K23. |
+| `K23_Mount_K23_ATAK[_MAP][_Light]_<F>` | K23 case with the matching K23 already inside. |
+
+**Cameras (SCX)** — show up in the **Feeds** mode of other devices on the right channels
+
+| Prefab | What it does |
+|--------|--------------|
+| `SCX_CCTV_<F>` | Stationary CCTV camera for mission makers (place via Zeus / World Editor). Registers itself; can be swivelled from the tablet (±90° left/right, −60°…+20° up/down). |
+| `SCX_Cam_Helm_<F>` | Helmet camera (HeadCam). Fixed view from the wearer's head. |
+| `Ponos_<F>` (override of the vanilla PONOS accessory) | Turns the vanilla PONOS into a fixed head camera ("HCS"). |
+| `SCX_Cam_40mm_UGL_<F>` (M320) / `SCX_Cam-40mm_UGL_GP_<F>` (GP‑25) | **SkyEye ARC‑40**: 40 mm camera grenade for the underbarrel launcher. After firing it deploys the parachute camera. |
+| `SCX_Cam_Parachute_<F>` | The camera under the parachute (spawned by the ARC‑40, not used directly). Looks straight down, can be swivelled. |
+
+**Trackers (STX)** — appear as BFT markers on the map
+
+| Prefab | In‑game name | What it does |
+|--------|--------------|--------------|
+| `SMX_STX_SMT-<F>` | Squad Mate Tracker | Tracks **your squad**: puts sub‑channel 1 on your group automatically, active while carried in the inventory. No faction channels. |
+| `SMX_STX_UTD-<F>` | UTD Faction Bind | **Utility Tracking Device**: placeable (also on vehicles/objects), stackable. Sends on the faction channels **only while placed**, not while in an inventory. |
+
+**Internal (don't use directly):** `SMX_BFT_MapMarker` (BFT map marker), `SCR_PIPCameraSCX` (camera for Feeds), the overrides under `Prefabs/Override/` (player controller, game mode, editor), `Prefabs/SMX/Tablet/Base/NurOptic/` (inventory preview models only) and `Prefabs/Test_DEV/`.
+
 ## 3. Keybinds
 
 See the full table on the [Keybinds](Keybinds) page (category **SkyMap-X** in *Settings → Keybindings*).
@@ -63,8 +104,8 @@ There are **two** places to configure SkyMap-X — both per‑player, both saved
 
 | Setting | Effect |
 |---------|--------|
-| Device ID | Free‑text ID of your tablet; used for the BFT marker. |
-| Device info | Free‑text display name; default = your player name. |
+| Device ID | Free‑text ID of your tablet; used for the BFT marker. The server can lock it or force the default (group name). |
+| Device info | Free‑text display name; default = your player name. The server can lock it or force the default. |
 | Sub‑channel 1–4 (send) | Four freely named text channels for sending; each toggled on/off. |
 | Sub‑channel 1–4 (receive) | The same four channels for receiving; each toggled on/off. |
 | CIV send / receive | Communication on the civilian channel on/off. |
@@ -90,7 +131,7 @@ There are **two** places to configure SkyMap-X — both per‑player, both saved
 
 ## 5. Server settings
 
-Managed server‑side (`$profile:SMX_ConfigV1.Json`, loaded only by the server and replicated to all clients). See [Server & Admin Guide](Server-Admin-Guide).
+Managed server‑side (`$profile:SMX_ConfigV2.Json`, loaded only by the server and replicated to all clients; an old `SMX_ConfigV1.Json` is migrated automatically). See [Server & Admin Guide](Server-Admin-Guide).
 
 | Flag | Effect |
 |------|--------|
@@ -102,6 +143,8 @@ Managed server‑side (`$profile:SMX_ConfigV1.Json`, loaded only by the server a
 | BFT: show Device info | Whether the BFT marker shows the device info (default: off). |
 | BFT: show player name | Whether the BFT marker shows the real player name (default: off). |
 | `m_bBFT_ShowAllSquadLeaderMarkers` | Show all squad‑leader markers on the SMX minimap instead of suppressing them. |
+| Lock Device ID / info | Players cannot edit the Device ID / info (default: off). |
+| AutoReinit Device ID / info | Server forces the default name: ID = group name (or player name), info = player name (default: off). Combine with Lock for a fixed name. |
 
 ## 6. Known WIP / limitations
 
@@ -141,7 +184,7 @@ Zwei interne Zustände zusätzlich: **OFF** (Tablet aus) und **ON** (an, aber ke
 | **Hand (HANDtab)** | `Strg+F5` oder Herausnehmen aus dem Inventar | Tablet physisch in der Hand, mittelgroß, 3D vor dem Charakter. |
 | **Big (BIGtab)** | `Shift+E` | Großer 2D-Vollbildschirm (~85 % des Bildschirms). Maus-Cursor automatisch aktiv. Serverseitig abschaltbar. |
 | **Mini (MINITab)** | `Shift+Q` | Kleine Ecken-Anzeige im Arma-3-CTab-Stil. Serverseitig abschaltbar. |
-| **PaperMap (PAPERMap)** | Spiel-Kartentaste `M` | Normale Vollbildkarte, sofern am Prefab und serverseitig erlaubt. |
+| **PaperMap (PAPERMap)** | Spiel-Kartentaste `M` | Normale Vollbildkarte, sofern am Prefab und serverseitig erlaubt. Darf das Tablet **nicht** als Papierkarte dienen, nutzt `M` stattdessen die eigene physische Karte: das Tablet wird verstaut, die Karte automatisch in die Hand genommen und geöffnet. Ohne Karte im Inventar passiert nichts. |
 | **GameMaster (GMmode)** | automatisch | Wird erkannt, wenn der GM-Editor offen ist; eigene GM-Darstellung. |
 
 Der Wechsel Big ↔ Mini läuft über einen kurzen Zwischenschritt (ON-Zustand + 100 ms Verzögerung). Das ist gewollt und verhindert einen Engine-internen Kartenladefehler.
@@ -166,6 +209,47 @@ SMX ist Teil eines BFT-Systems: sichtbare Geräte anderer Spieler erscheinen als
 
 Die K23 wird an der Weste getragen und hat einen eigenen Kontext, unabhängig vom Tablet-Gadget. `Shift+T` klappt die K23-Halterung ein/aus. Der Server kann Mini/Big/PaperMap **getrennt** für „K23 lose getragen" vs. „K23 an Weste montiert" erlauben/sperren.
 
+### Items / Prefabs
+
+Jedes Item gibt es pro Fraktion: **US, USSR, FIA, CIV**. Die Fraktionsvariante legt fest, auf welchen Fraktionskanälen das Item sendet/empfängt, dazu Farbe/Name. Die Prefabs liegen unter `Prefabs/SMX`, `Prefabs/SCX` (Kameras) und `Prefabs/STX` (Tracker).
+
+**Tablets** (`Prefabs/SMX/Tablet/<Fraktion>/`)
+
+| Prefab | Name im Spiel | Funktion |
+|--------|---------------|----------|
+| `SMX_Tablet_<F>_FullVersion` | SkyMapX ATAK + Map | Volles Tablet: alle Modi (GPS, Chat, Settings, Feeds), Hand/Mini/Big. **Dient auch als Papierkarte** (`M` öffnet die Vollbildkarte am Tablet). |
+| `SMX_Tablet_<F>_NoMap` / `SMX_Tablet_Base_<F>` | SkyMapX ATAK | Dasselbe volle Tablet, aber **keine** Papierkarte: `M` nutzt die eigene physische Karte (siehe §1, PaperMap). |
+| `SMX_Tablet_<F>_Light_GPS` | SkyMapX Light | Reduziertes Nur-GPS-Tablet: GPS-Karte, Mini-Anzeige und Papierkarte — kein Chat/Settings/Feeds, kein Hand/Big. Im Inventar immer eingeschaltet. |
+
+**K23 (Smartphone mit ATAK)** (`Prefabs/SMX/K23/<Fraktion>/`)
+
+| Prefab | Funktion |
+|--------|----------|
+| `K23_ATAK_<F>` | Volles K23 wie das volle Tablet, ohne Papierkarte. |
+| `K23_ATAK_MAP_<F>` | Volles K23, das auch als Papierkarte dient. |
+| `K23_Light_ATAK_<F>` / `K23_Light_ATAK_MAP_<F>` | Light-K23: nur GPS + Mini + Hand, mit oder ohne Papierkarte. |
+| `K23_Mount_<F>` | Leeres K23-Case für die Weste (`Shift+T` klappt es). Nimmt ein K23 auf. |
+| `K23_Mount_K23_ATAK[_MAP][_Light]_<F>` | K23-Case mit passendem K23 schon drin. |
+
+**Kameras (SCX)** — erscheinen im **Feeds**-Modus anderer Geräte auf den passenden Kanälen
+
+| Prefab | Funktion |
+|--------|----------|
+| `SCX_CCTV_<F>` | Feste Überwachungskamera für Missionsbauer (über Zeus / World-Editor platzieren). Meldet sich selbst an; vom Tablet aus schwenkbar (±90° links/rechts, −60°…+20° hoch/runter). |
+| `SCX_Cam_Helm_<F>` | Helmkamera (HeadCam). Fester Blick vom Kopf des Trägers. |
+| `Ponos_<F>` (Override des Vanilla-PONOS-Zubehörs) | Macht das Vanilla-PONOS zur festen Kopfkamera („HCS"). |
+| `SCX_Cam_40mm_UGL_<F>` (M320) / `SCX_Cam-40mm_UGL_GP_<F>` (GP-25) | **SkyEye ARC-40**: 40-mm-Kameragranate für den Unterlaufgranatwerfer. Setzt nach dem Abschuss die Fallschirmkamera aus. |
+| `SCX_Cam_Parachute_<F>` | Die Kamera am Fallschirm (wird von der ARC-40 erzeugt, nicht direkt nutzen). Blickt senkrecht nach unten, schwenkbar. |
+
+**Tracker (STX)** — erscheinen als BFT-Marker auf der Karte
+
+| Prefab | Name im Spiel | Funktion |
+|--------|---------------|----------|
+| `SMX_STX_SMT-<F>` | Squad Mate Tracker | Trackt **den eigenen Trupp**: setzt Subkanal 1 automatisch auf die eigene Gruppe, aktiv solange im Inventar getragen. Keine Fraktionskanäle. |
+| `SMX_STX_UTD-<F>` | UTD Faction Bind | **Utility Tracking Device**: platzierbar (auch an Fahrzeugen/Objekten), stapelbar. Sendet auf den Fraktionskanälen **nur solange platziert**, nicht im Inventar. |
+
+**Intern (nicht direkt verwenden):** `SMX_BFT_MapMarker` (BFT-Kartenmarker), `SCR_PIPCameraSCX` (Kamera für Feeds), die Overrides unter `Prefabs/Override/` (Player-Controller, GameMode, Editor), `Prefabs/SMX/Tablet/Base/NurOptic/` (nur Inventar-Vorschaumodelle) und `Prefabs/Test_DEV/`.
+
 ## 3. Tastenbelegung
 
 Vollständige Tabelle auf der Seite [Tastenbelegung](Keybinds) (Kategorie **SkyMap-X** unter *Einstellungen → Tastenbelegung*).
@@ -181,8 +265,8 @@ Es gibt **zwei** Stellen zum Konfigurieren von SkyMap-X — beide pro Spieler, b
 
 | Option | Wirkung |
 |--------|---------|
-| Geräte-ID | Freitext-ID des eigenen Tabletts; für den BFT-Marker genutzt. |
-| Geräte-Info | Freitext-Anzeigename; Standard = eigener Spielername. |
+| Geräte-ID | Freitext-ID des eigenen Tabletts; für den BFT-Marker genutzt. Der Server kann sie sperren oder den Standard (Gruppenname) erzwingen. |
+| Geräte-Info | Freitext-Anzeigename; Standard = eigener Spielername. Der Server kann sie sperren oder den Standard erzwingen. |
 | Subkanal 1–4 (Senden) | Vier frei benennbare Textkanäle zum Senden; je Kanal an/aus. |
 | Subkanal 1–4 (Empfangen) | Dieselben vier Kanäle zum Empfangen; je Kanal an/aus. |
 | CIV Senden/Empfangen | Kommunikation auf dem zivilen Kanal an/aus. |
@@ -208,7 +292,7 @@ Es gibt **zwei** Stellen zum Konfigurieren von SkyMap-X — beide pro Spieler, b
 
 ## 5. Server-Einstellungen
 
-Serverseitig verwaltet (`$profile:SMX_ConfigV1.Json`, nur vom Server geladen und an alle Clients repliziert). Siehe [Server- & Admin-Handbuch](Server-Admin-Guide).
+Serverseitig verwaltet (`$profile:SMX_ConfigV2.Json`, nur vom Server geladen und an alle Clients repliziert; eine alte `SMX_ConfigV1.Json` wird automatisch übernommen). Siehe [Server- & Admin-Handbuch](Server-Admin-Guide).
 
 | Flag | Wirkung |
 |------|---------|
@@ -220,6 +304,8 @@ Serverseitig verwaltet (`$profile:SMX_ConfigV1.Json`, nur vom Server geladen und
 | BFT: Geräte-Info anzeigen | Ob der BFT-Marker die Geräte-Info zeigt (Standard: aus). |
 | BFT: Spielername anzeigen | Ob der BFT-Marker den echten Spielernamen zeigt (Standard: aus). |
 | `m_bBFT_ShowAllSquadLeaderMarkers` | Alle Squad-Leader-Marker auf der SMX-Minimap zeigen statt unterdrücken. |
+| Geräte-ID / -Info sperren | Spieler können Geräte-ID / -Info nicht bearbeiten (Standard: aus). |
+| AutoReinit Geräte-ID / -Info | Server erzwingt den Standardnamen: ID = Gruppenname (bzw. Spielername), Info = Spielername (Standard: aus). Mit Sperren kombinieren für einen festen Namen. |
 
 ## 6. Bekannte Baustellen / Einschränkungen
 

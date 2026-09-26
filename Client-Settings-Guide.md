@@ -10,8 +10,8 @@ Two surfaces, both per‑player, both saved to `$profile:SMX_settings_{playerID}
 
 | Setting | What it does |
 |---------|--------------|
-| Device ID | Free‑text ID of your tablet; used on the BFT marker (if the server shows it). |
-| Device info | Free‑text display name; default = your player name. |
+| Device ID | Free‑text ID of your tablet; used on the BFT marker (if the server shows it). Greyed out if the server locks it; may be reset to your group name if the server forces it. |
+| Device info | Free‑text display name; default = your player name. Greyed out if the server locks it; may be reset to your player name if the server forces it. |
 | Sub‑channel 1–4 (send) | Four freely named text channels for **sending**; each on/off. |
 | Sub‑channel 1–4 (receive) | Same four channels for **receiving**; each on/off. Determines which other devices' BFT markers / feeds you see. |
 | CIV send / receive | Civilian channel comms on/off. |
@@ -27,6 +27,7 @@ Two surfaces, both per‑player, both saved to `$profile:SMX_settings_{playerID}
 | Auto start / Auto mode / Default mode | Tablet powers on / opens a mode automatically at mission start; which mode it opens in. |
 | Use prefix + Main TAG | Personal prefix prepended to your Device ID (e.g. `"Alpha-1 " + Device ID`). Shows up wherever your Device ID is listed to others: the Chat contact list, the Feeds device list, and the BFT marker (only if the server has `bftShowDeviceID` on). |
 | Notification‑tone duration | Length of the chat/notification sound. |
+| Notification sound | Which sound plays for chat/notifications; picks from `SMX_Sound_Notification.conf` (10 sounds). Default = "Vibration (Classic)". Selecting an entry plays a preview. |
 | Mini‑mode offset up / right / size scale | Mini corner display position and size. |
 | Squad‑Mate‑Tracker: scale / show name / show icon / transparency | Squad‑mate marker appearance. |
 | Trace line R / G / B / alpha / width | Distance/trace line color, opacity, width. |
@@ -82,8 +83,8 @@ Zwei Stellen, beide pro Spieler, beide in `$profile:SMX_settings_{playerID}.bin`
 
 | Option | Funktion |
 |--------|----------|
-| Geräte-ID | Freitext-ID des Tabletts; auf dem BFT-Marker genutzt (falls der Server ihn zeigt). |
-| Geräte-Info | Freitext-Anzeigename; Standard = Spielername. |
+| Geräte-ID | Freitext-ID des Tabletts; auf dem BFT-Marker genutzt (falls der Server ihn zeigt). Ausgegraut, wenn der Server sie sperrt; wird ggf. auf den Gruppennamen zurückgesetzt, wenn der Server das erzwingt. |
+| Geräte-Info | Freitext-Anzeigename; Standard = Spielername. Ausgegraut, wenn der Server sie sperrt; wird ggf. auf den Spielernamen zurückgesetzt, wenn der Server das erzwingt. |
 | Subkanal 1–4 (Senden) | Vier frei benennbare Textkanäle zum **Senden**; je an/aus. |
 | Subkanal 1–4 (Empfangen) | Dieselben vier Kanäle zum **Empfangen**; je an/aus. Bestimmt, welche BFT-Marker / Feeds anderer Geräte du siehst. |
 | CIV Senden/Empfangen | Ziviler Kanal an/aus. |
@@ -99,6 +100,7 @@ Zwei Stellen, beide pro Spieler, beide in `$profile:SMX_settings_{playerID}.bin`
 | Auto-Start / Auto-Modus / Standard-Modus | Tablet schaltet sich ein / öffnet automatisch einen Modus beim Missionsstart; in welchem Modus es öffnet. |
 | Präfix nutzen + Main-TAG | Persönliches Präfix vor deiner Geräte-ID (z.B. `"Alpha-1 " + Geräte-ID`). Erscheint überall, wo deine Geräte-ID anderen angezeigt wird: Chat-Kontaktliste, Feeds-Geräteliste und BFT-Marker (nur wenn der Server `bftShowDeviceID` aktiviert hat). |
 | Benachrichtigungston-Dauer | Länge des Chat-/Benachrichtigungstons. |
+| Benachrichtigungston | Welcher Ton bei Chat/Benachrichtigungen spielt; Auswahl aus `SMX_Sound_Notification.conf` (10 Töne). Standard = „Vibration (Klassisch)". Beim Auswählen wird der Ton kurz vorgehört. |
 | Mini-Modus Offset hoch / rechts / Größenskala | Position und Größe der Mini-Ecken-Anzeige. |
 | Squad-Mate-Tracker: Skala / Name / Icon / Transparenz | Darstellung der Squad-Mate-Marker. |
 | Trace Line R / G / B / Alpha / Breite | Farbe, Deckkraft, Breite der Distanz-/Trace-Linie. |
