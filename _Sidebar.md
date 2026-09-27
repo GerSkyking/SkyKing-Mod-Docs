@@ -9,6 +9,7 @@
 
 **SkyMap-X (SMX)**
 - [Overview & Usage](SkyMap-X)
+- [Workflows (step by step)](SkyMap-X-Workflows)
 
 **SpeedUI (SUI)**
 - [Overview & Usage](SpeedUI)
@@ -16,6 +17,7 @@
 **SIDC-Framework (SIDC)**
 - [Overview & Usage](SIDC-Framework)
 - [Channel System](SIDC-Framework-Channels)
+- [SecondMap (DLC, WIP)](SIDC-SecondMap)
 
 **Throw Back Grenade (TBG)**
 - [Overview & Usage](Throw-Back-Grenade)

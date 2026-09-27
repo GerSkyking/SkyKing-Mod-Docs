@@ -7,6 +7,7 @@ Central documentation for the **SkyKing** Arma Reforger mods.
 | **SkyMap-X** | SMX | `SkyMap-X` | Tablet / wrist‑gadget: tactical GPS map, chat, camera/tracker feeds, Blue‑Force‑Tracking |
 | **SpeedUI** | SUI | `SpeedUI` | Lightweight HUD showing player / vehicle speed with a progress bar |
 | **SIDC‑Framework** | SIDC | `SIDC-Framework` | APP‑6/MIL‑STD‑2525D military‑symbol marker system for the map: quick‑marker menu, channels, phase lines / line drawing, save/load |
+| [**SIDC-SecondMap**](SIDC-SecondMap) *(DLC, WIP)* | SIDC | `SIDC-SecondMap` | Extra persistent map view(s) alongside the vanilla map — vanilla-look or independent custom renderer |
 | **Throw Back Grenade** | TBG | `Throw Back Grenade` (Workbench addons) | Pick up a live thrown grenade and throw it back before it goes off |
 
 ### Companion tools (not mods)
@@ -40,6 +41,7 @@ Zentrale Dokumentation der **SkyKing**-Mods für Arma Reforger.
 | **SkyMap-X** | SMX | `SkyMap-X` | Tablet-/Armband-Gadget: taktische GPS-Karte, Chat, Kamera-/Tracker-Feeds, Blue-Force-Tracking |
 | **SpeedUI** | SUI | `SpeedUI` | Leichtes HUD für Spieler-/Fahrzeuggeschwindigkeit mit Fortschrittsbalken |
 | **SIDC-Framework** | SIDC | `SIDC-Framework` | APP-6-/MIL-STD-2525D-Markersystem für die Karte: Quick-Marker-Menü, Kanäle, Phase Lines / Linienzeichnen, Speichern/Laden |
+| [**SIDC-SecondMap**](SIDC-SecondMap) *(DLC, in Arbeit)* | SIDC | `SIDC-SecondMap` | Zusätzliche dauerhafte Kartenansicht(en) neben der Vanilla-Karte — Vanilla-Look oder eigenständiger Renderer |
 | **Throw Back Grenade** | TBG | `Throw Back Grenade` (Workbench-addons) | Eine scharfe geworfene Granate aufheben und zurückwerfen, bevor sie hochgeht |
 
 ### Begleit-Tools (keine Mods)
