@@ -75,8 +75,8 @@ Every item exists per faction: **US, USSR, FIA, CIV**. The faction variant sets 
 | Prefab | What it does |
 |--------|--------------|
 | `SCX_CCTV_<F>` | Stationary CCTV camera for mission makers (place via Zeus / World Editor). Registers itself; can be swivelled from the tablet (±90° left/right, −60°…+20° up/down). |
-| `SCX_Cam_Helm_<F>` | Helmet camera (HeadCam). Fixed view from the wearer's head. |
-| `Ponos_<F>` (override of the vanilla PONOS accessory) | Turns the vanilla PONOS into a fixed head camera ("HCS"). |
+| `SCX_Cam_Helm_<F>` | Helmet camera (HeadCam), view from the wearer's head. Fixed or swivellable from the tablet, depending on the item (`m_bCanCamRotate`). |
+| `Ponos_<F>` (override of the vanilla PONOS accessory) | Turns the vanilla PONOS into a head camera ("HCS"), fixed or swivellable depending on the variant. |
 | `SCX_Cam_40mm_UGL_<F>` (M320) / `SCX_Cam-40mm_UGL_GP_<F>` (GP‑25) | **SkyEye ARC‑40**: 40 mm camera grenade for the underbarrel launcher. After firing it deploys the parachute camera. |
 | `SCX_Cam_Parachute_<F>` | The camera under the parachute (spawned by the ARC‑40, not used directly). Looks straight down, can be swivelled. |
 
@@ -236,8 +236,8 @@ Jedes Item gibt es pro Fraktion: **US, USSR, FIA, CIV**. Die Fraktionsvariante l
 | Prefab | Funktion |
 |--------|----------|
 | `SCX_CCTV_<F>` | Feste Überwachungskamera für Missionsbauer (über Zeus / World-Editor platzieren). Meldet sich selbst an; vom Tablet aus schwenkbar (±90° links/rechts, −60°…+20° hoch/runter). |
-| `SCX_Cam_Helm_<F>` | Helmkamera (HeadCam). Fester Blick vom Kopf des Trägers. |
-| `Ponos_<F>` (Override des Vanilla-PONOS-Zubehörs) | Macht das Vanilla-PONOS zur festen Kopfkamera („HCS"). |
+| `SCX_Cam_Helm_<F>` | Helmkamera (HeadCam), Blick vom Kopf des Trägers. Je nach Item fest oder vom Tablet aus schwenkbar (`m_bCanCamRotate`). |
+| `Ponos_<F>` (Override des Vanilla-PONOS-Zubehörs) | Macht das Vanilla-PONOS zur Kopfkamera („HCS"), je nach Variante fest oder schwenkbar. |
 | `SCX_Cam_40mm_UGL_<F>` (M320) / `SCX_Cam-40mm_UGL_GP_<F>` (GP-25) | **SkyEye ARC-40**: 40-mm-Kameragranate für den Unterlaufgranatwerfer. Setzt nach dem Abschuss die Fallschirmkamera aus. |
 | `SCX_Cam_Parachute_<F>` | Die Kamera am Fallschirm (wird von der ARC-40 erzeugt, nicht direkt nutzen). Blickt senkrecht nach unten, schwenkbar. |
 
