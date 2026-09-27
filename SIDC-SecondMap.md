@@ -41,7 +41,7 @@ The input context is only activated while at least one extra view is registered 
 | Entity | Attributes | Purpose |
 |--------|------------|---------|
 | `SIDC_SecondMapNativeViewClass` | `m_sLayout` (layout with a `MapWidget`), `m_sMapConfig` (`SCR_MapConfig`, used only if the vanilla map was never opened yet), `m_fInitialZoomPPU` | Vanilla-look view, one native renderer for the whole engine |
-| `SIDC_SecondMapViewClass` | `m_sImageOverride` (fallback satellite image), `m_sLayout` (layout with `MapImage`/`Overlay` widgets), `m_fInitialZoom`, `m_sMapConfig` (`SCR_MapConfig`, e.g. `MapFullscreen.conf`) | Independent custom-rendered view, any number placeable |
+| `SIDC_SecondMapViewClass` | `m_sImageOverride` (fallback satellite image), `m_sLayout` (layout with `MapImage`/`Overlay` widgets), `m_fInitialZoom`, `m_sMapConfig` (`SCR_MapConfig`, e.g. `MapFullscreen.conf`), `m_iForceTreeIndividualVisibility` (default `100`; forces individual tree dots on regardless of what the map config says, `-1` = use the config value unchanged) | Independent custom-rendered view, any number placeable |
 
 `m_sDisplayName` (on the shared base `SIDC_SecondMap_ViewBase`) is the name shown in focus-change log lines.
 
@@ -57,7 +57,7 @@ SIDC_SecondMap_ViewBase (GenericEntity)          — shared registration + displ
 ├── SIDC_SecondMapNativeView                     — drives the native SCR_MapEntity renderer directly
 └── SIDC_SecondMapView                           — independent widget-based renderer
       ├── SIDC_SecondMap_TopoData  (static, per-world)  — parses the map's .topo file (roads w/ type, building footprints, tree point cloud)
-      ├── SIDC_SecondMap_WorldScan (static, per-world)  — fallback source: scans Building/PowerlineEntity from the live world (used when .topo data is missing)
+      ├── SIDC_SecondMap_WorldScan (static, per-world)  — fallback source: scans Building/PowerlineEntity from the live world (used when .topo data is missing). For power lines it only gets each PowerlineEntity's own position (no real pole-connection data exists), then reconstructs the line network by greedily matching the globally shortest pole-to-pole pairs first, capped at 2 connections per pole (junction poles with 3 real connections lose one edge - visually cheaper than a wrong "return" line)
       ├── SIDC_SecondMap_Contours  (static, per-world)  — computes contour lines from terrain height via marching squares, tiled + spread over frames
       └── SIDC_SecondMap_MapStyle  (per-view instance)  — reads a vanilla SCR_MapConfig (layer zoom bounds, road/building/tree/grid styling, descriptor visibility) so the custom renderer matches the normal map's look
 ```
@@ -89,6 +89,8 @@ SIDC_SecondMap_ViewBase (GenericEntity)          — shared registration + displ
 - Landmark icons only cover a curated allow-list of descriptor types (`IsLandmarkType`) — trees, bushes, individual rocks, fences etc. are intentionally excluded (they would blanket forested terrain).
 - If a map's satellite background image can't be read automatically from the map entity's prefab data, `m_sImageOverride` must be set manually (a warning is logged when this happens).
 - Only one `SIDC_SecondMapNativeView` makes sense per level (it drives the one global native renderer); any number of `SIDC_SecondMapView` instances can coexist.
+- Power lines are drawn as an approximation, not real topology: the engine only exposes each `PowerlineEntity`'s own placement, not which poles it actually connects. A pole with 3 real connections (a junction) will visibly lose one line, since every pole is capped at 2.
+- Individual tree dots are forced on via `m_iForceTreeIndividualVisibility` (default `100`) because the vanilla `MapFullscreen.conf` has that particular sub-layer set to 0 (off) - vanilla only shows forest as a filled area, never as individual points.
 
 ## 7. Test setup in this repo
 
@@ -139,7 +141,7 @@ Der Input-Context wird nur aktiviert, solange mindestens eine Zusatz-Ansicht in 
 | Entität | Attribute | Zweck |
 |---------|-----------|-------|
 | `SIDC_SecondMapNativeViewClass` | `m_sLayout` (Layout mit `MapWidget`), `m_sMapConfig` (`SCR_MapConfig`, nur genutzt falls die Vanilla-Karte noch nie offen war), `m_fInitialZoomPPU` | Ansicht im Vanilla-Look, ein nativer Renderer für die ganze Engine |
-| `SIDC_SecondMapViewClass` | `m_sImageOverride` (Ersatz-Satellitenbild), `m_sLayout` (Layout mit `MapImage`/`Overlay`-Widgets), `m_fInitialZoom`, `m_sMapConfig` (`SCR_MapConfig`, z.B. `MapFullscreen.conf`) | Eigenständige, selbst gerenderte Ansicht, beliebig oft platzierbar |
+| `SIDC_SecondMapViewClass` | `m_sImageOverride` (Ersatz-Satellitenbild), `m_sLayout` (Layout mit `MapImage`/`Overlay`-Widgets), `m_fInitialZoom`, `m_sMapConfig` (`SCR_MapConfig`, z.B. `MapFullscreen.conf`), `m_iForceTreeIndividualVisibility` (Default `100`; erzwingt einzelne Baum-Punkte unabhängig vom Wert der Map-Config, `-1` = Config-Wert unverändert übernehmen) | Eigenständige, selbst gerenderte Ansicht, beliebig oft platzierbar |
 
 `m_sDisplayName` (auf der gemeinsamen Basis `SIDC_SecondMap_ViewBase`) ist der Name, der in den Fokus-Wechsel-Log-Zeilen erscheint.
 
@@ -155,7 +157,7 @@ SIDC_SecondMap_ViewBase (GenericEntity)          — gemeinsame Registrierung + 
 ├── SIDC_SecondMapNativeView                     — steuert den nativen SCR_MapEntity-Renderer direkt an
 └── SIDC_SecondMapView                           — eigenständiger, widget-basierter Renderer
       ├── SIDC_SecondMap_TopoData  (statisch, pro Welt)  — parst die .topo-Datei der Karte (Straßen mit Typ, Gebäude-Grundrisse, Baum-Punktwolke)
-      ├── SIDC_SecondMap_WorldScan (statisch, pro Welt)  — Ersatzquelle: scannt Building/PowerlineEntity aus der laufenden Welt (falls .topo-Daten fehlen)
+      ├── SIDC_SecondMap_WorldScan (statisch, pro Welt)  — Ersatzquelle: scannt Building/PowerlineEntity aus der laufenden Welt (falls .topo-Daten fehlen). Fuer Stromleitungen gibt es nur die eigene Position jeder PowerlineEntity (keine echte Anschluss-Topologie) - das Leitungsnetz wird per gierigem globalem Matching rekonstruiert (kuerzeste Mast-Paare zuerst, hoechstens 2 Verbindungen pro Mast; Kreuzungsmaste mit 3 echten Verbindungen verlieren dadurch eine Linie - optisch guenstiger als eine falsche "Rueckweg"-Linie)
       ├── SIDC_SecondMap_Contours  (statisch, pro Welt)  — berechnet Höhenlinien aus der Geländehöhe per Marching Squares, gekachelt und über mehrere Frames verteilt
       └── SIDC_SecondMap_MapStyle  (pro Ansichts-Instanz) — liest eine Vanilla-SCR_MapConfig (Layer-Zoomgrenzen, Straßen-/Gebäude-/Baum-/Raster-Stil, Descriptor-Sichtbarkeit), damit der eigene Renderer wie die normale Karte aussieht
 ```
@@ -187,6 +189,8 @@ SIDC_SecondMap_ViewBase (GenericEntity)          — gemeinsame Registrierung + 
 - Landmarken-Symbole decken nur eine kuratierte Positivliste von Descriptor-Typen ab (`IsLandmarkType`) — Bäume, Büsche, einzelne Felsen, Zäune usw. sind bewusst ausgenommen (die würden bewaldetes Gelände komplett zudecken).
 - Kann das Satellitenbild einer Karte nicht automatisch aus den Prefab-Daten der Map-Entity gelesen werden, muss `m_sImageOverride` manuell gesetzt werden (dabei wird eine Warnung geloggt).
 - Nur eine `SIDC_SecondMapNativeView` pro Level ist sinnvoll (sie steuert den einen globalen nativen Renderer); beliebig viele `SIDC_SecondMapView`-Instanzen können koexistieren.
+- Stromleitungen sind eine Näherung, keine echte Topologie: die Engine liefert nur die Position jeder `PowerlineEntity`, nicht welche Maste sie tatsächlich verbindet. Ein Mast mit 3 echten Verbindungen (Kreuzung) verliert dadurch sichtbar eine Linie, da jeder Mast auf 2 begrenzt ist.
+- Einzelne Baum-Punkte werden über `m_iForceTreeIndividualVisibility` (Default `100`) erzwungen, weil die Vanilla-`MapFullscreen.conf` diesen Sub-Layer auf 0 (aus) stehen hat - Vanilla zeigt Wald nur als gefüllte Fläche, nie als Einzelpunkte.
 
 ## 7. Test-Setup in diesem Repo
 
