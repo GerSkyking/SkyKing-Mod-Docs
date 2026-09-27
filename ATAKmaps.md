@@ -26,6 +26,8 @@ ATAKmaps is **not a Reforger mod** — it is an external **web map** (local web 
 
 ## 3. Using the pre‑built Windows client
 
+Download: [SIDC - Local - C2 Client](https://github.com/GerSkyking/SIDC---Local---C2-Client/releases/latest) on GitHub (no Python required, just unzip).
+
 Folder `D:\Mods\ATAKmapsClient\Win`:
 
 | Step | Launcher | Purpose |
@@ -149,6 +151,8 @@ ATAKmaps ist **kein Reforger-Mod** — es ist eine externe **Web-Karte** (lokale
 - Mindestens ein Kartenpaket importiert.
 
 ## 3. Vorgebauter Windows-Client
+
+Download: [SIDC - Local - C2 Client](https://github.com/GerSkyking/SIDC---Local---C2-Client/releases/latest) auf GitHub (kein Python nötig, nur entpacken).
 
 Ordner `D:\Mods\ATAKmapsClient\Win`:
 
