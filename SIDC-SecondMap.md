@@ -91,6 +91,7 @@ SIDC_SecondMap_ViewBase (GenericEntity)          — shared registration + displ
 - Only one `SIDC_SecondMapNativeView` makes sense per level (it drives the one global native renderer); any number of `SIDC_SecondMapView` instances can coexist.
 - Power lines are drawn as an approximation, not real topology: the engine only exposes each `PowerlineEntity`'s own placement, not which poles it actually connects. A pole with 3 real connections (a junction) will visibly lose one line, since every pole is capped at 2.
 - Individual tree dots are forced on via `m_iForceTreeIndividualVisibility` (default `100`) because the vanilla `MapFullscreen.conf` has that particular sub-layer set to 0 (off) - vanilla only shows forest as a filled area, never as individual points.
+- `SIDC_SecondMapView` now also shows: a grid on/off + a scale-bar legend (both read from `SCR_MapConfig.m_bEnableGrid`/`m_bEnableLegendScale`), and every map marker read-only from `SCR_MapMarkerManagerComponent`. Static markers reuse the real marker layout + `SCR_MapMarkerWidgetComponent.InitClientSettings` (same code the vanilla map uses), so they look identical and work with any mod's custom marker types; only the on-screen position is computed by this view itself. Placing/editing markers, drawing, ruler, watch and the tools menu are intentionally not implemented here.
 
 ## 7. Test setup in this repo
 
@@ -191,6 +192,7 @@ SIDC_SecondMap_ViewBase (GenericEntity)          — gemeinsame Registrierung + 
 - Nur eine `SIDC_SecondMapNativeView` pro Level ist sinnvoll (sie steuert den einen globalen nativen Renderer); beliebig viele `SIDC_SecondMapView`-Instanzen können koexistieren.
 - Stromleitungen sind eine Näherung, keine echte Topologie: die Engine liefert nur die Position jeder `PowerlineEntity`, nicht welche Maste sie tatsächlich verbindet. Ein Mast mit 3 echten Verbindungen (Kreuzung) verliert dadurch sichtbar eine Linie, da jeder Mast auf 2 begrenzt ist.
 - Einzelne Baum-Punkte werden über `m_iForceTreeIndividualVisibility` (Default `100`) erzwungen, weil die Vanilla-`MapFullscreen.conf` diesen Sub-Layer auf 0 (aus) stehen hat - Vanilla zeigt Wald nur als gefüllte Fläche, nie als Einzelpunkte.
+- `SIDC_SecondMapView` zeigt jetzt zusätzlich: Gitter an/aus + eine Maßstabs-Legende (beides aus `SCR_MapConfig.m_bEnableGrid`/`m_bEnableLegendScale`), sowie alle Kartenmarker rein lesend aus `SCR_MapMarkerManagerComponent`. Statische Marker nutzen dafür das echte Marker-Layout + `SCR_MapMarkerWidgetComponent.InitClientSettings` (dieselbe Logik wie die Vanilla-Karte), sehen also identisch aus und funktionieren mit jedem modeigenen Marker-Typ - nur die Bildschirmposition berechnet diese Ansicht selbst. Marker setzen/bearbeiten, Zeichnen, Lineal, Uhr und das Werkzeug-Menü sind bewusst nicht Teil dieser Ansicht.
 
 ## 7. Test-Setup in diesem Repo
 
