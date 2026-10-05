@@ -32,7 +32,7 @@
 | **`$profile:`** | Path prefix for the player (or dedicated‑server) profile directory. |
 | **`GetInstance()`** | The singleton access pattern used throughout all three mods. |
 | **`Settings.json`** | SIDC: the admin‑editable server settings file in `$profile:SIDC_Framework/ServerSettings/`. |
-| **`SMX_ConfigV2.Json`** | SMX: the server‑loaded, client‑replicated config file. |
+| **`SMX_ConfigV3.Json`** | SMX: the server‑loaded, client‑replicated config file. |
 | **QWERTZ note** | `KC_*` key constants are US‑QWERTY scancode positions; on a German keyboard Y/Z are physically swapped. |
 
 ## Config files
@@ -41,7 +41,7 @@ Every `.conf`/`.json`/`.bin`/`.txt` file the SkyKing mods read or write, and wha
 
 | File | Mod | Edited by | Purpose |
 |------|-----|-----------|---------|
-| `$profile:SMX_ConfigV2.Json` | SMX | Server admin | Server‑wide feature‑flag toggles (Mini/Big/paper‑map allow, BFT display, lock/force Device ID & info) — see [Server & Admin Guide](Server-Admin-Guide). |
+| `$profile:SMX_ConfigV3.Json` | SMX | Server admin | Server‑wide feature‑flag toggles (Mini/Big/paper‑map allow, BFT display, lock/force Device ID & info) — see [Server & Admin Guide](Server-Admin-Guide). |
 | `$profile:SMX_settings_{playerID}.bin` | SMX | Player (in‑game) | Per‑player tablet + HUD settings — see [Client Settings Guide](Client-Settings-Guide). |
 | `Configs/Faction Config/SMX_Faction_*.conf` (`SMX_FactionConfig`) | SMX | Mod dev (rebuild) | Per‑item: which real game factions (`SCR_FactionManager` keys) count as that item's own faction for the SMX faction channel. |
 | `Configs/SMX/SMX_Color_ATAK.conf` / `SMX_Color_MOUNT.conf` (`SMX_ColorTextureConfig`) | SMX | Mod dev (rebuild) | Selectable tablet / K23‑mount skin colors offered in the client "Tablet color" / "K23 mount color" setting. |
@@ -92,7 +92,7 @@ Every `.conf`/`.json`/`.bin`/`.txt` file the SkyKing mods read or write, and wha
 | **`$profile:`** | Pfad-Präfix für das Spieler- (oder Dedicated-Server-) Profilverzeichnis. |
 | **`GetInstance()`** | Das Singleton-Zugriffsmuster in allen drei Mods. |
 | **`Settings.json`** | SIDC: die admin-editierbare Server-Settings-Datei in `$profile:SIDC_Framework/ServerSettings/`. |
-| **`SMX_ConfigV2.Json`** | SMX: die server-geladene, an Clients replizierte Config-Datei. |
+| **`SMX_ConfigV3.Json`** | SMX: die server-geladene, an Clients replizierte Config-Datei. |
 | **QWERTZ-Hinweis** | `KC_*`-Tastenkonstanten sind US-QWERTY-Scancode-Positionen; auf einer deutschen Tastatur sind Y/Z physisch vertauscht. |
 
 ## Konfigurationsdateien
@@ -101,7 +101,7 @@ Jede `.conf`-/`.json`-/`.bin`-/`.txt`-Datei, die die SkyKing-Mods lesen oder sch
 
 | Datei | Mod | Bearbeitet von | Zweck |
 |-------|-----|-----------------|-------|
-| `$profile:SMX_ConfigV2.Json` | SMX | Server-Admin | Serverweite Feature-Flags (Mini/Big/Papierkarte erlauben, BFT-Anzeige, Geräte-ID/-Info sperren/erzwingen) — siehe [Server- & Admin-Handbuch](Server-Admin-Guide). |
+| `$profile:SMX_ConfigV3.Json` | SMX | Server-Admin | Serverweite Feature-Flags (Mini/Big/Papierkarte erlauben, BFT-Anzeige, Geräte-ID/-Info sperren/erzwingen) — siehe [Server- & Admin-Handbuch](Server-Admin-Guide). |
 | `$profile:SMX_settings_{playerID}.bin` | SMX | Spieler (im Spiel) | Pro-Spieler-Tablet- und HUD-Settings — siehe [Client-Einstellungen](Client-Settings-Guide). |
 | `Configs/Faction Config/SMX_Faction_*.conf` (`SMX_FactionConfig`) | SMX | Mod-Dev (Rebuild) | Pro Item: welche echten Spiel-Fraktionen (`SCR_FactionManager`-Keys) als eigene Fraktion für den SMX-Fraktionskanal dieses Items zählen. |
 | `Configs/SMX/SMX_Color_ATAK.conf` / `SMX_Color_MOUNT.conf` (`SMX_ColorTextureConfig`) | SMX | Mod-Dev (Rebuild) | Auswählbare Tablet-/K23-Halterungs-Skinfarben in der Client-Einstellung „Tablet-Farbe"/„K23-Halterungs-Farbe". |

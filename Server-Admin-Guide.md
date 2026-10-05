@@ -6,9 +6,9 @@ How to run and configure the SkyKing mods on a dedicated server.
 
 ### Config file
 
-`$profile:SMX_ConfigV2.Json` — **loaded only by the server**, then replicated to every client (`SMX_ConfigData`). Players cannot change these. If the file does not exist it is created from the mod defaults on first start. The `V2` in the filename is a schema version — it is bumped on breaking format changes.
+`$profile:SMX_ConfigV3.Json` — **loaded only by the server**, then replicated to every client (`SMX_ConfigData`). Players cannot change these. If the file does not exist it is created from the mod defaults on first start. The `V3` in the filename is a schema version — it is bumped on breaking format changes. The config is read **once at server start**: after editing the file, restart the server.
 
-**Migration from V1:** if no `SMX_ConfigV2.Json` exists but an old `SMX_ConfigV1.Json` does, the server takes over all V1 values, fills the new keys with their defaults and writes `SMX_ConfigV2.Json`. The V1 file is left in place but no longer read — edit only the V2 file from then on.
+**Migration (V2 / V1 → V3):** if no `SMX_ConfigV3.Json` exists, the server looks for `SMX_ConfigV2.Json` and then for `SMX_ConfigV1.Json`, takes over all values it finds, fills the new keys with their defaults (V3 added `bftShowMarkersOnMap`) and writes `SMX_ConfigV3.Json`. The old files are left in place but no longer read — edit only the V3 file from then on.
 
 | Key | Default | Effect |
 |-----|---------|--------|
@@ -25,10 +25,20 @@ How to run and configure the SkyKing mods on a dedicated server.
 | `bftShowDeviceInfo` | `false` | BFT marker shows the device info |
 | `bftShowPlayerName` | `false` | BFT marker shows the real player name |
 | `bftShowAllSquadLeaderMarkers` | `false` | Keep the vanilla squad‑leader map markers visible on the SMX map too, instead of suppressing them when a matching SMX tracker marker exists |
+| `bftShowMarkersOnMap` | `true` | Show SMX BFT tracker markers on the normal map (paper map `M` / full‑screen map). `false` hides them there; the SMX map on the tablet is unaffected |
 | `lockDeviceID` | `false` | Players cannot change their Device ID (field greyed out in the tablet's Settings mode) |
 | `lockDeviceInfo` | `false` | Players cannot change their Device info (field greyed out in the tablet's Settings mode) |
 | `autoReinitDeviceInfo` | `false` | Server forces the default Device info: the player name |
 | `autoReinitDeviceID` | `false` | Server forces the default Device ID: the group name, or the player name if the player has no group |
+
+### What the BFT settings do
+
+BFT (Blue Force Tracking) shows tracker devices (tablets, UTD, SMT) as markers on the map. Who sees which marker is decided by the **server** (faction / sub-channel match and an active tablet); the keys below only control *how* markers are displayed.
+
+- **Marker name** (`bftShowDeviceID`, `bftShowDeviceInfo`, `bftShowPlayerName`): decide what the label of a BFT marker is built from. They can be combined; with all three off the marker has no name. The name is supplied by the owner's tablet (the server remembers the last name pushed by the client), so it is cosmetic and not validated.
+- **`bftShowMarkersOnMap`** (`true` = default): master switch for BFT tracker markers on the **normal map** (paper map `M` / full-screen map). `false` hides all SMX tracker markers there. The SMX map on the tablet (Hand / Mini / Big) is not affected, and vanilla squad-leader markers stay visible on the normal map either way.
+- **`bftShowAllSquadLeaderMarkers`** (`false` = default): controls the vanilla squad-leader markers for players who have an active tablet. With `false`, a squad-leader marker is hidden as soon as someone in that group already has an SMX tracker marker, so the leader is not shown twice (on the SMX map by widget culling, and the server also stops streaming the marker to that player). With `true`, the vanilla squad-leader markers stay visible in addition to the SMX markers.
+
 
 **Lock vs. AutoReinit:**
 - **Lock** only stops editing — whatever name the player already has stays.
@@ -120,9 +130,9 @@ Wie die SkyKing-Mods auf einem dedizierten Server betrieben und konfiguriert wer
 
 ### Config-Datei
 
-`$profile:SMX_ConfigV2.Json` — wird **nur vom Server geladen** und dann an jeden Client repliziert (`SMX_ConfigData`). Spieler können das nicht ändern. Existiert die Datei nicht, wird sie beim ersten Start aus den Mod-Defaults erzeugt. Das `V2` im Dateinamen ist eine Schema-Version — sie wird bei breaking Format-Änderungen hochgezählt.
+`$profile:SMX_ConfigV3.Json` — wird **nur vom Server geladen** und dann an jeden Client repliziert (`SMX_ConfigData`). Spieler können das nicht ändern. Existiert die Datei nicht, wird sie beim ersten Start aus den Mod-Defaults erzeugt. Das `V3` im Dateinamen ist eine Schema-Version — sie wird bei breaking Format-Änderungen hochgezählt. Die Config wird **einmalig beim Serverstart** gelesen: nach dem Bearbeiten der Datei den Server neu starten.
 
-**Migration von V1:** Gibt es noch keine `SMX_ConfigV2.Json`, aber eine alte `SMX_ConfigV1.Json`, übernimmt der Server alle V1-Werte, füllt die neuen Schlüssel mit ihren Defaults und schreibt `SMX_ConfigV2.Json`. Die V1-Datei bleibt liegen, wird aber nicht mehr gelesen — ab dann nur noch die V2-Datei bearbeiten.
+**Migration (V2 / V1 → V3):** Gibt es keine `SMX_ConfigV3.Json`, sucht der Server zuerst `SMX_ConfigV2.Json`, dann `SMX_ConfigV1.Json`, übernimmt alle gefundenen Werte, füllt die neuen Schlüssel mit ihren Defaults (V3 brachte `bftShowMarkersOnMap`) und schreibt `SMX_ConfigV3.Json`. Die alten Dateien bleiben liegen, werden aber nicht mehr gelesen — ab dann nur noch die V3-Datei bearbeiten.
 
 | Schlüssel | Standard | Wirkung |
 |-----------|----------|---------|
@@ -139,10 +149,20 @@ Wie die SkyKing-Mods auf einem dedizierten Server betrieben und konfiguriert wer
 | `bftShowDeviceInfo` | `false` | BFT-Marker zeigt die Geräte-Info |
 | `bftShowPlayerName` | `false` | BFT-Marker zeigt den echten Spielernamen |
 | `bftShowAllSquadLeaderMarkers` | `false` | Vanilla-Squad-Leader-Marker bleiben zusätzlich auf der SMX-Karte sichtbar, statt unterdrückt zu werden wenn ein passender SMX-Tracker-Marker existiert |
+| `bftShowMarkersOnMap` | `true` | SMX-BFT-Tracker-Marker auf der normalen Karte (Papierkarte `M` / Vollbildkarte) anzeigen. `false` blendet sie dort aus; die SMX-Karte am Tablet ist nicht betroffen |
 | `lockDeviceID` | `false` | Spieler können ihre Geräte-ID nicht ändern (Feld im Settings-Modus des Tabletts ausgegraut) |
 | `lockDeviceInfo` | `false` | Spieler können ihre Geräte-Info nicht ändern (Feld im Settings-Modus des Tabletts ausgegraut) |
 | `autoReinitDeviceInfo` | `false` | Server erzwingt die Standard-Geräte-Info: den Spielernamen |
 | `autoReinitDeviceID` | `false` | Server erzwingt die Standard-Geräte-ID: den Gruppennamen, ohne Gruppe den Spielernamen |
+
+### Was die BFT-Einstellungen bewirken
+
+BFT (Blue Force Tracking) zeigt Tracker-Geräte (Tablets, UTD, SMT) als Marker auf der Karte. Wer welchen Marker sieht, entscheidet der **Server** (Fraktion / Subkanal passt und ein aktives Tablet); die folgenden Schlüssel steuern nur, *wie* Marker dargestellt werden.
+
+- **Marker-Name** (`bftShowDeviceID`, `bftShowDeviceInfo`, `bftShowPlayerName`): bestimmen, woraus die Beschriftung eines BFT-Markers zusammengesetzt wird. Sie sind kombinierbar; sind alle drei aus, hat der Marker keinen Namen. Der Name kommt vom Tablet des Besitzers (der Server merkt sich den zuletzt vom Client gesendeten Namen), ist also kosmetisch und nicht validiert.
+- **`bftShowMarkersOnMap`** (`true` = Standard): Hauptschalter für BFT-Tracker-Marker auf der **normalen Karte** (Papierkarte `M` / Vollbildkarte). `false` blendet dort alle SMX-Tracker-Marker aus. Die SMX-Karte am Tablet (Hand / Mini / Big) ist nicht betroffen.
+- **`bftShowAllSquadLeaderMarkers`** (`false` = Standard): steuert die vanilla Squad-Leader-Marker für Spieler mit aktivem Tablet. Bei `false` wird ein Squad-Leader-Marker ausgeblendet, sobald jemand aus dieser Gruppe schon einen SMX-Tracker-Marker hat — der Leader wird so nicht doppelt gezeigt (auf der SMX-Karte per Widget-Culling, zusätzlich streamt der Server den Marker nicht mehr an diesen Spieler). Bei `true` bleiben die vanilla Squad-Leader-Marker zusätzlich zu den SMX-Markern sichtbar.
+
 
 **Lock vs. AutoReinit:**
 - **Lock** sperrt nur das Bearbeiten — der Name, den der Spieler schon hat, bleibt.

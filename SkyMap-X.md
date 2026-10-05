@@ -131,7 +131,7 @@ There are **two** places to configure SkyMap-X — both per‑player, both saved
 
 ## 5. Server settings
 
-Managed server‑side (`$profile:SMX_ConfigV2.Json`, loaded only by the server and replicated to all clients; an old `SMX_ConfigV1.Json` is migrated automatically). See [Server & Admin Guide](Server-Admin-Guide).
+Managed server‑side (`$profile:SMX_ConfigV3.Json`, loaded only by the server once at start and replicated to all clients; an old `SMX_ConfigV2.Json` / `SMX_ConfigV1.Json` is migrated automatically). See [Server & Admin Guide](Server-Admin-Guide).
 
 | Flag | Effect |
 |------|--------|
@@ -142,7 +142,8 @@ Managed server‑side (`$profile:SMX_ConfigV2.Json`, loaded only by the server a
 | BFT: show Device ID | Whether the BFT marker shows the device ID (default: on). |
 | BFT: show Device info | Whether the BFT marker shows the device info (default: off). |
 | BFT: show player name | Whether the BFT marker shows the real player name (default: off). |
-| `m_bBFT_ShowAllSquadLeaderMarkers` | Show all squad‑leader markers on the SMX minimap instead of suppressing them. |
+| `bftShowAllSquadLeaderMarkers` | Keep vanilla squad‑leader markers visible for tablet users instead of hiding them when the group already has an SMX tracker marker (default: off). |
+| `bftShowMarkersOnMap` | Show SMX BFT tracker markers on the normal map (paper map / full‑screen map). `false` hides them there; the tablet's SMX map is unaffected (default: on). |
 | Lock Device ID / info | Players cannot edit the Device ID / info (default: off). |
 | AutoReinit Device ID / info | Server forces the default name: ID = group name (or player name), info = player name (default: off). Combine with Lock for a fixed name. |
 
@@ -292,7 +293,7 @@ Es gibt **zwei** Stellen zum Konfigurieren von SkyMap-X — beide pro Spieler, b
 
 ## 5. Server-Einstellungen
 
-Serverseitig verwaltet (`$profile:SMX_ConfigV2.Json`, nur vom Server geladen und an alle Clients repliziert; eine alte `SMX_ConfigV1.Json` wird automatisch übernommen). Siehe [Server- & Admin-Handbuch](Server-Admin-Guide).
+Serverseitig verwaltet (`$profile:SMX_ConfigV3.Json`, nur vom Server einmalig beim Start geladen und an alle Clients repliziert; eine alte `SMX_ConfigV2.Json` / `SMX_ConfigV1.Json` wird automatisch übernommen). Siehe [Server- & Admin-Handbuch](Server-Admin-Guide).
 
 | Flag | Wirkung |
 |------|---------|
@@ -303,7 +304,8 @@ Serverseitig verwaltet (`$profile:SMX_ConfigV2.Json`, nur vom Server geladen und
 | BFT: Geräte-ID anzeigen | Ob der BFT-Marker die Geräte-ID zeigt (Standard: an). |
 | BFT: Geräte-Info anzeigen | Ob der BFT-Marker die Geräte-Info zeigt (Standard: aus). |
 | BFT: Spielername anzeigen | Ob der BFT-Marker den echten Spielernamen zeigt (Standard: aus). |
-| `m_bBFT_ShowAllSquadLeaderMarkers` | Alle Squad-Leader-Marker auf der SMX-Minimap zeigen statt unterdrücken. |
+| `bftShowAllSquadLeaderMarkers` | Vanilla Squad-Leader-Marker für Tablet-Nutzer sichtbar lassen, statt sie auszublenden, wenn die Gruppe schon einen SMX-Tracker-Marker hat (Standard: aus). |
+| `bftShowMarkersOnMap` | SMX-BFT-Tracker-Marker auf der normalen Karte (Papier-/Vollbildkarte) anzeigen. `false` blendet sie dort aus; die SMX-Karte am Tablet bleibt unberührt (Standard: an). |
 | Geräte-ID / -Info sperren | Spieler können Geräte-ID / -Info nicht bearbeiten (Standard: aus). |
 | AutoReinit Geräte-ID / -Info | Server erzwingt den Standardnamen: ID = Gruppenname (bzw. Spielername), Info = Spielername (Standard: aus). Mit Sperren kombinieren für einen festen Namen. |
 
