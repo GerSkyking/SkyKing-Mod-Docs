@@ -86,6 +86,8 @@ flowchart TD
 
 There are **fixed** and **swivelling** helmet cameras (set per item). A fixed one always shows where the wearer is looking; a swivelling one can also be turned from the tablet.
 
+Cameras can also offer **Fnc1** (target tracking) and **Fnc2** (night vision); the buttons only show if the selected camera has the function. Details: [Camera functions](SMX-Camera-Functions).
+
 ## 5. Use the ARC‑40 camera grenade
 
 ```mermaid
@@ -189,6 +191,8 @@ flowchart TD
 ```
 
 Es gibt **feste** und **schwenkbare** Helmkameras (pro Item eingestellt). Eine feste zeigt immer, wohin der Träger schaut; eine schwenkbare lässt sich zusätzlich vom Tablet aus drehen.
+
+Kameras können außerdem **Fnc1** (Ziel-Tracking) und **Fnc2** (Nachtsicht) bieten; die Buttons erscheinen nur, wenn die gewählte Kamera die Funktion hat. Details: [Kamera-Funktionen](SMX-Camera-Functions).
 
 ## 5. ARC-40-Kameragranate benutzen
 

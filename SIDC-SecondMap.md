@@ -139,7 +139,7 @@ Several players can look at the same view: some **control** it (pan/zoom), other
 | `btn_back`, `btn_close`, `Esc` | Close the menu |
 
 **Sync rules**
-- Transferred: view centre (world x/z) + **visible width in metres** (not pixels per metre), so different resolutions show the same section.
+- Transferred: view centre (world x/z) + **visible width in metres** (not pixels per metre), so different resolutions show the same section, plus the host device's **brightness** (see §10).
 - Only while `isLiveView`, only on change, about 10 times per second. Controller → server → all other participants.
 - Simultaneous panning: the server locks a session for 400 ms for the controller who is currently changing it and drops other controllers' states meanwhile (the blocked controller is overwritten by the lock holder's state).
 - A receiving client never sends the received state back (no echo). A new co-controller receives the others' current state instead of sending its own.
@@ -148,6 +148,54 @@ Several players can look at the same view: some **control** it (pan/zoom), other
 **Manual steps in the Workbench:** add the component to the GameMode; create the button `btn_checkViewAsController` in `SIDC_SecondMap_DebugSwitchView.layout`; add the strings `SIDC-UI-btn_back`, `SIDC-UI-btn_close`, `SIDC-UI-btn_checkViewAsController` to the string table.
 
 **Files:** `SIDC_SecondMap_ReplicationManager.c` (GameMode component + modded `SCR_PlayerController` for all client→server RPCs), `SIDC_SecondMap_ViewManager.c` (local sync tick, join/watch API), `SIDC_SecondMap_ViewBase.c` (session ID, role, sync state), `SIDC_SecondMap_DebugSwitchViewMenu.c` (debug menu).
+
+## 10. World displays: tablet watching and monitors
+
+> Status: implemented, tested in multiplayer with two clients. Component **`SIDC_SecondMap_MonitorComponent`** (`SIDC_SecondMap_Monitor.c`) shows the SecondMap on any entity whose material uses `$rendertarget`.
+
+Two modes (attribute `m_bFollowHolder`):
+
+| Mode | Where | Behaviour |
+|------|-------|-----------|
+| Tablet watching (`m_bFollowHolder = 1`) | On the SkyMap-X tablet prefab (`SMX_Tablet_Base.et`) | The screen of a tablet carried by **another** player shows that player's map, as long as you are in range, in the same faction and the carrier has an active map. The carrier's own tablet is untouched. Purely local, nothing is replicated by the component. |
+| Monitor (`m_bFollowHolder = 0`) | World prop, e.g. `OBS_TV_01.et` | A player with a tablet couples/uncouples the monitor with the interaction `SIDC_SecondMap_MonitorCoupleAction`. The server stores the session ID (replicated), every client in range renders it locally. No faction limit. |
+
+Further attributes: `m_iPriority` (1-5; if more displays than allowed are in range, the highest priority wins, ties go to the nearer one - e.g. big presentation monitor 5, tablet 1), `m_iRenderWidth`/`m_iRenderHeight` (render target size at 100 % quality, match the aspect ratio of the screen), `m_sLayout`, `m_sViewPrefab`.
+
+**Client settings** (framework settings menu, stored locally in `$profile:SIDC_Framework/Player/Settings/secondmap.json`, never replicated):
+
+| Setting | Default | Meaning |
+|---------|---------|---------|
+| Auto mode | on | Only displays with priority 1-3 follow the auto mode; higher priorities (presentation monitors) always run |
+| Max displays | 5 (1-25) | Highest number of displays rendered at once |
+| Range | 10 m (5/10/15/20/25) | Displays further away are not rendered |
+| Render quality | 75 % (5-100) | Scales the render target size |
+| Update rate | 15 Hz (5-60) | Below 60 Hz the render target is only made visible for one frame per update |
+| Only in view | on | Displays behind you are not rendered |
+| Show markers | on | Draw map markers on the displays |
+
+### Brightness follows the tablet
+
+The brightness you set on the SkyMap-X tablet (keybinds, settings slider) is synced to every display that shows your map, so the screen does not glow at night.
+
+Data path:
+
+1. `SMX_MainComponentX.SetBrightnessAndOpacity` converts the overlay opacity of the tablet into a brightness (`1 - opacity`, 1 = full) and calls `SMX_MapProvider.SetBrightness` (also after every successful `Open()`).
+2. The bridge (`SMX_SecondMapProvider.SetBrightness`) hands it to all its views via `SIDC_SecondMap_ViewBase.SetSyncBrightness`.
+3. It travels with the existing view state sync as a **fourth value** next to centre x/z and visible width (`GetSyncState` / `ApplySyncState`, `RpcAsk_SIDC_ViewState` / `RpcDo_ViewState`). It is only resent when it changes by more than 0.005.
+4. `SIDC_SecondMap_MonitorComponent.ApplyBrightness` sets the opacity on the render target layout: `Content.SetOpacity(brightness)` and `Dim0.SetOpacity(1 - brightness)`.
+
+Layout requirements (`SIDC_SecondMap_MonitorRT.layout`, inside `RTTexture0`): a frame **`Content`** (the map is created inside it) and above it (higher Z order) a black full-size image **`Dim0`** with start opacity 0. Both names are looked up by the script. A layout without them still works, only without dimming. The leftover widget `Dim` in the layout is not used by the script.
+
+Notes from testing:
+- A semi-transparent black overlay alone did not darken the render target; the combination "map fades, black fades in" does.
+- Roads, water, buildings and trees are draw commands of the `Overlay` canvas inside `Content` and are dimmed by the `Content` opacity as well.
+- The brightness is only sent while the session is live (someone is watching). New watchers receive the last state from the server.
+- **Markers on the displays:** only **SIDC markers** are shown on tablet-watching displays and monitors. **BFT markers** (SMX trackers: device, SMT, UTD) are **not** shown there. The server only streams BFT trackers to players with a registered active SMX tablet (`BFT_ShouldShow`, "observer-has-no-registered-tablet"), so a viewer without a tablet never receives them and the SecondMap cannot draw them. Known limitation; a possible solution (viewer is treated like the carrier for BFT visibility) is not implemented yet. The attribute `m_sPhysicalChannel` of the component sets the physical channel used to filter SIDC markers (empty = the viewer's own channel).
+
+**Debug:** the brightness path logs `[BRIGHT] ...` lines (tablet, bridge, send, server, receive, monitor) via `Print`.
+
+**Files:** `SIDC_SecondMap_Monitor.c`, `SIDC_SecondMap_Settings.c`, `SIDC_SecondMap_SettingsMenu.c`, `UI/Layouts/SecondMap/SIDC_SecondMap_MonitorRT.layout`, `Prefabs/Props/Military/Camps/OBS_TV_01.et`, `Prefabs/SMX/Tablet/Base/SMX_Tablet_Base.et`.
 
 ---
 
@@ -292,7 +340,7 @@ Mehrere Spieler können dieselbe Ansicht sehen: manche **steuern** sie (Pan/Zoom
 | `btn_back`, `btn_close`, `Esc` | Menü schließen |
 
 **Sync-Regeln**
-- Übertragen wird die Mitte der Ansicht (Welt x/z) + **sichtbare Breite in Metern** (nicht Pixel pro Meter), damit verschiedene Auflösungen denselben Ausschnitt zeigen.
+- Übertragen wird die Mitte der Ansicht (Welt x/z) + **sichtbare Breite in Metern** (nicht Pixel pro Meter), damit verschiedene Auflösungen denselben Ausschnitt zeigen, sowie die **Helligkeit** des Host-Geräts (siehe §10).
 - Nur bei `isLiveView`, nur bei Änderung, etwa 10-mal pro Sekunde. Controller → Server → alle anderen Teilnehmer.
 - Gleichzeitiges Verschieben: der Server sperrt die Session 400 ms lang für den Controller, der gerade etwas ändert, und verwirft in der Zeit Stände anderer Controller (der blockierte Controller wird vom Stand des Sperrhalters überschrieben).
 - Ein Empfänger schickt den übernommenen Stand nie zurück (kein Echo). Ein neuer Mit-Controller bekommt den aktuellen Stand der anderen, statt seinen eigenen zu senden.
@@ -301,3 +349,51 @@ Mehrere Spieler können dieselbe Ansicht sehen: manche **steuern** sie (Pan/Zoom
 **Manuelle Schritte im Workbench:** Component am GameMode hinzufügen; Button `btn_checkViewAsController` in `SIDC_SecondMap_DebugSwitchView.layout` anlegen; Strings `SIDC-UI-btn_back`, `SIDC-UI-btn_close`, `SIDC-UI-btn_checkViewAsController` in die String-Tabelle eintragen.
 
 **Dateien:** `SIDC_SecondMap_ReplicationManager.c` (GameMode-Component + modded `SCR_PlayerController` für alle Client→Server-RPCs), `SIDC_SecondMap_ViewManager.c` (lokaler Sync-Takt, Beitritts-/Zuschau-API), `SIDC_SecondMap_ViewBase.c` (Session-ID, Rolle, Sync-Zustand), `SIDC_SecondMap_DebugSwitchViewMenu.c` (Debug-Menü).
+
+## 10. Welt-Anzeigen: Tablet-Zuschauen und Monitore
+
+> Status: implementiert, mit zwei Clients im Multiplayer getestet. Die Component **`SIDC_SecondMap_MonitorComponent`** (`SIDC_SecondMap_Monitor.c`) zeigt die SecondMap auf jeder Entity, deren Material `$rendertarget` nutzt.
+
+Zwei Betriebsarten (Attribut `m_bFollowHolder`):
+
+| Modus | Wo | Verhalten |
+|-------|----|-----------|
+| Tablet-Zuschauen (`m_bFollowHolder = 1`) | Am SkyMap-X-Tablet-Prefab (`SMX_Tablet_Base.et`) | Der Bildschirm eines Tablets, das ein **anderer** Spieler trägt, zeigt dessen Karte, solange du im Radius und in derselben Fraktion bist und der Träger eine aktive Karte hat. Das eigene Tablet des Trägers bleibt unberührt. Rein lokal, die Component repliziert nichts. |
+| Monitor (`m_bFollowHolder = 0`) | Welt-Prop, z. B. `OBS_TV_01.et` | Ein Spieler mit Tablet koppelt/trennt den Monitor per Interaktion `SIDC_SecondMap_MonitorCoupleAction`. Der Server speichert die Session-ID (repliziert), jeder Client in Reichweite rendert lokal. Keine Fraktionsgrenze. |
+
+Weitere Attribute: `m_iPriority` (1-5; sind mehr Anzeigen als erlaubt in Reichweite, gewinnt die höhere Priorität, bei Gleichstand die nähere - z. B. großer Präsentations-Monitor 5, Tablet 1), `m_iRenderWidth`/`m_iRenderHeight` (Render-Target-Größe bei 100 % Qualität, zum Seitenverhältnis des Bildschirms passend), `m_sLayout`, `m_sViewPrefab`.
+
+**Client-Einstellungen** (Framework-Einstellungsmenü, lokal in `$profile:SIDC_Framework/Player/Settings/secondmap.json`, nie repliziert):
+
+| Einstellung | Standard | Bedeutung |
+|-------------|----------|-----------|
+| Automatik-Modus | an | Nur Anzeigen mit Priorität 1-3 folgen dem Automatik-Modus; höhere (Präsentations-Monitore) laufen immer |
+| Max. Anzeigen | 5 (1-25) | Höchstzahl gleichzeitig gerenderter Anzeigen |
+| Reichweite | 10 m (5/10/15/20/25) | Weiter entfernte Anzeigen werden nicht gerendert |
+| Render-Qualität | 75 % (5-100) | Skaliert die Render-Target-Größe |
+| Update-Rate | 15 Hz (5-60) | Unter 60 Hz wird das Render-Target pro Update nur für einen Frame sichtbar geschaltet |
+| Nur im Blickfeld | an | Anzeigen hinter dir werden nicht gerendert |
+| Marker anzeigen | an | Kartenmarker auf den Anzeigen zeichnen |
+
+### Helligkeit folgt dem Tablet
+
+Die Helligkeit, die du am SkyMap-X-Tablet einstellst (Keybinds, Settings-Slider), wird an alle Anzeigen übertragen, die deine Karte zeigen. Der Bildschirm leuchtet dadurch nachts nicht mehr.
+
+Datenweg:
+
+1. `SMX_MainComponentX.SetBrightnessAndOpacity` rechnet die Overlay-Deckkraft des Tablets in eine Helligkeit um (`1 - Deckkraft`, 1 = volle Helligkeit) und ruft `SMX_MapProvider.SetBrightness` auf (auch nach jedem erfolgreichen `Open()`).
+2. Die Bridge (`SMX_SecondMapProvider.SetBrightness`) gibt sie über `SIDC_SecondMap_ViewBase.SetSyncBrightness` an alle ihre Ansichten weiter.
+3. Sie läuft im bestehenden View-State-Sync als **vierter Wert** neben Mitte x/z und sichtbarer Breite (`GetSyncState` / `ApplySyncState`, `RpcAsk_SIDC_ViewState` / `RpcDo_ViewState`). Neu gesendet wird nur bei einer Änderung über 0,005.
+4. `SIDC_SecondMap_MonitorComponent.ApplyBrightness` setzt die Opacity im Render-Target-Layout: `Content.SetOpacity(brightness)` und `Dim0.SetOpacity(1 - brightness)`.
+
+Anforderungen ans Layout (`SIDC_SecondMap_MonitorRT.layout`, innerhalb von `RTTexture0`): ein Frame **`Content`** (darin entsteht die Karte) und darüber (höhere Z-Order) ein schwarzes, vollflächiges Image **`Dim0`** mit Start-Opacity 0. Beide Namen sucht das Script. Ohne sie funktioniert die Anzeige weiter, nur ohne Dimmung. Das übrig gebliebene Widget `Dim` im Layout nutzt das Script nicht.
+
+Erkenntnisse aus dem Test:
+- Ein halbtransparentes schwarzes Overlay allein dunkelte das Render-Target nicht ab; die Kombination „Karte blendet aus, Schwarz blendet ein" funktioniert.
+- Straßen, Gewässer, Gebäude und Bäume sind Draw-Commands des `Overlay`-Canvas innerhalb von `Content` und werden von der `Content`-Opacity mit gedimmt.
+- Die Helligkeit wird nur gesendet, solange die Session live ist (jemand schaut zu). Neue Zuschauer bekommen den letzten Stand vom Server.
+- **Marker auf den Anzeigen:** Auf Tablet-Zuschauen-Displays und Monitoren werden nur **SIDC-Marker** gezeigt. **BFT-Marker** (SMX-Tracker: Gerät, SMT, UTD) werden dort **nicht** gezeigt. Der Server streamt BFT-Tracker nur an Spieler mit registriertem, aktivem SMX-Tablet (`BFT_ShouldShow`, „observer-has-no-registered-tablet“); ein Zuschauer ohne Tablet bekommt sie nie, und die SecondMap kann sie nicht zeichnen. Bekannte Einschränkung; eine mögliche Lösung (Zuschauer wird für die BFT-Sichtbarkeit wie der Träger behandelt) ist noch nicht umgesetzt. Das Attribut `m_sPhysicalChannel` der Component legt den physischen Channel fest, mit dem SIDC-Marker gefiltert werden (leer = Channel des Zuschauers).
+
+**Debug:** Der Helligkeits-Pfad schreibt `[BRIGHT] ...`-Zeilen (Tablet, Bridge, Senden, Server, Empfang, Monitor) per `Print`.
+
+**Dateien:** `SIDC_SecondMap_Monitor.c`, `SIDC_SecondMap_Settings.c`, `SIDC_SecondMap_SettingsMenu.c`, `UI/Layouts/SecondMap/SIDC_SecondMap_MonitorRT.layout`, `Prefabs/Props/Military/Camps/OBS_TV_01.et`, `Prefabs/SMX/Tablet/Base/SMX_Tablet_Base.et`.

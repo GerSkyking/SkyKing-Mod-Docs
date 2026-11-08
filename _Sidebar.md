@@ -10,6 +10,9 @@
 **SkyMap-X (SMX)**
 - [Overview & Usage](SkyMap-X)
 - [Workflows (step by step)](SkyMap-X-Workflows)
+- [Camera functions (Fnc1/Fnc2, NV)](SMX-Camera-Functions)
+- [SecondMap Bridge (map provider)](SMX-SecondMap-Bridge)
+- [Chat API (for mods)](SMX-Chat-API)
 
 **SpeedUI (SUI)**
 - [Overview & Usage](SpeedUI)

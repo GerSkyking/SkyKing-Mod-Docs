@@ -42,7 +42,7 @@ Everything happens **on the open map**.
 2. **Place a marker:** `Ctrl+T` → opens the Quick‑Marker menu. Navigate the faction row → category → sub‑category. Some entries need an **Amplifier** (echelon) and/or a **Direction** — you'll be prompted. Entries with `m_bPlaceOnClick 1` place immediately at the cursor; others open a preview.
 3. **Search:** sub‑menus with a search box let you type a marker name across the configured sub‑categories.
 4. **Draw a line:** `Ctrl+D` → drawing mode. Left‑click to set points: two points = one segment, more points = a chained polyline. `Ctrl+Z` = undo, `Ctrl+Y` = redo.
-5. **Inspect:** hover a marker, press `I` → shows SIDC, author, channel.
+5. **Inspect:** hover a marker, press `I` → shows SIDC, author, channel. The description box also explains every field the marker actually uses, as `explanation - current value` (status, HQ/TF/dummy, echelon, mobility, modifiers 1/2 with their own description, reinforced/reduced, direction, channels, text fields). Language keys `SIDC-Inspect-*` and `SIDC-Modifier-<Name>_Description` (en + de).
 6. **Copy / paste:** `X` copy the marker under the cursor, `C` / `V` paste.
 7. **Save / load a marker set:** `Ctrl+S` / `Ctrl+L` (only if the server allows it for you — see §4).
 8. **Change your channel:** via the map channel UI (`SIDC_Map_Channel_UI`), and the physical channel spinbox in settings.

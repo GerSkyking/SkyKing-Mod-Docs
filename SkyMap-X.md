@@ -10,7 +10,7 @@ SkyMap-X is a **tablet / wrist‑watch gadget** for Arma Reforger. The tablet ha
 | Mode | Key | Purpose |
 |------|-----|---------|
 | **GPS** | `Ctrl+1` | Tactical map: own position, bearing, MGRS grid, zoom/pan, markers of other visible devices (BFT). Can lock‑on to follow the player or be panned freely. |
-| **Chat** | `Ctrl+2` | Text messaging over configurable channels (see [Client Settings](Client-Settings-Guide)). |
+| **Chat** | `Ctrl+2` | Text messaging over configurable channels (see [Client Settings](Client-Settings-Guide)); each chat is between exactly two tablets. Other mods can read it via the [Chat API](SMX-Chat-API). |
 | **Settings** | `Ctrl+3` | Device ID / info, communication channels, zoom & brightness presets. |
 | **Feeds** | `Ctrl+4` | Live image from camera devices (body‑cams, UGL‑cams, CCTV, trackers) with its own pan/zoom/brightness/lock. |
 
@@ -35,7 +35,7 @@ SMX is part of a BFT system: visible devices of other players appear as markers 
 ## 2. How to use it
 
 1. Get an SMX tablet (or K23 wrist mount) into your inventory / onto your vest.
-2. **Take it into your hand:** `Ctrl+F5`. If it is off, **power it on** with `Ctrl+F1` (2 s start‑up timer).
+2. **Take it into your hand:** `Ctrl+F5`. If it is off, **power it on** with `Ctrl+F1` (2 s start‑up timer). While booting the tablet shows a loading screen ("loading" → "connected") and plays the start‑up sound in 3D at the tablet, so players nearby hear it too (event name `m_sStartupSound` on the tablet prefab, default `SMX_SOUND_TAB`; volume per player in the settings).
 3. Pick a mode with `Ctrl+1..4`.
 4. In GPS / Feeds: zoom with `PageUp` / `PageDown`, pan with `Right‑Ctrl + Arrow keys` (in Feeds this swivels the selected camera), adjust brightness with `Ctrl+PageUp` / `Ctrl+PageDown`.
 5. Toggle the mouse cursor with `Alt+Ctrl` in Hand/Mini mode (Big mode has it always). Left‑click acts in cursor mode.
@@ -80,6 +80,18 @@ Every item exists per faction: **US, USSR, FIA, CIV**. The faction variant sets 
 | `SCX_Cam_40mm_UGL_<F>` (M320) / `SCX_Cam-40mm_UGL_GP_<F>` (GP‑25) | **SkyEye ARC‑40**: 40 mm camera grenade for the underbarrel launcher. After firing it deploys the parachute camera. |
 | `SCX_Cam_Parachute_<F>` | The camera under the parachute (spawned by the ARC‑40, not used directly). Looks straight down, can be swivelled. |
 
+**ARC‑40 flight (component `SMX_ParachuteMoveComponent`):** after the grenade timer (`TIMER` 8 s in the grenade prefab) the camera descends with its own movement instead of vanilla physics: constant sink rate plus wind drift, the camera stays upright. Tunable on the parachute prefab (category *SMX - Parachute*):
+
+| Attribute | Default | Effect |
+|-----------|---------|--------|
+| `m_fSinkSpeed` | 5 m/s | Sink rate. Lower = longer flight time / more height. |
+| `m_fWindInfluence` | 0.8 | 0 = no drift, 1 = drifts with the full wind speed (more glide distance). |
+| `m_fVelocityResponse` | 2 | How fast the speed follows the target. Higher = more direct. |
+| `m_fMaxTilt` | 10° | Max. swing before the camera is pulled upright. |
+| `m_fCollisionDelay` | 0.5 s | No collision right after spawn (avoids instant destruction). |
+| `m_fLandHeight` / `m_fStoppedSpeed` | 0.5 m / 0.1 m/s | Counts as landed below this height or speed (e.g. caught in a tree). |
+| `m_fDeleteDelay` | 3 s | Seconds after landing until the prefab is deleted. |
+
 **Trackers (STX)** — appear as BFT markers on the map
 
 | Prefab | In‑game name | What it does |
@@ -121,7 +133,6 @@ There are **two** places to configure SkyMap-X — both per‑player, both saved
 | Auto start | Tablet powers on automatically at mission start. |
 | Auto mode | Tablet opens a mode automatically instead of staying on ON. |
 | Default mode | Which content mode the tablet opens in (GPS / Chat / Settings / Feeds). |
-| Use prefix + Main TAG | Personal prefix (free text) prepended to your Device ID; shown wherever the Device ID is listed to others (Chat contacts, Feeds device list, BFT marker if the server shows Device ID). Re‑registers the device live when changed. |
 | Notification‑tone duration | Length of the chat/notification sound. |
 | Mini‑mode offset up / right / size scale | Position and size of the Mini corner display. |
 | Squad‑Mate‑Tracker: scale / show name / show icon / transparency | Appearance of squad‑mate markers on the map. |
@@ -158,6 +169,8 @@ Managed server‑side (`$profile:SMX_ConfigV3.Json`, loaded only by the server o
 
 `SCR_GadgetComponent` → `SMX_MainComponentX` (main hub: widget state, mode/tab state machine `ESMX_Modes` / `ESMX_TabModes`, settings) with singleton managers: `SMX_DeviceManager`, `SMX_ReplicationManager`, `SMX_MenuManager`, `SMX_TabletMarkerManager`. Hand/Mini/Big all render as plain workspace widgets (no `ChimeraMenuBase`) and share the mode‑switch path; Big mode routes clicks through a custom hit‑test. Full detail: the repo `CLAUDE.md`.
 
+The tablet map is replaceable through a map provider (`SMX_MapProviderFactory`); with the bridge addons it shows the SIDC-SecondMap — see [SMX × SecondMap Bridge](SMX-SecondMap-Bridge).
+
 ---
 
 # SkyMap-X (SMX) — Deutsch
@@ -172,7 +185,7 @@ SkyMap-X ist ein **Tablet-/Armbanduhr-Gadget** für Arma Reforger. Das Tablet ha
 | Modus | Taste | Zweck |
 |-------|-------|-------|
 | **GPS** | `Strg+1` | Taktische Karte: eigene Position, Peilrichtung, MGRS-Gitter, Zoom/Pan, Marker anderer sichtbarer Geräte (BFT). Lock-On folgt automatisch der Spielerposition oder freies Verschieben. |
-| **Chat** | `Strg+2` | Nachrichtenaustausch über konfigurierbare Kanäle (siehe [Client-Einstellungen](Client-Settings-Guide)). |
+| **Chat** | `Strg+2` | Nachrichtenaustausch über konfigurierbare Kanäle (siehe [Client-Einstellungen](Client-Settings-Guide)); jeder Chat läuft zwischen genau zwei Tablets. Andere Mods können ihn über die [Chat-API](SMX-Chat-API) auslesen. |
 | **Settings** | `Strg+3` | Geräte-ID/-Info, Kommunikationskanäle, Zoom- und Helligkeits-Voreinstellung. |
 | **Feeds** | `Strg+4` | Live-Bild von Kamera-Geräten (Body-Cams, UGL-Cams, CCTV, Tracker) mit eigenem Pan/Zoom/Helligkeit/Lock. |
 
@@ -197,7 +210,7 @@ SMX ist Teil eines BFT-Systems: sichtbare Geräte anderer Spieler erscheinen als
 ## 2. Bedienung
 
 1. SMX-Tablet (oder K23-Armhalterung) ins Inventar / an die Weste bringen.
-2. **In die Hand nehmen:** `Strg+F5`. Wenn aus, mit `Strg+F1` **einschalten** (2 s Hochfahr-Timer).
+2. **In die Hand nehmen:** `Strg+F5`. Wenn aus, mit `Strg+F1` **einschalten** (2 s Hochfahr-Timer). Beim Hochfahren zeigt das Tablet einen Ladebildschirm („loading" → „connected") und spielt den Startup-Sound in 3D am Tablet ab, sodass ihn Spieler in der Nähe hören (Event-Name `m_sStartupSound` am Tablet-Prefab, Standard `SMX_SOUND_TAB`; Lautstärke pro Spieler in den Einstellungen).
 3. Modus mit `Strg+1..4` wählen.
 4. In GPS / Feeds: Zoom mit `Bild-auf` / `Bild-ab`, verschieben mit `Rechts-Strg + Pfeiltasten` (in Feeds schwenkt das die ausgewählte Kamera), Helligkeit mit `Strg+Bild-auf` / `Strg+Bild-ab`.
 5. Maus-Cursor mit `Alt+Strg` in Hand-/Mini-Modus umschalten (in Big immer an). Linksklick wirkt im Cursor-Modus.
@@ -242,6 +255,18 @@ Jedes Item gibt es pro Fraktion: **US, USSR, FIA, CIV**. Die Fraktionsvariante l
 | `SCX_Cam_40mm_UGL_<F>` (M320) / `SCX_Cam-40mm_UGL_GP_<F>` (GP-25) | **SkyEye ARC-40**: 40-mm-Kameragranate für den Unterlaufgranatwerfer. Setzt nach dem Abschuss die Fallschirmkamera aus. |
 | `SCX_Cam_Parachute_<F>` | Die Kamera am Fallschirm (wird von der ARC-40 erzeugt, nicht direkt nutzen). Blickt senkrecht nach unten, schwenkbar. |
 
+**ARC-40-Flug (Component `SMX_ParachuteMoveComponent`):** Nach dem Granaten-Timer (`TIMER` 8 s im Granaten-Prefab) sinkt die Kamera mit eigener Bewegung statt Vanilla-Physik: konstante Sinkrate plus Winddrift, die Kamera bleibt aufrecht. Einstellbar am Fallschirm-Prefab (Kategorie *SMX - Parachute*):
+
+| Attribut | Default | Wirkung |
+|----------|---------|---------|
+| `m_fSinkSpeed` | 5 m/s | Sinkrate. Niedriger = längere Flugzeit / mehr Höhe. |
+| `m_fWindInfluence` | 0.8 | 0 = keine Drift, 1 = driftet mit voller Windgeschwindigkeit (mehr Gleitstrecke). |
+| `m_fVelocityResponse` | 2 | Wie schnell die Geschwindigkeit dem Zielwert folgt. Höher = direkter. |
+| `m_fMaxTilt` | 10° | Max. Pendelwinkel, darüber wird die Kamera aufrecht gezogen. |
+| `m_fCollisionDelay` | 0,5 s | Direkt nach dem Spawn keine Kollision (verhindert Sofort-Zerstörung). |
+| `m_fLandHeight` / `m_fStoppedSpeed` | 0,5 m / 0,1 m/s | Gilt als gelandet unter dieser Höhe oder Geschwindigkeit (z. B. im Baum hängen geblieben). |
+| `m_fDeleteDelay` | 3 s | Sekunden nach der Landung, bis das Prefab gelöscht wird. |
+
 **Tracker (STX)** — erscheinen als BFT-Marker auf der Karte
 
 | Prefab | Name im Spiel | Funktion |
@@ -283,7 +308,6 @@ Es gibt **zwei** Stellen zum Konfigurieren von SkyMap-X — beide pro Spieler, b
 | Auto-Start | Tablet schaltet sich beim Missionsstart automatisch ein. |
 | Auto-Modus | Tablet öffnet automatisch einen Modus statt im ON-Zustand zu bleiben. |
 | Standard-Modus | In welchem Inhalts-Modus das Tablet öffnet (GPS / Chat / Settings / Feeds). |
-| Präfix nutzen + Main-TAG | Persönliches Präfix (Freitext) vor deiner Geräte-ID; erscheint überall, wo die Geräte-ID anderen angezeigt wird (Chat-Kontakte, Feeds-Geräteliste, BFT-Marker falls der Server die Geräte-ID zeigt). Registriert das Gerät bei Änderung live neu. |
 | Benachrichtigungston-Dauer | Länge des Chat-/Benachrichtigungstons. |
 | Mini-Modus Offset hoch / rechts / Größenskala | Position und Größe der Mini-Ecken-Anzeige. |
 | Squad-Mate-Tracker: Skala / Name zeigen / Icon zeigen / Transparenz | Darstellung der Squad-Mate-Marker auf der Karte. |
@@ -319,3 +343,5 @@ Serverseitig verwaltet (`$profile:SMX_ConfigV3.Json`, nur vom Server einmalig be
 ## 7. Architektur (kurz)
 
 `SCR_GadgetComponent` → `SMX_MainComponentX` (Haupt-Hub: Widget-State, Modus-/Tab-Zustandsautomat `ESMX_Modes` / `ESMX_TabModes`, Settings) mit Singleton-Managern: `SMX_DeviceManager`, `SMX_ReplicationManager`, `SMX_MenuManager`, `SMX_TabletMarkerManager`. Hand/Mini/Big rendern als reine Workspace-Widgets (kein `ChimeraMenuBase`) und teilen den Modus-Wechsel-Pfad; Big-Modus routet Klicks über ein eigenes Hit-Test-System. Details: die `CLAUDE.md` im Repo.
+
+Die Tablet-Karte ist über einen Map-Provider austauschbar (`SMX_MapProviderFactory`); mit den Bridge-Addons zeigt sie die SIDC-SecondMap — siehe [SMX × SecondMap Bridge](SMX-SecondMap-Bridge).
