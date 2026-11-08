@@ -11,7 +11,7 @@ Every other workflow starts here.
 ```mermaid
 flowchart TD
     A["Tablet / K23 in inventory or on vest"] --> B{"Tablet on?"}
-    B -- "no" --> C["Ctrl+F1: power on<br/>(≈2 s start-up)"]
+    B -- "no" --> C["Ctrl+F1: power on<br/>(≈2 s start-up: loading → connected, start-up sound)"]
     B -- "yes" --> D
     C --> D{"Which view?"}
     D -- "Hand" --> E["Ctrl+F5: take into hand"]
@@ -50,6 +50,8 @@ flowchart TD
     B --> H["M: full-screen map<br/>(tablet as paper map, or your own map is taken into hand)"]
 ```
 
+With the bridge addons the tablet map is the SIDC-SecondMap instead of the vanilla map (SIDC markers and drawing work on the tablet); see [SecondMap Bridge](SMX-SecondMap-Bridge).
+
 ## 3. Write a chat message
 
 ```mermaid
@@ -64,7 +66,7 @@ flowchart TD
     G --> H["Click Send"]
 ```
 
-Unread messages are counted per contact in the list; opening the contact resets the counter.
+Unread messages are counted per contact in the list; opening the contact resets the counter. Each chat is between exactly two tablets; other mods can read it via the [Chat API](SMX-Chat-API).
 
 ## 4. Watch a helmet camera
 
@@ -94,7 +96,7 @@ Cameras can also offer **Fnc1** (target tracking) and **Fnc2** (night vision); t
 flowchart TD
     A["Have ARC-40 rounds<br/>(M320: SCX_Cam_40mm_UGL_* · GP-25: SCX_Cam-40mm_UGL_GP_*)"] --> B["Load into the underbarrel launcher<br/>(like any 40 mm round)"]
     B --> C["Fire high over the target area"]
-    C --> D["After ≈1.5 s the parachute camera deploys<br/>and sinks slowly, looking straight down"]
+    C --> D["After the grenade timer (≈8 s) the parachute camera deploys<br/>and sinks (≈5 m/s) with wind drift, looking straight down"]
     D --> E["Tablet: Ctrl+4 Feeds"]
     E --> F["Click the ARC-40 camera in the list<br/>(Refresh if missing)"]
     F --> G["Swivel: Right-Ctrl + arrow keys or the on-screen arrows<br/>zoom: Page Down / Up · Lock button: lock the view"]
@@ -117,7 +119,7 @@ Jeder andere Ablauf beginnt hier.
 ```mermaid
 flowchart TD
     A["Tablet / K23 im Inventar oder an der Weste"] --> B{"Tablet an?"}
-    B -- "nein" --> C["Strg+F1: einschalten<br/>(≈2 s Startzeit)"]
+    B -- "nein" --> C["Strg+F1: einschalten<br/>(≈2 s Startzeit: loading → connected, Startup-Sound)"]
     B -- "ja" --> D
     C --> D{"Welche Ansicht?"}
     D -- "Hand" --> E["Strg+F5: in die Hand nehmen"]
@@ -156,6 +158,8 @@ flowchart TD
     B --> H["M: Vollbildkarte<br/>(Tablet als Papierkarte oder eigene Karte wird in die Hand genommen)"]
 ```
 
+Mit den Bridge-Addons ist die Tablet-Karte die SIDC-SecondMap statt der Vanilla-Karte (SIDC-Marker und Zeichnen funktionieren am Tablet); siehe [SecondMap-Bridge](SMX-SecondMap-Bridge).
+
 ## 3. Chat-Nachricht schreiben
 
 ```mermaid
@@ -170,7 +174,7 @@ flowchart TD
     G --> H["Send klicken"]
 ```
 
-Ungelesene Nachrichten werden pro Kontakt in der Liste gezählt; Öffnen des Kontakts setzt den Zähler zurück.
+Ungelesene Nachrichten werden pro Kontakt in der Liste gezählt; Öffnen des Kontakts setzt den Zähler zurück. Jeder Chat läuft zwischen genau zwei Tablets; andere Mods können ihn über die [Chat-API](SMX-Chat-API) auslesen.
 
 ## 4. Helmkamera ansehen
 
@@ -200,7 +204,7 @@ Kameras können außerdem **Fnc1** (Ziel-Tracking) und **Fnc2** (Nachtsicht) bie
 flowchart TD
     A["ARC-40-Munition dabei<br/>(M320: SCX_Cam_40mm_UGL_* · GP-25: SCX_Cam-40mm_UGL_GP_*)"] --> B["In den Unterlaufgranatwerfer laden<br/>(wie jede 40-mm-Granate)"]
     B --> C["Hoch über das Zielgebiet schießen"]
-    C --> D["Nach ≈1,5 s öffnet sich die Fallschirmkamera<br/>und sinkt langsam, Blick senkrecht nach unten"]
+    C --> D["Nach dem Granaten-Timer (≈8 s) öffnet sich die Fallschirmkamera<br/>und sinkt (≈5 m/s) mit Winddrift, Blick senkrecht nach unten"]
     D --> E["Tablet: Strg+4 Feeds"]
     E --> F["ARC-40-Kamera in der Liste anklicken<br/>(fehlt sie: Refresh)"]
     F --> G["Schwenken: Rechts-Strg + Pfeiltasten oder Pfeil-Buttons<br/>Zoom: Bild ab / auf · Lock-Button: Blick sperren"]

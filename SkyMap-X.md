@@ -2,6 +2,7 @@
 
 > Source: `SkyMap-X-DEV` · Project ID `SkyMapX` (GUID `6718FE4BBDA71C7C`) · ships to the Workshop as **SkyMap-X**.
 > Verified against `Scripts/Game/Components/SMX_MainComponentX.c`, `Scripts/Game/UserAction/*.c`, `Configs/System/keyBindingMenu.conf`, `Configs/System/chimeraInputCommon.conf` (state: 2026‑08).
+> See also: [Workflows (step by step)](SkyMap-X-Workflows) · [Camera functions](SMX-Camera-Functions) · [SecondMap Bridge](SMX-SecondMap-Bridge) · [Chat API](SMX-Chat-API)
 
 ## 1. What it is
 
@@ -177,6 +178,7 @@ The tablet map is replaceable through a map provider (`SMX_MapProviderFactory`);
 
 > Quelle: `SkyMap-X-DEV` · Projekt-ID `SkyMapX` (GUID `6718FE4BBDA71C7C`) · erscheint im Workshop als **SkyMap-X**.
 > Verifiziert gegen `Scripts/Game/Components/SMX_MainComponentX.c`, `Scripts/Game/UserAction/*.c`, `Configs/System/keyBindingMenu.conf`, `Configs/System/chimeraInputCommon.conf` (Stand: 2026‑08).
+> Siehe auch: [Abläufe (Schritt für Schritt)](SkyMap-X-Workflows) · [Kamera-Funktionen](SMX-Camera-Functions) · [SecondMap-Bridge](SMX-SecondMap-Bridge) · [Chat-API](SMX-Chat-API)
 
 ## 1. Kurzbeschreibung
 

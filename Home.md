@@ -20,6 +20,7 @@ Central documentation for the **SkyKing** Arma Reforger mods.
 ## Where to start
 
 - **Players** → [SkyMap-X](SkyMap-X) · [SpeedUI](SpeedUI) · [SIDC-Framework](SIDC-Framework) · [Throw Back Grenade](Throw-Back-Grenade) · [ATAKmaps](ATAKmaps) · [Keybinds](Keybinds)
+- **SkyMap-X in depth** → [Workflows](SkyMap-X-Workflows) · [Camera functions](SMX-Camera-Functions) · [SecondMap Bridge](SMX-SecondMap-Bridge) · [Chat API (for mods)](SMX-Chat-API) · [Glossary](Glossary)
 - **Planning / staff work** → [SIDC – C2 – Command & Control](SIDC-C2-Command-Control)
 - **Server admins** → [Server & Admin Guide](Server-Admin-Guide)
 - **Client settings** → [Client Settings Guide](Client-Settings-Guide)
@@ -54,6 +55,7 @@ Zentrale Dokumentation der **SkyKing**-Mods für Arma Reforger.
 ## Einstieg
 
 - **Spieler** → [SkyMap-X](SkyMap-X) · [SpeedUI](SpeedUI) · [SIDC-Framework](SIDC-Framework) · [Throw Back Grenade](Throw-Back-Grenade) · [ATAKmaps](ATAKmaps) · [Tastenbelegung](Keybinds)
+- **SkyMap-X im Detail** → [Abläufe](SkyMap-X-Workflows) · [Kamera-Funktionen](SMX-Camera-Functions) · [SecondMap-Bridge](SMX-SecondMap-Bridge) · [Chat-API (für Mods)](SMX-Chat-API) · [Glossar](Glossary)
 - **Planung / Stabsarbeit** → [SIDC – C2 – Command & Control](SIDC-C2-Command-Control)
 - **Server-Admins** → [Server- & Admin-Handbuch](Server-Admin-Guide)
 - **Client-Einstellungen** → [Client-Einstellungen](Client-Settings-Guide)
