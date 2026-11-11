@@ -1,6 +1,6 @@
 # SIDC – C2 – Command & Control (companion tool)
 
-> Source: repo `github.com/GerSkyking/SIDC---C2---Command-Control` (AGPL-3.0) · image `ghcr.io/gerskyking/sidc---c2---command-control` · local dev at `C:\Users\Sky\Documents\GitHub\SIDC - C2 - Command & Control`. Verified against `README.md`, `docs/HANDBUCH.md`, `CHANGELOG.md`, `PLAN.md`, `deploy/.env.example`. **Version 1.0.0** (2026-09-07).
+> Source: repo `github.com/GerSkyking/SIDC---C2---Command-Control` (AGPL-3.0) · image `ghcr.io/gerskyking/sidc---c2---command-control` · local dev at `C:\Users\Sky\Documents\GitHub\SIDC - C2 - Command & Control`. Verified against `README.md`, `docs/HANDBUCH.md`, `CHANGELOG.md`, `PLAN.md`, `deploy/.env.example`. **Version 1.0.0** (2026-09-07), mission-building features as of 2026-11-11.
 
 ## 1. What it is
 
@@ -112,6 +112,16 @@ Per‑plan access is an **ACL** of user/group entries, each with a level:
 
 A marker can be **locked**; only an owner (or the lock holder) can then move/modify/delete it.
 
+On top of that there are **three groups** (checkboxes on user or group, set by the admin):
+
+| Group | Does | Sees |
+|---|---|---|
+| **Players** (default) | plan freely on the map | everything for players + what mission building releases to them |
+| **Mission builder** | sets the guidelines, plans long‑term (projects, builder phases), hands work to individuals | **everything** |
+| **Zeus** | runs the mission in game | player content (read‑only) + the parts of mission building released to Zeus (default **72 h**) |
+
+See [section 7b](#7b-mission-building-projects--stars) for the full picture.
+
 ## 5. Plans, folders & versions
 
 - **Folder tree** with sub‑folders; plans and folders are re‑organised by **drag & drop**. Cycles
@@ -126,10 +136,21 @@ A marker can be **locked**; only an owner (or the lock holder) can then move/mod
 
 ### 6.1 Toolbar (left, edit permission only)
 
-Pan · **Move marker** (mode, or hold the middle mouse button in pan mode) · Point ("laser" cursor,
-also for viewers) · Straight line (ends on **right‑click**) · **Ruler** (two points → dashed
-distance line, click again to clear) · Eraser (also deletes drawn lines) · **Place marker** (click
-the position first, *then* the wizard opens) · Favorites.
+| Tool | Key | |
+|---|---|---|
+| Pan | `W` | pan/zoom; middle mouse button drags markers |
+| Point | `A` | "laser" cursor for everyone (also viewers), right mouse button draws an arrow |
+| Line | `D` | straight segments; green tick / right‑click / double‑click ends |
+| Move marker | `M` | drag markers (mainly touch) |
+| Ruler | `F` | any number of points, segment + total length; right‑click ends; measure lines stay |
+| Eraser | `S` | deletes everything inside an adjustable circle |
+| Text box | `T` | Markdown note on the map |
+| Place marker | `Space` | click the position first, *then* the wizard opens |
+| Favorites | `R` | place saved markers |
+| **Mark a spot** | – | project plans only: drops a **star**, then asks *"What is here?"* – see 7b |
+
+Further keys: `Q`/`E` undo/redo, `X`/`C`/`V` cut/copy/paste, `←`/`→` phase, `Y` phase notes, `N` north. All keys are
+re‑bindable in the gear menu, which also holds *Marker display* (marker text, detailed hover info).
 
 ### 6.2 Marker wizard
 
@@ -168,7 +189,7 @@ like ATAKmaps (air = extended line + arrowhead, ground = fixed stem + rotating a
 | **Channel** | radio channel from `SIDC_ChannelSettings.json` |
 | **Timeline** | phases — see 7 |
 | **🗒️ Notes** | movable phase‑notes window — see 7 |
-| **☰ Layers** | Sat / Grid / Terrain, Contour lines, Elevation points, place groups — each with a **0–100 % opacity slider** (stored per browser) |
+| **Map** (☰) | Sat / Grid / Terrain, Contour lines, Elevation points, place groups — each with a **0–100 % opacity slider** (stored per browser) |
 | **🕑 Versions** | version history — see 5 |
 | **? Help** | overlay: tools, topbar, keybinds (DE/EN) |
 | Cursor HUD | world X / Y (via calibration) + elevation from the terrain DEM, in 2D as well |
@@ -183,12 +204,41 @@ like ATAKmaps (air = extended line + arrowhead, ground = fixed stem + rotating a
   rendering and **one tab per phase**. Switching phase switches the tab. Closable with the ✕,
   re‑opened from the topbar. Auto‑saved (debounced).
 
+## 7b. Mission building (projects & stars)
+
+**Projects** (sidebar → *Missionsbau*) bundle everything for one mission: Markdown files with templates (mission
+concept, 5‑paragraph order, briefing, character, faction, place, scene), a timeline built from time‑stamped headings,
+plans, a task board, whiteboard, feedback (also from outside via token), members with roles. Plan access stays per plan.
+
+**Who sees what in a plan**
+
+| Content | Players | Zeus | Mission builder |
+|---|---|---|---|
+| Player phases | ✔ | ✔ (read‑only) | ✔ |
+| Builder phase | – | only if released to Zeus | ✔ |
+| Builder phase released to players | ✔ (looks like Base) | ✔ | ✔ |
+| **Builder notes & pink stars** (layer) | – | only individually released ones | ✔ |
+| Yellow stars / normal notes | ✔ | ✔ | ✔ |
+
+Zeus releases default to **72 h** (other limit or unlimited selectable) and can be withdrawn any time.
+
+**Mark a spot (stars).** In a project plan, pick *Mark a spot* and click the map – the star is placed immediately.
+Then *"What is here?"*: create a **task** (assignee, due date, priority, linked to the plan), a **sticky note** for the
+whiteboard, **link something existing** (file, task, plan, note, image, place) or just a **map note**. *Visible to:*
+*Everyone* → **yellow star** in the chosen phase · *Mission builders only* → **pink star** on the layer *Builder
+notes* (independent of phases, never shown to players, shown to Zeus only after release). The linked targets are shown
+next to the star; hover shows the description. In the project, each target lists *"Mentioned in …"* and
+*Directory → On the map* lists all stars and notes of all plans.
+
+Builder notes are a **layer, not a phase**: they do not appear in the timeline but in the *Layers* menu, where builders
+can hide or dim them. Mission builders choose *Visible to* for every text box; everybody else places normal notes.
+
 ## 8. Layers from the heightmap: contour lines & elevation points
 
 Two extra map layers derived from the game heightmap, **pre‑computed once in the ATAKmaps importer**
 (`pipeline/terrain_features.py`, numpy/scipy only) and shipped inside the map package as
 `contours.geojson` / `peaks.geojson`. Both consumers (ATAKmaps viewer **and** SIDC – C2) only
-display them; default **off**, toggled in the ☰ layers panel.
+display them; default **off**, toggled in the ☰ *Map* panel.
 
 | Layer | How it is built |
 |-------|-----------------|
@@ -289,7 +339,7 @@ Rules:
 
 # SIDC – C2 – Command & Control (Begleit-Tool) — Deutsch
 
-> Quelle: Repo `github.com/GerSkyking/SIDC---C2---Command-Control` (AGPL-3.0) · Image `ghcr.io/gerskyking/sidc---c2---command-control` · lokal `C:\Users\Sky\Documents\GitHub\SIDC - C2 - Command & Control`. Verifiziert gegen `README.md`, `docs/HANDBUCH.md`, `CHANGELOG.md`, `PLAN.md`, `deploy/.env.example`. **Version 1.0.0** (2026-09-07).
+> Quelle: Repo `github.com/GerSkyking/SIDC---C2---Command-Control` (AGPL-3.0) · Image `ghcr.io/gerskyking/sidc---c2---command-control` · lokal `C:\Users\Sky\Documents\GitHub\SIDC - C2 - Command & Control`. Verifiziert gegen `README.md`, `docs/HANDBUCH.md`, `CHANGELOG.md`, `PLAN.md`, `deploy/.env.example`. **Version 1.0.0** (2026-09-07), Missionsbau-Funktionen Stand 2026-11-11.
 
 ## 1. Kurzbeschreibung
 
@@ -404,6 +454,16 @@ Der Zugriff pro Plan ist eine **ACL** aus User-/Gruppen-Einträgen mit je einer 
 Ein Marker kann **gesperrt** werden; danach kann nur ein Owner (bzw. der Lock-Halter) ihn
 bewegen/ändern/löschen.
 
+Darüber liegen **drei Gruppen** (Häkchen an Nutzer oder Gruppe, setzt der Admin):
+
+| Gruppe | Macht | Sieht |
+|---|---|---|
+| **Spieler** (Standard) | planen frei auf der Karte | alles für Spieler + was der Missionsbau ihnen freigibt |
+| **Missionsbau** | macht die Vorgaben, plant langfristig (Projekte, Missionsbau-Phasen), lagert Arbeit an Einzelne aus | **alles** |
+| **Zeus** | leitet die Mission im Spiel | Spieler-Inhalt (nur ansehen) + für Zeus freigegebene Teile des Missionsbaus (Standard **72 h**) |
+
+Das Gesamtbild steht in [Abschnitt 7b](#7b-missionsbau-projekte--sterne).
+
 ## 5. Pläne, Ordner & Versionen
 
 - **Ordnerbaum** mit Unterordnern; Pläne und Ordner werden per **Drag & Drop** umsortiert. Zyklen
@@ -418,11 +478,22 @@ bewegen/ändern/löschen.
 
 ### 6.1 Werkzeugleiste (links, nur mit Bearbeitungsrecht)
 
-Karte bewegen · **Marker verschieben** (Modus, oder mittlere Maustaste im Bewegen-Modus halten) ·
-Zeigen („Laser"-Cursor, auch für Viewer) · Gerade Linie (endet per **Rechtsklick**) · **Lineal**
-(zwei Punkte → gestrichelte Distanzlinie, erneuter Klick löscht) · Radierer (löscht auch
-gezeichnete Linien) · **Marker setzen** (erst Position klicken, *dann* öffnet der Wizard) ·
-Favoriten.
+| Werkzeug | Taste | |
+|---|---|---|
+| Karte bewegen | `W` | schieben/zoomen; mittlere Maustaste zieht Marker |
+| Zeigen | `A` | „Laser“-Cursor für alle (auch Viewer), rechte Maustaste zieht einen Pfeil |
+| Linie | `D` | gerade Segmente; grüner Haken / Rechtsklick / Doppelklick beendet |
+| Marker verschieben | `M` | Marker ziehen (v. a. Touch) |
+| Lineal | `F` | beliebig viele Punkte, Teil- und Gesamtstrecke; Rechtsklick beendet; Messlinien bleiben stehen |
+| Radierer | `S` | löscht alles im einstellbaren Kreis |
+| Textfeld | `T` | Markdown-Notiz auf der Karte |
+| Marker setzen | `Leertaste` | erst Position klicken, *dann* öffnet der Wizard |
+| Favoriten | `R` | gespeicherte Marker setzen |
+| **Ort markieren** | – | nur Projekt-Pläne: setzt einen **Stern**, dann fragt *„Was ist hier?“* – siehe 7b |
+
+Weitere Tasten: `Q`/`E` Rückgängig/Wiederholen, `X`/`C`/`V` Ausschneiden/Kopieren/Einfügen, `←`/`→` Phase, `Y`
+Phasen-Notizen, `N` Norden. Alle Tasten sind im Zahnrad umbelegbar; dort steht auch *Marker-Anzeige* (Marker-Texte,
+ausführliche Hover-Info).
 
 ### 6.2 Marker-Wizard
 
@@ -463,7 +534,7 @@ Pfeil).
 | **Channel** | Funkkanal aus `SIDC_ChannelSettings.json` |
 | **Zeitstrahl** | Phasen — siehe 7 |
 | **🗒️ Notizen** | verschiebbares Phasen-Notizfenster — siehe 7 |
-| **☰ Ebenen** | Sat / Grid / Terrain, Höhenlinien, Höhenpunkte, Orts-Gruppen — je mit **0–100 %-Deckkraft-Regler** (pro Browser gespeichert) |
+| **Karte** (☰) | Sat / Grid / Terrain, Höhenlinien, Höhenpunkte, Orts-Gruppen — je mit **0–100 %-Deckkraft-Regler** (pro Browser gespeichert) |
 | **🕑 Versionen** | Versionsverlauf — siehe 5 |
 | **? Hilfe** | Overlay: Werkzeuge, Topbar, Tastenkürzel (DE/EN) |
 | Cursor-HUD | Welt-X / Y (über Kalibrierung) + Höhe aus dem Terrain-DEM, auch in 2D |
@@ -478,12 +549,42 @@ Pfeil).
   Schrift) mit **Markdown**-Rendering und **einem Reiter je Phase**. Phasenwechsel wechselt den
   Reiter. Mit ✕ schließbar, aus der Topbar wieder aufrufbar. Automatisch gespeichert (entprellt).
 
+## 7b. Missionsbau (Projekte & Sterne)
+
+**Projekte** (Sidebar → *Missionsbau*) bündeln alles für eine Mission: Markdown-Dateien mit Vorlagen (Missionskonzept,
+Befehl 5-Absatz, Briefing, Charakter, Fraktion, Ort, Szene), eine Zeitleiste aus Überschriften mit Uhrzeit, Pläne,
+Aufgaben-Board, Whiteboard, Feedback (auch von außen per Token), Mitglieder mit Rollen. Plan-Zugriff bleibt pro Plan.
+
+**Wer sieht was im Plan**
+
+| Inhalt | Spieler | Zeus | Missionsbau |
+|---|---|---|---|
+| Spieler-Phasen | ✔ | ✔ (nur ansehen) | ✔ |
+| Missionsbau-Phase | – | nur wenn für Zeus freigegeben | ✔ |
+| Missionsbau-Phase für Spieler freigegeben | ✔ (wirkt wie Base) | ✔ | ✔ |
+| **Missionsbau-Notizen & pinke Sterne** (Layer) | – | nur einzeln freigegebene | ✔ |
+| Gelbe Sterne / normale Notizen | ✔ | ✔ | ✔ |
+
+Zeus-Freigaben gelten standardmäßig **72 h** (andere Frist oder unbegrenzt wählbar) und sind jederzeit rücknehmbar.
+
+**Ort markieren (Sterne).** Im Projekt-Plan *Ort markieren* wählen und auf die Karte klicken – der Stern steht sofort.
+Dann *„Was ist hier?“*: neue **Aufgabe** (Zuständig, Fällig, Priorität, mit Bezug zum Plan), **Haftnotiz** fürs
+Whiteboard, **Bestehendes verknüpfen** (Datei, Aufgabe, Plan, Notiz, Bild, Ort) oder **Nur Kartennotiz**.
+*Sichtbar für:* *Alle* → **gelber Stern** in der gewählten Phase · *Nur Missionsbau* → **pinker Stern** auf dem Layer
+*Missionsbau-Notizen* (phasenunabhängig, für Spieler nie sichtbar, für Zeus erst nach Freigabe). Neben dem Stern
+stehen die verknüpften Ziele, beim Überfahren die Beschreibung. Im Projekt zeigt jedes Ziel *„Erwähnt in …“*, und
+*Verzeichnis → Auf der Karte* listet alle Sterne und Notizen aller Pläne.
+
+Missionsbau-Notizen sind ein **Layer, keine Phase**: Sie erscheinen nicht im Zeitstrahl, sondern im Menü *Layer*, wo
+der Missionsbau sie aus- oder abblenden kann. Missionsbauer wählen bei jedem Textfeld *Sichtbar für*; alle anderen
+setzen normale Notizen.
+
 ## 8. Ebenen aus der Heightmap: Höhenlinien & Höhenpunkte
 
 Zwei zusätzliche Kartenebenen aus der Spiel-Heightmap, **einmalig im ATAKmaps-Importer vorberechnet**
 (`pipeline/terrain_features.py`, nur numpy/scipy) und als `contours.geojson` / `peaks.geojson` im
 Kartenpaket. Beide Consumer (ATAKmaps-Viewer **und** SIDC – C2) zeigen sie nur an; Default **aus**,
-Umschalten im ☰-Ebenen-Panel.
+Umschalten im ☰-Menü *Karte*.
 
 | Ebene | Erzeugung |
 |-------|-----------|
