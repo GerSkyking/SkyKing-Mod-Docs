@@ -222,8 +222,8 @@ plans, a task board, whiteboard, feedback (also from outside via token), members
 
 Zeus releases default to **72 h** (other limit or unlimited selectable) and can be withdrawn any time.
 
-**Mark a spot (stars).** In a project plan, pick *Mark a spot* and click the map – the star is placed immediately.
-Then *"What is here?"*: create a **task** (assignee, due date, priority, linked to the plan), a **sticky note** for the
+**Mark a spot (stars)** – mission builders only. In a project plan, pick *Mark a spot* and click the map – the star is placed immediately.
+Then *"What is here?"*: create a **directory entry** (place – preselected –, character, faction, scene, mission concept, order, briefing, other; a mission-builder file from the matching template, sorted straight into the directory), a **task** (assignee, due date, priority, linked to the plan), a **sticky note** for the
 whiteboard, **link something existing** (file, task, plan, note, image, place) or just a **map note**. *Visible to:*
 *Everyone* → **yellow star** in the chosen phase · *Mission builders only* → **pink star** on the layer *Builder
 notes* (independent of phases, never shown to players, shown to Zeus only after release). The linked targets are shown
@@ -567,8 +567,8 @@ Aufgaben-Board, Whiteboard, Feedback (auch von außen per Token), Mitglieder mit
 
 Zeus-Freigaben gelten standardmäßig **72 h** (andere Frist oder unbegrenzt wählbar) und sind jederzeit rücknehmbar.
 
-**Ort markieren (Sterne).** Im Projekt-Plan *Ort markieren* wählen und auf die Karte klicken – der Stern steht sofort.
-Dann *„Was ist hier?“*: neue **Aufgabe** (Zuständig, Fällig, Priorität, mit Bezug zum Plan), **Haftnotiz** fürs
+**Ort markieren (Sterne)** – nur Missionsbau. Im Projekt-Plan *Ort markieren* wählen und auf die Karte klicken – der Stern steht sofort.
+Dann *„Was ist hier?“*: neuer **Verzeichnis-Eintrag** (Ort – vorausgewählt –, Charakter, Fraktion, Szene, Missionskonzept, Befehl, Briefing, Sonstiges; eine Missionsbau-Datei aus der passenden Vorlage, sofort im Verzeichnis), neue **Aufgabe** (Zuständig, Fällig, Priorität, mit Bezug zum Plan), **Haftnotiz** fürs
 Whiteboard, **Bestehendes verknüpfen** (Datei, Aufgabe, Plan, Notiz, Bild, Ort) oder **Nur Kartennotiz**.
 *Sichtbar für:* *Alle* → **gelber Stern** in der gewählten Phase · *Nur Missionsbau* → **pinker Stern** auf dem Layer
 *Missionsbau-Notizen* (phasenunabhängig, für Spieler nie sichtbar, für Zeus erst nach Freigabe). Neben dem Stern
