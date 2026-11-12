@@ -11,9 +11,10 @@ The drawing tools appear only with edit rights; *Map*, *Layers*, *ORBAT in plan*
 | **Pan the map** | `W` | pan/zoom/rotate; click a marker = edit; middle mouse button on a marker drags it; select lines/measure lines; right‑click = menu with the other tools at that spot (right‑drag rotates) |
 | **Point** | `A` | your cursor appears for everyone (player colour, yellow ring), map is locked; right mouse button draws an arrow. Also for viewers |
 | **Draw line** | `D` | straight segments; double‑click / green tick = done, right‑click / Esc = discard; clicking the green start point (from 3 points) closes it to a **named area**; colour, width, phase, *More phases*, layer in the menu |
+| **Dot** | `P` | places a simple dot with every click (tool stays active): colour from the line palette or any colour via the dashed swatch, size small/medium/large, optional text next to the dot, phase, *More phases*, layer in a movable/pinnable menu like the line menu; click a dot (pan) → drag to move, gear = colour/size/text/phase/layer, trash deletes; undo/redo, eraser and search (by text) work like for lines |
 | **Move marker** | `M` | drag markers with the left button (mainly touch; the button shows on mobile) |
 | **Ruler** | `F` | any number of points, segment + total length (with 3D height); double‑click / green tick = done, right‑click / Esc = discard; measure lines stay, with phase/layer menu |
-| **Eraser** | `S` | deletes markers, lines and measure lines inside a circle (size adjustable, panel movable/pinnable) |
+| **Eraser** | `S` | deletes markers, lines, dots and measure lines inside a circle (size adjustable, panel movable/pinnable) |
 | **Text box** | `T` | Markdown note on the map (collapsible, fixed size or scaling with the map, resize at the edges) |
 | **Place marker** | `Space` | click the position first, *then* the wizard opens; cancelling keeps the mode |
 | **Mark a spot** | – | mission builders, project plans only: drops a **star**, then asks *What is here?* — see [Workflows](SIDC-C2-Workflows) |
@@ -134,7 +135,7 @@ ViewCube bottom right: *Top view* / N / S / E / W / corners, drag = rotate/tilt,
 
 ## 9. Search the plan
 
-Magnifier, `Ctrl+F` or `/`. Searches markers (label, extra text, symbol name), notes and star pins (incl. linked places/titles), named lines/areas, map images (name, file, note), map places and phases — case‑insensitive, umlaut‑tolerant, text start before word start before partial match. Result list with type icon, name and phase/layer; arrow keys / Enter / click fly there and highlight ~3 s; switches phase or shows a hidden layer if needed. Only what your current view may show. Step by step: [Workflows → search](SIDC-C2-Workflows).
+Magnifier, `Ctrl+F` or `/`. Searches markers (label, extra text, symbol name), notes and star pins (incl. linked places/titles), named lines/areas, dots (text), map images (name, file, note), map places and phases — case‑insensitive, umlaut‑tolerant, text start before word start before partial match. Result list with type icon, name and phase/layer; arrow keys / Enter / click fly there and highlight ~3 s; switches phase or shows a hidden layer if needed. Only what your current view may show. Step by step: [Workflows → search](SIDC-C2-Workflows).
 
 ## 10. Settings (gear)
 
@@ -165,9 +166,10 @@ Die Zeichenwerkzeuge erscheinen nur mit Bearbeitungsrecht; *Karte*, *Layer*, *OR
 | **Karte bewegen** | `W` | schieben/zoomen/drehen; Marker anklicken = bearbeiten; mittlere Maustaste auf einem Marker zieht ihn; Linien/Messlinien auswählen; Rechtsklick = Menü mit den anderen Werkzeugen an dieser Stelle (Rechts-Ziehen dreht) |
 | **Zeigen** | `A` | dein Cursor erscheint bei allen (Spielerfarbe, gelber Ring), Karte fixiert; rechte Maustaste zieht einen Pfeil. Auch für Betrachter |
 | **Linie zeichnen** | `D` | gerade Segmente; Doppelklick / grüner Haken = fertig, Rechtsklick / Esc = verwerfen; Klick auf den grünen Startpunkt (ab 3 Punkten) schließt zur **benannten Fläche**; Farbe, Stärke, Phase, *Weitere Phasen*, Layer im Menü |
+| **Punkt** | `P` | setzt mit jedem Klick einen einfachen Punkt (Werkzeug bleibt aktiv): Farbe aus der Linien-Palette oder beliebig über das gestrichelte Farbfeld, Größe klein/mittel/groß, optionaler Text neben dem Punkt, Phase, *Weitere Phasen*, Layer in einem beweg-/anheftbaren Menü wie bei der Linie; Punkt anklicken (Karte bewegen) → ziehen verschiebt, Zahnrad = Farbe/Größe/Text/Phase/Layer, Papierkorb löscht; Rückgängig/Wiederholen, Radierer und Suche (über den Text) wie bei Linien |
 | **Marker verschieben** | `M` | Marker mit der linken Taste ziehen (v. a. Touch; Knopf erscheint am Handy) |
 | **Lineal** | `F` | beliebig viele Punkte, Teil- und Gesamtstrecke (mit 3D-Höhe); Doppelklick / grüner Haken = fertig, Rechtsklick / Esc = verwerfen; Messlinien bleiben stehen, mit Phase/Layer-Menü |
-| **Radierer** | `S` | löscht Marker, Linien und Messlinien im Kreis (Größe einstellbar, Panel verschieb-/fixierbar) |
+| **Radierer** | `S` | löscht Marker, Linien, Punkte und Messlinien im Kreis (Größe einstellbar, Panel verschieb-/fixierbar) |
 | **Textfeld** | `T` | Markdown-Notiz auf der Karte (einklappbar, feste Größe oder mit der Karte skalierend, an den Rändern größenverstellbar) |
 | **Marker setzen** | `Leertaste` | erst Position klicken, *dann* öffnet der Wizard; Abbrechen lässt den Modus aktiv |
 | **Ort markieren** | – | Missionsbau, nur Projekt-Pläne: setzt einen **Stern**, dann *Was ist hier?* — siehe [Abläufe](SIDC-C2-Workflows) |
@@ -288,7 +290,7 @@ ViewCube unten rechts: *Draufsicht* / N / S / O / W / Ecken, Ziehen = drehen/nei
 
 ## 9. Im Plan suchen
 
-Lupe, `Strg+F` oder `/`. Durchsucht Marker (Beschriftung, Zusatztext, Symbolname), Notizen und Stern-Pins (inkl. verknüpfter Orte/Titel), benannte Linien/Flächen, Kartenbilder (Name, Datei, Notiz), Kartenorte und Phasen — Groß/klein egal, umlaut-tolerant, Textanfang vor Wortanfang vor Teiltreffer. Trefferliste mit Typ-Symbol, Name und Phase/Layer; Pfeiltasten / Enter / Klick fliegen hin und heben ~3 s hervor; wechselt bei Bedarf die Phase bzw. blendet einen Layer ein. Nur was deine aktuelle Ansicht zeigen darf. Schritt für Schritt: [Abläufe → Suche](SIDC-C2-Workflows).
+Lupe, `Strg+F` oder `/`. Durchsucht Marker (Beschriftung, Zusatztext, Symbolname), Notizen und Stern-Pins (inkl. verknüpfter Orte/Titel), benannte Linien/Flächen, Punkte (Text), Kartenbilder (Name, Datei, Notiz), Kartenorte und Phasen — Groß/klein egal, umlaut-tolerant, Textanfang vor Wortanfang vor Teiltreffer. Trefferliste mit Typ-Symbol, Name und Phase/Layer; Pfeiltasten / Enter / Klick fliegen hin und heben ~3 s hervor; wechselt bei Bedarf die Phase bzw. blendet einen Layer ein. Nur was deine aktuelle Ansicht zeigen darf. Schritt für Schritt: [Abläufe → Suche](SIDC-C2-Workflows).
 
 ## 10. Einstellungen (Zahnrad)
 
