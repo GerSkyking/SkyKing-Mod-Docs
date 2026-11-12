@@ -210,7 +210,7 @@ Alle Werkzeug-Tasten sind umbelegbar: Zahnrad → *Tastenkürzel (Werkzeuge)* (T
 | **Zahnrad** | Einstellungen (Abschnitt 10) |
 | **Zugriff / Freigaben** | Rechte und öffentliche Links (Owner) |
 | Cursor-Anzeige (rechts) | Welt-X / Y und Höhe unter dem Mauszeiger (auch in 2D) |
-| **UI Scale** | Marker- und Textgröße nur für dich (einklappbare Box) |
+| **Anzeigegröße** | Marker- und Textgröße nur für dich (einklappbare Box) |
 
 Auf schmalen Bildschirmen wandert ein Teil der Topbar in einen Knopf *Menü*.
 

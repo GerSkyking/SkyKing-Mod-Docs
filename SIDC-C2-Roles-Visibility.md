@@ -109,7 +109,7 @@ Owner → **Access / sharing** → **Public link (view only)** → *Create link*
 |---|---|
 | Label (optional) | name in the list |
 | *Point* (on by default) | link visitors can show their cursor |
-| *Move marker* / third checkbox | optional extra rights for the link (moving, or editing markers, lines and notes) — off by default |
+| *Move marker* / *Edit* | optional extra rights for the link (moving, or editing markers, lines and notes) — off by default |
 | *Builder* (mission builders only) | include builder phases (visitors then see them too) |
 | Days (0 = unlimited) | expiry |
 | Scope | *all phases* · *specific phases only* · *time window (plan date)* |
@@ -229,7 +229,7 @@ Owner → **Zugriff / Freigaben** → **Öffentlicher Link (nur ansehen)** → *
 |---|---|
 | Bezeichnung (optional) | Name in der Liste |
 | *Zeigen* (standardmäßig an) | Besucher des Links können ihren Cursor zeigen |
-| *Marker verschieben* / drittes Häkchen | optionale Zusatzrechte für den Link (verschieben bzw. Marker, Linien und Notizen bearbeiten) — standardmäßig aus |
+| *Marker verschieben* / *Bearbeiten* | optionale Zusatzrechte für den Link (verschieben bzw. Marker, Linien und Notizen bearbeiten) — standardmäßig aus |
 | *Missionsbau* (nur Missionsbauer) | Missionsbau-Phasen mit freigeben (Besucher sehen sie dann auch) |
 | Tage (0 = unbegrenzt) | Ablauf |
 | Eingrenzung | *alle Phasen* · *nur bestimmte Phasen* · *Zeitfenster (Plan-Datum)* |
