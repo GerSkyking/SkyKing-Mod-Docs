@@ -51,12 +51,14 @@ The affiliation sets the identity digit of **all** unit SIDCs and linked markers
 ## 4. ORBAT in a plan
 
 1. In the plan: toolbar button **ORBAT in plan** → pick an ORBAT → **Add ORBAT** (mission builder with access).
-2. From then on **all players of the plan** see the ORBAT — in its **released** view.
+2. From then on **all players of the plan** see the ORBAT (read‑only): an **own‑side** ORBAT (affiliation *Friend*, e.g. BLUFOR) **completely**, an enemy / neutral / unknown ORBAT only in its **released** view (see 5). Mission builders see everything.
 3. Expand the tree and use **Place on map** on a unit → a marker with the unit's SIDC is placed and linked. Alternatively link an existing marker in the marker editor via **ORBAT node** (mission builders).
 4. A unit can have several markers (e.g. three platoons under one node).
 5. Who may place or move ORBAT markers is set **per ORBAT** (*place* / *move*), not by the plan ACL. Players may not move or place enemy markers.
 
 ## 5. Releasing to players
+
+The release settings only matter for **enemy, neutral and unknown** ORBATs — players always see their own side (*Friend*) in full.
 
 Per unit, freely combinable:
 
@@ -129,12 +131,14 @@ Die Zugehörigkeit setzt die Identitätsstelle **aller** Einheiten-SIDCs und ver
 ## 4. ORBAT im Plan
 
 1. Im Plan: Werkzeugleisten-Knopf **ORBAT im Plan** → ORBAT wählen → **ORBAT hinzufügen** (Missionsbauer mit Zugriff).
-2. Ab dann sehen **alle Spieler des Plans** den ORBAT — in seiner **freigegebenen** Sicht.
+2. Ab dann sehen **alle Spieler des Plans** den ORBAT (nur lesen): einen ORBAT der **eigenen Seite** (Zugehörigkeit *Freund*, z. B. BLUFOR) **vollständig**, einen feindlichen / neutralen / unbekannten ORBAT nur in seiner **freigegebenen** Sicht (siehe 5). Missionsbauer sehen alles.
 3. Baum aufklappen und bei einer Einheit **Auf Karte platzieren** → ein Marker mit dem SIDC der Einheit wird gesetzt und verknüpft. Alternativ einen bestehenden Marker im Marker-Editor über **ORBAT-Knoten** verknüpfen (Missionsbau).
 4. Eine Einheit kann mehrere Marker haben (z. B. drei Züge unter einem Knoten).
 5. Wer ORBAT-Marker setzen oder verschieben darf, regelt **jeder ORBAT** selbst (*setzen* / *verschieben*), nicht die Plan-ACL. Spieler dürfen Feind-Marker weder verschieben noch setzen.
 
 ## 5. Freigabe für Spieler
+
+Die Freigabe-Einstellungen gelten nur für **feindliche, neutrale und unbekannte** ORBATs — die eigene Seite (*Freund*) sehen Spieler immer vollständig.
 
 Pro Einheit frei kombinierbar:
 
