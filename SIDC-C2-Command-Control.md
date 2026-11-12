@@ -140,7 +140,7 @@ See [section 7b](#7b-mission-building-projects--stars) for the full picture.
 |---|---|---|
 | Pan | `W` | pan/zoom; middle mouse button drags markers |
 | Point | `A` | "laser" cursor for everyone (also viewers), right mouse button draws an arrow |
-| Line | `D` | straight segments; green tick / right‑click / double‑click ends |
+| Line | `D` | straight segments; green tick / right‑click / double‑click ends; clicking the start point again (turns green from 3 points) closes it into a **named area** |
 | Move marker | `M` | drag markers (mainly touch) |
 | Ruler | `F` | any number of points, segment + total length; right‑click ends; measure lines stay |
 | Eraser | `S` | deletes everything inside an adjustable circle |
@@ -151,6 +151,8 @@ See [section 7b](#7b-mission-building-projects--stars) for the full picture.
 
 Further keys: `Q`/`E` undo/redo, `X`/`C`/`V` cut/copy/paste, `←`/`→` phase, `Y` phase notes, `N` north. All keys are
 re‑bindable in the gear menu, which also holds *Marker display* (marker text, detailed hover info).
+
+**Named areas:** after closing a line a small dialog asks for an optional **name**, an optional **symbol** (marker wizard or SIDC typed directly) and whether the area is **hatched**. The map shows symbol + name + size (m² / ha / km²) at the centre. Change it later via the line's gear (name, symbol, fill, *Closed area* on/off) or drag its vertices. Available to everyone who may draw; also shown on public links. Lines now support undo/redo.
 
 ### 6.2 Marker wizard
 
@@ -182,6 +184,7 @@ like ATAKmaps (air = extended line + arrowhead, ground = fixed stem + rotating a
 
 | Element | Function |
 |---------|----------|
+| **🔍 Search** | `Ctrl+F` / `/`: markers, notes & stars, named lines/areas, map images, map places and phases; the map flies to the hit and highlights it ~3 s. Only finds what your current view may show; switches phase / shows a hidden layer if needed |
 | **3D** | toggle terrain / pitch; 2D allows rotation but no pitch |
 | **Compass ↑** | shows north; click = ease bearing back to north |
 | **Date/time field** | overrides "now" for the screenshot timestamp |
@@ -230,7 +233,7 @@ notes* (independent of phases, never shown to players, shown to Zeus only after 
 next to the star; hover shows the description. In the project, each target lists *"Mentioned in …"* and
 *Directory → On the map* lists all stars and notes of all plans.
 
-**Area around a star:** tick *Then draw an area around the star* (or use the *Area* button on the star) and click the corners; clicking the start point closes the shape, which is hatched (fill 25 %, outline 50 %, same colour as the star). ✓ / Enter / right‑click keeps an open line. Click an area later to drag its corners; it moves along with the star.
+**Area around a star:** tick *Then draw an area around the star* (or use the *Area* button on the star) and click the corners; clicking the start point closes the shape, which is hatched (fill 25 %, outline 50 %, same colour as the star). ✓ / Enter / right‑click keeps an open line. Click an area later to drag its corners; it moves along with the star. Its size (m² / ha / km²) is shown under the star. Public links draw areas too (only for notes the link may show).
 
 Builder notes are a **layer, not a phase**: they do not appear in the timeline but in the *Layers* menu, where builders
 can hide or dim them. Mission builders choose *Visible to* for every text box; everybody else places normal notes.
@@ -484,7 +487,7 @@ Das Gesamtbild steht in [Abschnitt 7b](#7b-missionsbau-projekte--sterne).
 |---|---|---|
 | Karte bewegen | `W` | schieben/zoomen; mittlere Maustaste zieht Marker |
 | Zeigen | `A` | „Laser“-Cursor für alle (auch Viewer), rechte Maustaste zieht einen Pfeil |
-| Linie | `D` | gerade Segmente; grüner Haken / Rechtsklick / Doppelklick beendet |
+| Linie | `D` | gerade Segmente; grüner Haken / Rechtsklick / Doppelklick beendet; Klick zurück auf den Startpunkt (ab 3 Punkten grün) schließt sie zur **benannten Fläche** |
 | Marker verschieben | `M` | Marker ziehen (v. a. Touch) |
 | Lineal | `F` | beliebig viele Punkte, Teil- und Gesamtstrecke; Rechtsklick beendet; Messlinien bleiben stehen |
 | Radierer | `S` | löscht alles im einstellbaren Kreis |
@@ -496,6 +499,8 @@ Das Gesamtbild steht in [Abschnitt 7b](#7b-missionsbau-projekte--sterne).
 Weitere Tasten: `Q`/`E` Rückgängig/Wiederholen, `X`/`C`/`V` Ausschneiden/Kopieren/Einfügen, `←`/`→` Phase, `Y`
 Phasen-Notizen, `N` Norden. Alle Tasten sind im Zahnrad umbelegbar; dort steht auch *Marker-Anzeige* (Marker-Texte,
 ausführliche Hover-Info).
+
+**Benannte Flächen:** Nach dem Schließen fragt ein kleines Fenster nach optionalem **Namen**, optionalem **Symbol** (Marker-Wizard oder SIDC direkt) und ob die Fläche **schraffiert** wird. Auf der Karte stehen Symbol, Name und Größe (m² / ha / km²) am Schwerpunkt. Nachträglich über das Zahnrad der Linie (Name, Symbol, Füllung, *Geschlossene Fläche* an/aus) oder Stützpunkte ziehen. Für jeden mit Zeichenrecht; auch in öffentlichen Links sichtbar. Linien haben jetzt Rückgängig/Wiederholen.
 
 ### 6.2 Marker-Wizard
 
@@ -529,6 +534,7 @@ Pfeil).
 
 | Element | Funktion |
 |---------|----------|
+| **🔍 Suche** | `Strg+F` / `/`: Marker, Notizen & Sterne, benannte Linien/Flächen, Kartenbilder, Kartenorte und Phasen; die Karte fliegt zum Treffer und hebt ihn ~3 s hervor. Findet nur, was deine aktuelle Ansicht zeigen darf; wechselt bei Bedarf die Phase bzw. blendet den Layer ein |
 | **3D** | Terrain / Pitch umschalten; 2D erlaubt Drehen, aber kein Kippen |
 | **Kompass ↑** | zeigt Norden; Klick = Blickrichtung sanft auf Nord |
 | **Datum/Zeit-Feld** | überschreibt „jetzt" für den Screenshot-Zeitstempel |
@@ -577,7 +583,7 @@ Whiteboard, **Bestehendes verknüpfen** (Datei, Aufgabe, Plan, Notiz, Bild, Ort)
 stehen die verknüpften Ziele, beim Überfahren die Beschreibung. Im Projekt zeigt jedes Ziel *„Erwähnt in …“*, und
 *Verzeichnis → Auf der Karte* listet alle Sterne und Notizen aller Pläne.
 
-**Bereich um den Stern:** Häkchen *Danach Bereich um den Stern zeichnen* (oder Knopf *Bereich* am Stern), dann die Ecken anklicken; Klick auf den Startpunkt schließt die Fläche, sie wird schraffiert (Füllung 25 %, Rand 50 %, Farbe wie der Stern). ✓ / Enter / Rechtsklick übernimmt eine offene Linie. Später Bereich anklicken und Ecken ziehen; er wandert mit dem Stern mit.
+**Bereich um den Stern:** Häkchen *Danach Bereich um den Stern zeichnen* (oder Knopf *Bereich* am Stern), dann die Ecken anklicken; Klick auf den Startpunkt schließt die Fläche, sie wird schraffiert (Füllung 25 %, Rand 50 %, Farbe wie der Stern). ✓ / Enter / Rechtsklick übernimmt eine offene Linie. Später Bereich anklicken und Ecken ziehen; er wandert mit dem Stern mit. Unter dem Stern steht die Größe (m² / ha / km²). Öffentliche Links zeichnen Bereiche ebenfalls (nur von Notizen, die der Link zeigen darf).
 
 Missionsbau-Notizen sind ein **Layer, keine Phase**: Sie erscheinen nicht im Zeitstrahl, sondern im Menü *Layer*, wo
 der Missionsbau sie aus- oder abblenden kann. Missionsbauer wählen bei jedem Textfeld *Sichtbar für*; alle anderen
