@@ -28,3 +28,11 @@
 **Companion tools**
 - [ATAKmaps](ATAKmaps)
 - [SIDC – C2 – Command & Control](SIDC-C2-Command-Control)
+  - [Getting started](SIDC-C2-Getting-Started)
+  - [Roles & visibility](SIDC-C2-Roles-Visibility)
+  - [Workflows (step by step)](SIDC-C2-Workflows)
+  - [Map & tools](SIDC-C2-Map-Tools)
+  - [Projects (mission building)](SIDC-C2-Projects)
+  - [ORBAT](SIDC-C2-ORBAT)
+  - [Chat & notifications](SIDC-C2-Chat-Notifications)
+  - [Admin & install](SIDC-C2-Admin-Install)
