@@ -230,6 +230,8 @@ notes* (independent of phases, never shown to players, shown to Zeus only after 
 next to the star; hover shows the description. In the project, each target lists *"Mentioned in …"* and
 *Directory → On the map* lists all stars and notes of all plans.
 
+**Area around a star:** tick *Then draw an area around the star* (or use the *Area* button on the star) and click the corners; clicking the start point closes the shape, which is hatched (fill 25 %, outline 50 %, same colour as the star). ✓ / Enter / right‑click keeps an open line. Click an area later to drag its corners; it moves along with the star.
+
 Builder notes are a **layer, not a phase**: they do not appear in the timeline but in the *Layers* menu, where builders
 can hide or dim them. Mission builders choose *Visible to* for every text box; everybody else places normal notes.
 
@@ -574,6 +576,8 @@ Whiteboard, **Bestehendes verknüpfen** (Datei, Aufgabe, Plan, Notiz, Bild, Ort)
 *Missionsbau-Notizen* (phasenunabhängig, für Spieler nie sichtbar, für Zeus erst nach Freigabe). Neben dem Stern
 stehen die verknüpften Ziele, beim Überfahren die Beschreibung. Im Projekt zeigt jedes Ziel *„Erwähnt in …“*, und
 *Verzeichnis → Auf der Karte* listet alle Sterne und Notizen aller Pläne.
+
+**Bereich um den Stern:** Häkchen *Danach Bereich um den Stern zeichnen* (oder Knopf *Bereich* am Stern), dann die Ecken anklicken; Klick auf den Startpunkt schließt die Fläche, sie wird schraffiert (Füllung 25 %, Rand 50 %, Farbe wie der Stern). ✓ / Enter / Rechtsklick übernimmt eine offene Linie. Später Bereich anklicken und Ecken ziehen; er wandert mit dem Stern mit.
 
 Missionsbau-Notizen sind ein **Layer, keine Phase**: Sie erscheinen nicht im Zeitstrahl, sondern im Menü *Layer*, wo
 der Missionsbau sie aus- oder abblenden kann. Missionsbauer wählen bei jedem Textfeld *Sichtbar für*; alle anderen
